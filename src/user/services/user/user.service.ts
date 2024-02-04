@@ -6,7 +6,7 @@ import { UserDetails } from 'src/ultils/types';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User) // Injete o modelo User
+    @InjectModel(User)
     private userModel: typeof User,
   ) {}
   async createUser(user: UserDetails): Promise<User> {

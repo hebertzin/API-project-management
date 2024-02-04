@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Res,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from 'src/user/dto/userDto';
 import { UserService } from 'src/user/services/user/user.service';
@@ -7,6 +16,7 @@ import { UserService } from 'src/user/services/user/user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post()
+  @UsePipes(new ValidationPipe())
   async createUser(@Body() user: CreateUserDto, @Res() res: Response) {
     const newUser = await this.userService.createUser(user as any);
     return res.status(200).json({
