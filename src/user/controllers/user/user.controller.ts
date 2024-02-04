@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   Res,
   UsePipes,
   ValidationPipe,
@@ -39,5 +41,28 @@ export class UserController {
       msg: 'userId found',
       users: userId,
     });
+  }
+  @Delete('/:id')
+  async deleteUserById(@Param('id') id: number, @Res() res: Response) {
+    await this.userService.deleteUser(id);
+    return res.status(200).json({
+      msg: 'user deleted successfully',
+    });
+  }
+  @Put('/:id')
+  async updateUser(
+    @Param('id') id: number,
+    @Body() data: CreateUserDto,
+    @Res() res: Response,
+  ) {
+    try {
+      const updateUser = await this.userService.updateUser(id, data);
+      return res.status(200).json({
+        msg: 'user updated successfully',
+        user: updateUser,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

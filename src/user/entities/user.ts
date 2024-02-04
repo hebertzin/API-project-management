@@ -17,6 +17,7 @@ export class User extends Model {
     type: DataType.INTEGER,
   })
   id: number;
+
   @Column
   name: string;
 

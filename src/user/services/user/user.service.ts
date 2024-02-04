@@ -12,10 +12,9 @@ export class UserService {
   async createUser(user: UserDetails): Promise<User> {
     try {
       const userCreated = await this.userModel.create(user);
-
       return userCreated;
     } catch (error) {
-      throw new Error('error creating user');
+      throw new Error(`some error occurred creating a user : ${error}`);
     }
   }
   async getAllUser() {
@@ -23,7 +22,7 @@ export class UserService {
       const users = await this.userModel.findAll();
       return users;
     } catch (error) {
-      throw new Error('error search users');
+      throw new Error(`some error occurred getting all users : ${error}`);
     }
   }
   async getUserById(id: number) {
@@ -31,7 +30,31 @@ export class UserService {
       const userId = await this.userModel.findByPk(id);
       return userId;
     } catch (error) {
-      throw new Error('error user id');
+      throw new Error(`some error ocurred getting user by id : ${error}`);
+    }
+  }
+  async deleteUser(id: number) {
+    try {
+      await this.userModel.destroy({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new Error(`some error occurred deleting user : ${error}`);
+    }
+  }
+  async updateUser(id: number, data: UserDetails) {
+    try {
+      const updateOne = await this.userModel.findOne({ where: { id: id } });
+      if (!updateOne) {
+        return {
+          msg: 'user not found',
+        };
+      }
+      return await updateOne.update({ ...data });
+    } catch (error) {
+      throw new Error(`some error occurred updating user : ${error}`);
     }
   }
 }
