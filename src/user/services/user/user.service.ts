@@ -18,7 +18,18 @@ export class UserService {
   async findUserById(id: string) {
     const userFound = await this.prismaService.prisma.user.findUnique({
       where: {
+        id,
+      },
+    });
+    return userFound;
+  }
+  async findUserByIdAndUpdate(id: string, user: User) {
+    const userFound = await this.prismaService.prisma.user.update({
+      where: {
         id: id,
+      },
+      data: {
+        ...user,
       },
     });
     return userFound;
