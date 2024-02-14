@@ -10,6 +10,6 @@ services:
     environment:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=challangeBackend
+      - POSTGRESQL_DATABASE=menageProjects
 volumes:
   pgdata:

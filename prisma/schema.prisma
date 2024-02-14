@@ -17,22 +17,28 @@ enum Priority {
 }
 
 model User {
-  id       String     @unique @default(uuid())
-  name     String
-  email    String
-  password String
-  createAt DateTime   @default(now())
-  updateAt DateTime   @updatedAt
-  projects Projects[]
-  comments Comments[]
+  id        String      @unique @default(uuid())
+  name      String
+  email     String
+  password  String
+  createAt  DateTime    @default(now())
+  updateAt  DateTime    @updatedAt
+  projects  Projects[]
+  comments  Comments[]
+  decisions Decisions[]
+  team      Team[]
+  profile   Profile?
 }
 
 model Profile {
   id          String   @unique @default(uuid())
-  userName    String
-  description String
+  userName    String   @default("user_name")
+  description String?
   company     String?
   position    String
+  social      String[]
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
   createAt    DateTime @default(now())
   updateAt    DateTime @updatedAt
 }
@@ -91,16 +97,23 @@ model Projects {
 
 model Decisions {
   id          String   @unique @default(uuid())
+  title       String
   description String
   createAt    DateTime @default(now())
   updateAt    DateTime @updatedAt
-  project     Projects @relation(fields: [projectId], references: [id])
   projectId   String
+  project     Projects @relation(fields: [projectId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
 }
 
 model Team {
-  id          String  @unique @default(uuid())
+  id          String   @unique @default(uuid())
   name        String
-  description String
+  description String?
   departament String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
 }
