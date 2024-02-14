@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Priority {
+  min
+  medium
+  high
+}
+
+model User {
+  id       String     @unique @default(uuid())
+  name     String
+  email    String
+  password String
+  createAt DateTime   @default(now())
+  updateAt DateTime   @updatedAt
+  projects Projects[]
+  comments Comments[]
+}
+
+model Profile {
+  id          String   @unique @default(uuid())
+  userName    String
+  description String
+  company     String?
+  position    String
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model Updates {
+  id       String   @unique @default(uuid())
+  update   String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model Goals {
+  id          String   @unique @default(uuid())
+  description String
+  priority    Priority
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+  project     Projects @relation(fields: [projectId], references: [id])
+  projectId   String
+}
+
+model Comments {
+  id         String    @unique @default(uuid())
+  comment    String
+  createAt   DateTime  @default(now())
+  updateAt   DateTime  @updatedAt
+  quetions   Questions @relation(fields: [questionId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
+  project    Projects  @relation(fields: [projectId], references: [id])
+  projectId  String
+  questionId String
+  userId     String
+}
+
+model Questions {
+  id       String     @unique @default(uuid())
+  question String
+  createAt DateTime   @default(now())
+  updateAt DateTime   @updatedAt
+  comments Comments[]
+}
+
+model Projects {
+  id          String      @unique @default(uuid())
+  name        String
+  description String
+  priority    Priority
+  createAt    DateTime    @default(now())
+  updateAt    DateTime    @updatedAt
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  goals       Goals[]
+  comments    Comments[]
+  decisions   Decisions[]
+}
+
+model Decisions {
+  id          String   @unique @default(uuid())
+  description String
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+  project     Projects @relation(fields: [projectId], references: [id])
+  projectId   String
+}
+
+model Team {
+  id          String  @unique @default(uuid())
+  name        String
+  description String
+  departament String?
+}
