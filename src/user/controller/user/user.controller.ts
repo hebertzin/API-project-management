@@ -28,12 +28,12 @@ export class UserController {
   @Put('/:id')
   async updateUser(
     @Param('id') id: string,
-    @Body() createUserDto: UserDto,
+    @Body() editUserDTO: UserDto,
     @Res() res: Response,
   ) {
     const updateUser = await this.userService.findUserByIdAndUpdate(
       id,
-      createUserDto,
+      editUserDTO,
     );
     return res.json({
       msg: 'user created successfully',

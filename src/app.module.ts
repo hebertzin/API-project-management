@@ -10,10 +10,19 @@ import { ProjectsModule } from './projects/projects.module';
 // import { ProfileService } from './profile/services/profile/profile.service';
 import { PrismaModule } from './database/prisma.module';
 import { ProfileModule } from './profile/profile.module';
+import { QuestionsModule } from './questions/questions.module';
+import { ProfileController } from './profile/controller/profile/profile.controller';
+import { ProfileService } from './profile/services/profile/profile.service';
 
 @Module({
-  imports: [UserModule, ProjectsModule, PrismaModule, ProfileModule],
-  controllers: [ProjectsController, UserController],
-  providers: [AppService, UserService, ProjectsService],
+  imports: [
+    UserModule,
+    ProjectsModule,
+    PrismaModule,
+    ProfileModule,
+    QuestionsModule,
+  ],
+  controllers: [ProjectsController, UserController, ProfileController],
+  providers: [AppService, UserService, ProjectsService, ProfileService],
 })
 export class AppModule {}
