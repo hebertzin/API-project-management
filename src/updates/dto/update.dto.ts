@@ -6,5 +6,7 @@ export class UpdateDTO {
   @IsNotEmpty()
   projectId: string;
   @IsNotEmpty()
+  projectsId: string;
+  @IsNotEmpty()
   userId: string;
 }
