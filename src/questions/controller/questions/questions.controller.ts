@@ -38,6 +38,16 @@ export class QuestionsController {
     });
   }
 
+  @Get('/all/:id')
+  async findAllQuestionsUser(@Param('id') id: string, @Res() res: Response) {
+    const question = await this.questionsServices.allQuestionsUser(id);
+
+    return res.status(200).json({
+      msg: 'all Questions user',
+      question,
+    });
+  }
+
   @Put('/:id')
   async updateQuestionById(
     @Param('id') id: string,

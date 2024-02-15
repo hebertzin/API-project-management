@@ -25,6 +25,7 @@ export class UserService {
   }
 
   async findUserById(id: string) {
+    await this.checkUserExistence(id);
     const userFound = await this.prismaService.prisma.user.findUnique({
       where: {
         id,

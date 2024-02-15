@@ -75,7 +75,7 @@ model Comments {
   comment    String
   createAt   DateTime  @default(now())
   updateAt   DateTime  @updatedAt
-  quetions   Questions @relation(fields: [questionId], references: [id])
+  questions   Questions @relation(fields: [questionId], references: [id])
   user       User      @relation(fields: [userId], references: [id])
   project    Projects  @relation(fields: [projectId], references: [id])
   projectId  String

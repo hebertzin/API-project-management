@@ -10,7 +10,7 @@ export class ProfileService {
     private userService: UserService,
   ) {}
 
-  private async checkProfileExistence(profile_id) {
+  private async checkProfileExistence(profile_id: string) {
     const profile = await this.prismaService.prisma.profile.findUnique({
       where: {
         id: profile_id,
