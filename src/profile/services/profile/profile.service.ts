@@ -50,6 +50,7 @@ export class ProfileService {
 
   async findProfileByIdAndUpdate(profile_id: string, profileData: Profile) {
     await this.checkProfileExistence(profile_id);
+    await this.checkUserExistence(profileData.userId);
     const updateProfile = await this.prismaService.prisma.profile.update({
       where: {
         id: profile_id,
