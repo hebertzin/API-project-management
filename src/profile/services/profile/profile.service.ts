@@ -21,7 +21,7 @@ export class ProfileService {
     }
   }
 
-  async create(profileData: Profile) {
+  async createProfile(profileData: Profile) {
     await this.userService.checkUserExistence(profileData.userId);
     const profile = await this.prismaService.prisma.profile.create({
       data: {
@@ -31,7 +31,7 @@ export class ProfileService {
     return profile;
   }
 
-  async getProfileById(profile_id: string) {
+  async findProfileById(profile_id: string) {
     await this.checkProfileExistence(profile_id);
     const profile = await this.prismaService.prisma.profile.findUnique({
       where: {

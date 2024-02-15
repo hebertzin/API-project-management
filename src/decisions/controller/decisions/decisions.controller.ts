@@ -27,6 +27,7 @@ export class DecisionsController {
       desisiton,
     });
   }
+
   @Get('/:id')
   async findDecisionById(@Param('id') id: string, @Res() res: Response) {
     const decision = await this.decisionService.findById(id);
@@ -36,12 +37,13 @@ export class DecisionsController {
       decision,
     });
   }
+
   @Delete('/:id')
   async findByIdAndDelete(@Param('id') id: string, @Res() res: Response) {
     await this.decisionService.delete(id);
 
     return res.status(200).json({
-      msg: 'decison was deleted successfully',
+      msg: 'decision was deleted successfully',
     });
   }
 }

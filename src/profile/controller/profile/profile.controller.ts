@@ -8,7 +8,7 @@ export class ProfileController {
   constructor(private profileService: ProfileService) {}
   @Get('/:id')
   async getProfile(@Param('id') profile_id: string, @Res() res: Response) {
-    const profile = await this.profileService.getProfileById(profile_id);
+    const profile = await this.profileService.findProfileById(profile_id);
 
     return res.status(200).json({
       msg: 'profile found',
@@ -20,7 +20,8 @@ export class ProfileController {
     @Body() createProfileDTO: CreateProfileDTO,
     @Res() res: Response,
   ) {
-    const createProfile = await this.profileService.create(createProfileDTO);
+    const createProfile =
+      await this.profileService.createProfile(createProfileDTO);
 
     return res.status(201).json({
       msg: 'profile created successfully',

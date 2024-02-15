@@ -17,6 +17,9 @@ import { DecisionsController } from './decisions/controller/decisions/decisions.
 import { DecisionsService } from './decisions/services/decisions/decisions.service';
 import { UpdatesController } from './updates/controller/updates/updates.controller';
 import { UpdatesService } from './updates/services/updates/updates.service';
+import { CommentsModule } from './comments/comments.module';
+import { CommentsController } from './comments/controller/comments/comments.controller';
+import { CommentsService } from './comments/services/comments/comments.service';
 
 @Module({
   imports: [
@@ -27,6 +30,7 @@ import { UpdatesService } from './updates/services/updates/updates.service';
     QuestionsModule,
     UpdatesModule,
     DecisionsModule,
+    CommentsModule,
   ],
   controllers: [
     ProjectsController,
@@ -34,6 +38,7 @@ import { UpdatesService } from './updates/services/updates/updates.service';
     ProfileController,
     DecisionsController,
     UpdatesController,
+    CommentsController,
   ],
   providers: [
     AppService,
@@ -42,6 +47,7 @@ import { UpdatesService } from './updates/services/updates/updates.service';
     ProfileService,
     DecisionsService,
     UpdatesService,
+    CommentsService,
   ],
 })
 export class AppModule {}
