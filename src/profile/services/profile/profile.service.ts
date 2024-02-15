@@ -21,4 +21,15 @@ export class ProfileService {
     });
     return profile;
   }
+  async findProfileByIdAndUpdate(profile_id: string, profileData: Profile) {
+    const updateProfile = await this.prismaService.prisma.profile.update({
+      where: {
+        id: profile_id,
+      },
+      data: {
+        ...profileData,
+      },
+    });
+    return updateProfile;
+  }
 }
