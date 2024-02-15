@@ -3,17 +3,17 @@ import { AppService } from './app.service';
 import { ProjectsController } from './projects/controller/projects/projects.controller';
 import { UserController } from './user/controller/user/user.controller';
 import { UserService } from './user/services/user/user.service';
-import { PrismaService } from './database/prisma.service';
 import { ProjectsService } from './projects/services/projects/projects.service';
-import { ProfileModule } from './profile/profile.module';
 import { UserModule } from './user/user.module';
 import { ProjectsModule } from './projects/projects.module';
-import { ProfileController } from './profile/controller/profile/profile.controller';
+// import { ProfileController } from './profile/controller/profile/profile.controller';
+// import { ProfileService } from './profile/services/profile/profile.service';
+import { PrismaModule } from './database/prisma.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
-  imports: [ProfileModule, UserModule, ProjectsModule],
-  controllers: [ProjectsController, UserController, ProfileController],
-  providers: [AppService, UserService, PrismaService, ProjectsService],
-  exports: [PrismaService],
+  imports: [UserModule, ProjectsModule, PrismaModule, ProfileModule],
+  controllers: [ProjectsController, UserController],
+  providers: [AppService, UserService, ProjectsService],
 })
 export class AppModule {}
