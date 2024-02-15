@@ -11,6 +11,12 @@ import { ProfileModule } from './profile/profile.module';
 import { QuestionsModule } from './questions/questions.module';
 import { ProfileController } from './profile/controller/profile/profile.controller';
 import { ProfileService } from './profile/services/profile/profile.service';
+import { UpdatesModule } from './updates/updates.module';
+import { DecisionsModule } from './decisions/decisions.module';
+import { DecisionsController } from './decisions/controller/decisions/decisions.controller';
+import { DecisionsService } from './decisions/services/decisions/decisions.service';
+import { UpdatesController } from './updates/controller/updates/updates.controller';
+import { UpdatesService } from './updates/services/updates/updates.service';
 
 @Module({
   imports: [
@@ -19,8 +25,23 @@ import { ProfileService } from './profile/services/profile/profile.service';
     PrismaModule,
     ProfileModule,
     QuestionsModule,
+    UpdatesModule,
+    DecisionsModule,
   ],
-  controllers: [ProjectsController, UserController, ProfileController],
-  providers: [AppService, UserService, ProjectsService, ProfileService],
+  controllers: [
+    ProjectsController,
+    UserController,
+    ProfileController,
+    DecisionsController,
+    UpdatesController,
+  ],
+  providers: [
+    AppService,
+    UserService,
+    ProjectsService,
+    ProfileService,
+    DecisionsService,
+    UpdatesService,
+  ],
 })
 export class AppModule {}

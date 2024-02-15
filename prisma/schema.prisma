@@ -17,19 +17,21 @@ enum Priority {
 }
 
 model User {
-  id        String      @unique @default(uuid())
-  name      String
-  email     String
-  password  String
-  createAt  DateTime    @default(now())
-  updateAt  DateTime    @updatedAt
-  projects  Projects[]
-  comments  Comments[]
-  decisions Decisions[]
-  team      Team[]
-  updates   Updates[]
-  questions Questions[]
-  profile   Profile?
+  id               String          @unique @default(uuid())
+  name             String
+  email            String
+  password         String
+  createAt         DateTime        @default(now())
+  updateAt         DateTime        @updatedAt
+  projects         Projects[]
+  comments         Comments[]
+  decisions        Decisions[]
+  team             Team[]
+  updates          Updates[]
+  questions        Questions[]
+  profile          Profile?
+  TeamMemberShip   TeamMemberShip? @relation(fields: [teamMemberShipId], references: [id])
+  teamMemberShipId String?
 }
 
 model Profile {
@@ -46,15 +48,15 @@ model Profile {
 }
 
 model Updates {
-  id         String    @unique @default(uuid())
-  description     String
-  projectId  String
-  userId     String
-  user       User      @relation(fields: [userId], references: [id])
-  createAt   DateTime  @default(now())
-  updateAt   DateTime  @updatedAt
-  Projects   Projects? @relation(fields: [projectsId], references: [id])
-  projectsId String
+  id          String    @unique @default(uuid())
+  description String
+  projectId   String
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  createAt    DateTime  @default(now())
+  updateAt    DateTime  @updatedAt
+  Projects    Projects? @relation(fields: [projectsId], references: [id])
+  projectsId  String
 }
 
 model Goals {
@@ -84,7 +86,7 @@ model Questions {
   id       String     @unique @default(uuid())
   question String
   userId   String
-  user User @relation(fields: [userId], references: [id])
+  user     User       @relation(fields: [userId], references: [id])
   comments Comments[]
   createAt DateTime   @default(now())
   updateAt DateTime   @updatedAt
@@ -126,4 +128,10 @@ model Team {
   user        User     @relation(fields: [userId], references: [id])
   createAt    DateTime @default(now())
   updateAt    DateTime @updatedAt
+}
+
+model TeamMemberShip {
+  id   String @unique @default(uuid())
+  name String
+  user User[]
 }
