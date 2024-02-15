@@ -1,23 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Project } from 'src/projects/types';
+import { UserService } from 'src/user/services/user/user.service';
 
 @Injectable()
 export class ProjectsService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private userService: UserService,
+  ) {}
 
-  private async checkUserExistence(user_id: string) {
-    const user = await this.prismaService.prisma.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
-    if (!user) {
-      throw new NotFoundException(`this user ${user_id} does not exist`);
-    }
-  }
-
-  private async checkProjectExistenec(project_id: string) {
+  async checkProjectExistence(project_id: string) {
     const project = await this.prismaService.prisma.projects.findUnique({
       where: {
         id: project_id,
@@ -29,7 +22,7 @@ export class ProjectsService {
   }
 
   async create(data: Project) {
-    await this.checkUserExistence(data.userId);
+    await this.userService.checkUserExistence(data.userId);
     const createProject = await this.prismaService.prisma.projects.create({
       data: {
         ...data,
@@ -40,7 +33,7 @@ export class ProjectsService {
   }
 
   async findAllProjectsUser(id: string) {
-    await this.checkUserExistence(id);
+    await this.userService.checkUserExistence(id);
     const allProjectsUsers = await this.prismaService.prisma.projects.findMany({
       where: {
         userId: id,
@@ -50,7 +43,7 @@ export class ProjectsService {
   }
 
   async findById(id: string) {
-    await this.checkProjectExistenec(id);
+    await this.checkProjectExistence(id);
     const projectFound = await this.prismaService.prisma.projects.findUnique({
       where: {
         id,
@@ -60,7 +53,7 @@ export class ProjectsService {
   }
 
   async deleteProjectById(id: string) {
-    await this.checkProjectExistenec(id);
+    await this.checkProjectExistence(id);
     return await this.prismaService.prisma.projects.delete({
       where: {
         id,
@@ -69,8 +62,8 @@ export class ProjectsService {
   }
 
   async updateProjectById(id: string, data: Project) {
-    await this.checkProjectExistenec(id);
-    await this.checkUserExistence(data.userId);
+    await this.checkProjectExistence(id);
+    await this.userService.checkUserExistence(data.userId);
     const updatedProject = await this.prismaService.prisma.projects.update({
       where: {
         id,

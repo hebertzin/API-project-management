@@ -1,10 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Profile } from 'src/profile/types/profile';
+import { UserService } from 'src/user/services/user/user.service';
 
 @Injectable()
 export class ProfileService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private userService: UserService,
+  ) {}
 
   private async checkProfileExistence(profile_id) {
     const profile = await this.prismaService.prisma.profile.findUnique({
@@ -17,19 +21,8 @@ export class ProfileService {
     }
   }
 
-  private async checkUserExistence(user_id: string) {
-    const user = await this.prismaService.prisma.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
-    if (!user) {
-      throw new NotFoundException(`this user ${user_id} does not exist`);
-    }
-  }
-
   async create(profileData: Profile) {
-    await this.checkUserExistence(profileData.userId);
+    await this.userService.checkUserExistence(profileData.userId);
     const profile = await this.prismaService.prisma.profile.create({
       data: {
         ...profileData,
@@ -50,7 +43,7 @@ export class ProfileService {
 
   async findProfileByIdAndUpdate(profile_id: string, profileData: Profile) {
     await this.checkProfileExistence(profile_id);
-    await this.checkUserExistence(profileData.userId);
+    await this.userService.checkUserExistence(profileData.userId);
     const updateProfile = await this.prismaService.prisma.profile.update({
       where: {
         id: profile_id,

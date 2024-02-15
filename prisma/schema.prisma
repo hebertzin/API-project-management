@@ -56,6 +56,7 @@ model Updates {
   createAt    DateTime  @default(now())
   updateAt    DateTime  @updatedAt
   Projects    Projects? @relation(fields: [projectsId], references: [id])
+  //remover depois possivel bug
   projectsId  String
 }
 

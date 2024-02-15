@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Question } from 'src/questions/types/question';
+import { UserService } from 'src/user/services/user/user.service';
 
 @Injectable()
 export class QuestionsService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private userService: UserService,
+  ) {}
 
   async create(question: Question) {
+    await this.userService.checkUserExistence(question.userId);
     const questions = await this.prismaService.prisma.questions.create({
       data: {
         ...question,
@@ -25,6 +30,7 @@ export class QuestionsService {
   }
 
   async findQuestionByIdAndUpdate(question_id: string, questionData: Question) {
+    await this.userService.checkUserExistence(questionData.userId);
     const question = await this.prismaService.prisma.questions.update({
       where: {
         id: question_id,

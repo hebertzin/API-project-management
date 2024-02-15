@@ -1,35 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Decision } from 'src/decisions/types/decision';
+import { ProjectsService } from 'src/projects/services/projects/projects.service';
+import { UserService } from 'src/user/services/user/user.service';
 
 @Injectable()
 export class DecisionsService {
-  constructor(private prismaService: PrismaService) {}
-
-  private async checkProjectExistence(project_id: string) {
-    const project = await this.prismaService.prisma.projects.findUnique({
-      where: {
-        id: project_id,
-      },
-    });
-    if (!project) {
-      throw new NotFoundException(`this project ${project_id} does not exist `);
-    }
-  }
-  private async checkUserExistence(user_id: string) {
-    const user = await this.prismaService.prisma.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
-    if (!user) {
-      throw new NotFoundException(`this user ${user_id} does not exist`);
-    }
-  }
+  constructor(
+    private prismaService: PrismaService,
+    private userService: UserService,
+    private projectService: ProjectsService,
+  ) {}
 
   async create(decision: Decision) {
-    await this.checkUserExistence(decision.userId);
-    await this.checkProjectExistence(decision.projectId);
+    await this.userService.checkUserExistence(decision.userId);
+    await this.projectService.checkProjectExistence(decision.projectId);
     const createDecision = await this.prismaService.prisma.decisions.create({
       data: {
         ...decision,
@@ -37,30 +22,33 @@ export class DecisionsService {
     });
     return createDecision;
   }
-  async findById(id: string) {
+
+  async findById(decision_id: string) {
     const decision = await this.prismaService.prisma.decisions.findUnique({
       where: {
-        id,
+        id: decision_id,
       },
     });
     if (!decision) {
-      throw new NotFoundException(`Decision ${id} not found`);
+      throw new NotFoundException(`Decision ${decision_id} not found`);
     }
     return decision;
   }
-  async delete(id: string) {
+
+  async delete(decision_id: string) {
     await this.prismaService.prisma.decisions.delete({
       where: {
-        id,
+        id: decision_id,
       },
     });
   }
-  async update(id: string, decision: Decision) {
-    await this.checkUserExistence(decision.userId);
-    await this.checkProjectExistence(decision.projectId);
+
+  async update(decision_id: string, decision: Decision) {
+    await this.userService.checkUserExistence(decision.userId);
+    await this.projectService.checkProjectExistence(decision.projectId);
     const updateDecision = await this.prismaService.prisma.decisions.update({
       where: {
-        id,
+        id: decision_id,
       },
       data: {
         ...decision,
