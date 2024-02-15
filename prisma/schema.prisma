@@ -27,6 +27,8 @@ model User {
   comments  Comments[]
   decisions Decisions[]
   team      Team[]
+  updates   Updates[]
+  questions Questions[]
   profile   Profile?
 }
 
@@ -44,10 +46,15 @@ model Profile {
 }
 
 model Updates {
-  id       String   @unique @default(uuid())
-  update   String
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id         String    @unique @default(uuid())
+  description     String
+  projectId  String
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  createAt   DateTime  @default(now())
+  updateAt   DateTime  @updatedAt
+  Projects   Projects? @relation(fields: [projectsId], references: [id])
+  projectsId String
 }
 
 model Goals {
@@ -76,9 +83,11 @@ model Comments {
 model Questions {
   id       String     @unique @default(uuid())
   question String
+  userId   String
+  user User @relation(fields: [userId], references: [id])
+  comments Comments[]
   createAt DateTime   @default(now())
   updateAt DateTime   @updatedAt
-  comments Comments[]
 }
 
 model Projects {
@@ -91,6 +100,7 @@ model Projects {
   user        User        @relation(fields: [userId], references: [id])
   userId      String
   goals       Goals[]
+  updates     Updates[]
   comments    Comments[]
   decisions   Decisions[]
 }
