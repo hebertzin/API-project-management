@@ -20,6 +20,9 @@ import { UpdatesService } from './updates/services/updates/updates.service';
 import { CommentsModule } from './comments/comments.module';
 import { CommentsController } from './comments/controller/comments/comments.controller';
 import { CommentsService } from './comments/services/comments/comments.service';
+import { GoalsModule } from './goals/goals.module';
+import { GoalsController } from './goals/controller/goals/goals.controller';
+import { GoalsService } from './goals/services/goals/goals.service';
 
 @Module({
   imports: [
@@ -31,6 +34,7 @@ import { CommentsService } from './comments/services/comments/comments.service';
     UpdatesModule,
     DecisionsModule,
     CommentsModule,
+    GoalsModule,
   ],
   controllers: [
     ProjectsController,
@@ -39,6 +43,7 @@ import { CommentsService } from './comments/services/comments/comments.service';
     DecisionsController,
     UpdatesController,
     CommentsController,
+    GoalsController,
   ],
   providers: [
     AppService,
@@ -48,6 +53,7 @@ import { CommentsService } from './comments/services/comments/comments.service';
     DecisionsService,
     UpdatesService,
     CommentsService,
+    GoalsService,
   ],
 })
 export class AppModule {}
