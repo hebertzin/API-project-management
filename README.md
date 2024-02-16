@@ -16,4 +16,19 @@ escolhi desenvolver com nestjs pois é robusto e porque qeuria aprender mais sob
 - **Husky** - para rotina de commits ex: antes de fazer um commit rodas os testes ou formata o código.
 - **Prettier** - para formatar o código e seguir um padrão durante o projeto
 - **dbdiagram** - ultilizei este software para modelar os dados.
+
+### modelagem do sistema
+![modelagem-sistema](https://github.com/hebertsanto/API-project-management/assets/108555424/5b154751-4d69-4624-80c3-67442052ea0b)
+
+### explicando as relações
+
+
+### endpoints da aplicação
+
+
+### resumo 
+
+
+### contato
+
   
