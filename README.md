@@ -22,4 +22,13 @@ escolhi desenvolver com nestjs pois é robusto e porque qeuria aprender mais sob
 
 ### explicando as relações
 
+
+### endpoints da aplicação
+
+
+### resumo 
+
+
+### contato
+
   
