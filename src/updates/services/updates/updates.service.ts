@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
-import { Update } from 'src/updates/types/updates';
+import { TUpdate } from 'src/updates/types/updates';
 import { UserService } from 'src/user/services/user/user.service';
+import { Updates } from '@prisma/client';
 
 @Injectable()
 export class UpdatesService {
@@ -12,7 +13,7 @@ export class UpdatesService {
     private projectService: ProjectsService,
   ) {}
 
-  async createUpdateProject(data: Update) {
+  async createUpdateProject(data: TUpdate): Promise<Updates> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
 
@@ -24,7 +25,7 @@ export class UpdatesService {
     return updates;
   }
 
-  async getUpdateProjectById(update_id: string) {
+  async getUpdateProjectById(update_id: string): Promise<Updates> {
     const updateFound = await this.prismaService.prisma.updates.findUnique({
       where: {
         id: update_id,
@@ -36,7 +37,10 @@ export class UpdatesService {
     return updateFound;
   }
 
-  async editUpdateProjectbyId(update_id: string, data: Update) {
+  async editUpdateProjectbyId(
+    update_id: string,
+    data: TUpdate,
+  ): Promise<Updates> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
     const update = await this.prismaService.prisma.updates.update({
@@ -50,8 +54,8 @@ export class UpdatesService {
     return update;
   }
 
-  async deleteUpdateProject(update_id: string) {
-    await this.prismaService.prisma.updates.delete({
+  async deleteUpdateProject(update_id: string): Promise<Updates> {
+    return await this.prismaService.prisma.updates.delete({
       where: {
         id: update_id,
       },

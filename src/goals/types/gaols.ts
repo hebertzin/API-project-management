@@ -1,4 +1,4 @@
-export type Goals = {
+export type TGoals = {
   description: string;
   userId: string;
   projectId: string;

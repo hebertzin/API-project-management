@@ -1,4 +1,4 @@
-export type Question = {
+export type TQuestion = {
   question: string;
   userId: string;
 };

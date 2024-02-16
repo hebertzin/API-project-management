@@ -3,6 +3,7 @@ import { Comment } from 'src/comments/types/comments';
 import { PrismaService } from 'src/database/prisma.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
+import { Comments } from '@prisma/client';
 @Injectable()
 export class CommentsService {
   constructor(
@@ -11,7 +12,7 @@ export class CommentsService {
     private projectService: ProjectsService,
   ) {}
 
-  async createComment(data: Comment) {
+  async createComment(data: Comment): Promise<Comments> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
     //add logic to verify question_id later
@@ -23,7 +24,7 @@ export class CommentsService {
     return createComment;
   }
 
-  async findCommentById(comment_id: string) {
+  async findCommentById(comment_id: string): Promise<Comments | null> {
     const comment = await this.prismaService.prisma.comments.findUnique({
       where: {
         id: comment_id,
@@ -36,7 +37,10 @@ export class CommentsService {
     return comment;
   }
 
-  async findByIdAndUpdateComment(comment_id: string, data: Comment) {
+  async findByIdAndUpdateComment(
+    comment_id: string,
+    data: Comment,
+  ): Promise<Comments> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
     const updateComment = await this.prismaService.prisma.comments.update({
@@ -50,7 +54,7 @@ export class CommentsService {
     return updateComment;
   }
 
-  async findByIdAndDeleteComment(comment_id: string) {
+  async findByIdAndDeleteComment(comment_id: string): Promise<Comments> {
     await this.findCommentById(comment_id);
     return await this.prismaService.prisma.comments.delete({
       where: {

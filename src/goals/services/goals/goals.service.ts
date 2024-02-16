@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { Goals } from 'src/goals/types/gaols';
+import { TGoals } from 'src/goals/types/gaols';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
+import { Goals } from '@prisma/client';
 
 @Injectable()
 export class GoalsService {
@@ -12,7 +13,7 @@ export class GoalsService {
     private projctsService: ProjectsService,
   ) {}
 
-  async createGoal(goal: Goals) {
+  async createGoal(goal: TGoals): Promise<Goals> {
     await this.userService.checkUserExistence(goal.userId);
     await this.projctsService.checkProjectExistence(goal.projectId);
     const create = await this.prismaService.prisma.goals.create({
@@ -23,7 +24,7 @@ export class GoalsService {
     return create;
   }
 
-  async findGoalByIdAndUpdate(goal_id: string, data: Goals) {
+  async findGoalByIdAndUpdate(goal_id: string, data: TGoals): Promise<Goals> {
     await this.userService.checkUserExistence(data.userId);
     await this.projctsService.checkProjectExistence(data.projectId);
     const update = await this.prismaService.prisma.goals.update({
@@ -37,16 +38,16 @@ export class GoalsService {
     return update;
   }
 
-  async findGoalByIdAndDelete(goal_id: string) {
+  async findGoalByIdAndDelete(goal_id: string): Promise<Goals> {
     await this.findGoalById(goal_id);
-    await this.prismaService.prisma.goals.delete({
+    return await this.prismaService.prisma.goals.delete({
       where: {
         id: goal_id,
       },
     });
   }
 
-  async findGoalById(goal_id: string) {
+  async findGoalById(goal_id: string): Promise<Goals> {
     const goal = await this.prismaService.prisma.goals.findUnique({
       where: {
         id: goal_id,

@@ -1,4 +1,4 @@
-export type Update = {
+export type TUpdate = {
   description: string;
   projectsId: string;
   userId: string;
