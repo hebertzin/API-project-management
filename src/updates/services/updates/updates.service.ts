@@ -13,7 +13,7 @@ export class UpdatesService {
     private projectService: ProjectsService,
   ) {}
 
-  async createUpdateProject(data: TUpdate): Promise<Updates> {
+  async createUpdateToProject(data: TUpdate): Promise<Updates> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
 
@@ -25,7 +25,7 @@ export class UpdatesService {
     return updates;
   }
 
-  async getUpdateProjectById(update_id: string): Promise<Updates> {
+  async findUpdateById(update_id: string): Promise<Updates> {
     const updateFound = await this.prismaService.prisma.updates.findUnique({
       where: {
         id: update_id,
@@ -54,7 +54,7 @@ export class UpdatesService {
     return update;
   }
 
-  async deleteUpdateProject(update_id: string): Promise<Updates> {
+  async findByIdAndDeleteUpdate(update_id: string): Promise<Updates> {
     return await this.prismaService.prisma.updates.delete({
       where: {
         id: update_id,

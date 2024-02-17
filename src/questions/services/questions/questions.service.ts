@@ -11,7 +11,7 @@ export class QuestionsService {
     private userService: UserService,
   ) {}
 
-  async create(question: TQuestion): Promise<Questions> {
+  async createQuestion(question: TQuestion): Promise<Questions> {
     await this.userService.checkUserExistence(question.userId);
     const questions = await this.prismaService.prisma.questions.create({
       data: {
@@ -49,7 +49,7 @@ export class QuestionsService {
     return question;
   }
 
-  async findByIdAndDelete(question_id: string): Promise<Questions> {
+  async findQuestionByIdAndDelete(question_id: string): Promise<Questions> {
     return await this.prismaService.prisma.questions.delete({
       where: {
         id: question_id,

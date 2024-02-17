@@ -27,7 +27,7 @@ export class GoalsService {
   async findGoalByIdAndUpdate(goal_id: string, data: TGoals): Promise<Goals> {
     await this.userService.checkUserExistence(data.userId);
     await this.projctsService.checkProjectExistence(data.projectId);
-    const update = await this.prismaService.prisma.goals.update({
+    const updateGoal = await this.prismaService.prisma.goals.update({
       where: {
         id: goal_id,
       },
@@ -35,7 +35,7 @@ export class GoalsService {
         ...data,
       },
     });
-    return update;
+    return updateGoal;
   }
 
   async findGoalByIdAndDelete(goal_id: string): Promise<Goals> {

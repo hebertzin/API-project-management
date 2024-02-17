@@ -21,7 +21,8 @@ export class QuestionsController {
     @Body() createQuestion: QuestionsDTO,
     @Res() res: Response,
   ) {
-    const question = await this.questionsServices.create(createQuestion);
+    const question =
+      await this.questionsServices.createQuestion(createQuestion);
     return res.status(201).json({
       msg: 'question created successfully',
       question,
@@ -67,7 +68,7 @@ export class QuestionsController {
 
   @Delete('/:id')
   async deleteQuestionById(@Param('id') id: string, @Res() res: Response) {
-    await this.questionsServices.findByIdAndDelete(id);
+    await this.questionsServices.findQuestionByIdAndDelete(id);
 
     return res.status(200).json({
       msg: 'question deleted',

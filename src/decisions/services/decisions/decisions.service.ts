@@ -47,14 +47,15 @@ export class DecisionsService {
   async update(decision_id: string, decision: Decision): Promise<Decisions> {
     await this.userService.checkUserExistence(decision.userId);
     await this.projectService.checkProjectExistence(decision.projectId);
-    const updateDecision = await this.prismaService.prisma.decisions.update({
-      where: {
-        id: decision_id,
-      },
-      data: {
-        ...decision,
-      },
-    });
-    return updateDecision;
+    const findDecisionByIdAndUpdate =
+      await this.prismaService.prisma.decisions.update({
+        where: {
+          id: decision_id,
+        },
+        data: {
+          ...decision,
+        },
+      });
+    return findDecisionByIdAndUpdate;
   }
 }

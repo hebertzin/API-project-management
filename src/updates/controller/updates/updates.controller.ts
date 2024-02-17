@@ -17,7 +17,7 @@ export class UpdatesController {
 
   @Get('/:id')
   async getUpdateById(@Param('id') id: string, @Res() res: Response) {
-    const updateFound = await this.updateService.getUpdateProjectById(id);
+    const updateFound = await this.updateService.findUpdateById(id);
 
     return res.status(200).json({
       msg: 'updated found successfully',
@@ -31,7 +31,7 @@ export class UpdatesController {
     @Res() res: Response,
   ) {
     const update =
-      await this.updateService.createUpdateProject(createUpdateProject);
+      await this.updateService.createUpdateToProject(createUpdateProject);
 
     return res.status(200).json({
       msg: 'update created successfully',
@@ -57,7 +57,7 @@ export class UpdatesController {
 
   @Delete('/:id')
   async deleteUpdate(@Param('id') id: string, @Res() res: Response) {
-    await this.updateService.deleteUpdateProject(id);
+    await this.updateService.findByIdAndDeleteUpdate(id);
     return res.status(200).json({
       msg: 'delete sucessfully',
     });
