@@ -6,7 +6,7 @@ export class TeamDTO {
   @IsNotEmpty()
   description: string;
   @IsNotEmpty()
-  deparatament: string;
+  departament: string;
   @IsNotEmpty()
   userId: string;
 }

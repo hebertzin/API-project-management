@@ -23,6 +23,9 @@ import { CommentsService } from './comments/services/comments/comments.service';
 import { GoalsModule } from './goals/goals.module';
 import { GoalsController } from './goals/controller/goals/goals.controller';
 import { GoalsService } from './goals/services/goals/goals.service';
+import { TeamModule } from './team/team.module';
+import { TeamController } from './team/controller/team/team.controller';
+import { TeamService } from './team/services/team/team.service';
 
 @Module({
   imports: [
@@ -35,6 +38,7 @@ import { GoalsService } from './goals/services/goals/goals.service';
     DecisionsModule,
     CommentsModule,
     GoalsModule,
+    TeamModule,
   ],
   controllers: [
     ProjectsController,
@@ -44,6 +48,7 @@ import { GoalsService } from './goals/services/goals/goals.service';
     UpdatesController,
     CommentsController,
     GoalsController,
+    TeamController,
   ],
   providers: [
     AppService,
@@ -54,6 +59,7 @@ import { GoalsService } from './goals/services/goals/goals.service';
     UpdatesService,
     CommentsService,
     GoalsService,
+    TeamService,
   ],
 })
 export class AppModule {}

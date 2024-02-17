@@ -1,6 +1,6 @@
 export type TTeam = {
   name: string;
-  desription: string;
+  description: string;
   departament: string;
   userId: string;
 };
