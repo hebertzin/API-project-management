@@ -130,6 +130,8 @@ model Team {
   departament String?
   userId      String
   user        User     @relation(fields: [userId], references: [id])
+  teamMembersId String
+  teamMemberShip TeamMemberShip @relation(fields: [teamMembersId], references: [id])
   createAt    DateTime @default(now())
   updateAt    DateTime @updatedAt
 }
@@ -137,5 +139,13 @@ model Team {
 model TeamMemberShip {
   id   String @unique @default(uuid())
   name String
+  departament String
   user User[]
+  team Team[]
+}
+
+model ProjectTeamMemberShip{
+  id String @unique @default(uuid())
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }
