@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Res,
   Post,
   Put,
 } from '@nestjs/common';
@@ -25,7 +26,7 @@ export class GoalsController {
   }
 
   @Post('')
-  async createGoal(@Body() res: Response, @Body() goals: GoalDTO) {
+  async createGoal(@Body() goals: GoalDTO, @Res() res: Response) {
     const create = await this.goalsService.createGoal(goals);
 
     return res.status(200).json({
@@ -35,9 +36,9 @@ export class GoalsController {
   }
   @Put('/:id')
   async updateGoal(
-    @Body() res: Response,
     @Body() goals: GoalDTO,
     @Param('id') id: string,
+    @Res() res: Response,
   ) {
     const update = await this.goalsService.findGoalByIdAndUpdate(id, goals);
 
@@ -48,11 +49,11 @@ export class GoalsController {
   }
 
   @Delete('/:id')
-  async deleteGoal(@Param('id') id: string, @Body() res: Response) {
+  async deleteGoal(@Param('id') id: string, @Res() res: Response) {
     await this.goalsService.findGoalByIdAndDelete(id);
 
     return res.status(200).json({
-      msg: 'goalFound',
+      msg: 'goal deleted',
     });
   }
 }

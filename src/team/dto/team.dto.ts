@@ -9,4 +9,6 @@ export class TeamDTO {
   departament: string;
   @IsNotEmpty()
   userId: string;
+  @IsNotEmpty()
+  teamMembersId: string;
 }

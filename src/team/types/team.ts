@@ -3,4 +3,5 @@ export type TTeam = {
   description: string;
   departament: string;
   userId: string;
+  teamMembersId: string;
 };
