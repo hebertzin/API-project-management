@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -20,11 +21,11 @@ export class DecisionsController {
     @Body() createDecision: DecisionDTO,
     @Res() res: Response,
   ) {
-    const desisiton = await this.decisionService.create(createDecision);
+    const desicion = await this.decisionService.create(createDecision);
 
     return res.status(201).json({
       msg: 'decision created successfully',
-      desisiton,
+      desicion,
     });
   }
 
@@ -44,6 +45,19 @@ export class DecisionsController {
 
     return res.status(200).json({
       msg: 'decision was deleted successfully',
+    });
+  }
+  @Put('/:id')
+  async findDecisionByIdAndUpdate(
+    @Param('id') id: string,
+    @Body() decision: DecisionDTO,
+    @Res() res: Response,
+  ) {
+    const updateDecision = await this.decisionService.update(id, decision);
+
+    return res.status(200).json({
+      msg: 'descion updated successfully',
+      decision: updateDecision,
     });
   }
 }

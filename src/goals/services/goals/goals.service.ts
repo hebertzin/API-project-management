@@ -24,7 +24,10 @@ export class GoalsService {
     return create;
   }
 
-  async findGoalByIdAndUpdate(goal_id: string, data: TGoals): Promise<Goals> {
+  async findGoalByIdAndUpdate(
+    goal_id: string,
+    data: TGoals,
+  ): Promise<Goals | null> {
     await this.userService.checkUserExistence(data.userId);
     await this.projctsService.checkProjectExistence(data.projectId);
     const updateGoal = await this.prismaService.prisma.goals.update({
@@ -47,7 +50,7 @@ export class GoalsService {
     });
   }
 
-  async findGoalById(goal_id: string): Promise<Goals> {
+  async findGoalById(goal_id: string): Promise<Goals | null> {
     const goal = await this.prismaService.prisma.goals.findUnique({
       where: {
         id: goal_id,
