@@ -1,34 +1,34 @@
-### API para gerenciamento de projetos
+### API for project management
 
-### descrição e porque eu quis fazer este projeto
+### description of the project
 
-este em principio é um projeto muito desafiador pois envolve muitas tabelas e muitos relacionamentos,
-desenvolvi desde o inicio, começando pela modelagem dos dados, logo após isso foi a hora de escolher as tecnologias,
-escolhi desenvolver com nestjs pois é robusto e porque qeuria aprender mais sobre ele, ultilizei postgres como banco de dados.
+This is in principle a very challenging project as it involves many tables and many relationships,
+developed from the beginning, starting with data modeling, soon after that it was time to choose the technologies,
+I chose to develop with nestjs because it is robust and because I wanted to learn more about it, I used Postgres as the database.
 
-### tecnologias ultilizadas no projeto
+### technologies used
 
-- **Nest js** -framework baseado em node js.
-- **typescript** - por padrão o nest já vem com o typescript.
-- **Prisma** - orm para banco de dados relacionais.
-- **Postgres** - banco de dados relacional.
-- **Docker** - ultilizei docker para subir a imagem do banco de dados.
-- **Husky** - para rotina de commits ex: antes de fazer um commit rodas os testes ou formata o código.
-- **Prettier** - para formatar o código e seguir um padrão durante o projeto
-- **dbdiagram** - ultilizei este software para modelar os dados.
+- **Nest js** -framework basead on node js.
+- **typescript** - by default nest already come with typescript.
+- **Prisma** - orm for relationals database.
+- **Postgres** - relational database.
+- **Docker** - container to database
+- **Husky** - for commit routine ex: before making a commit, run the tests or format the code.
+- **Prettier** - to format the code and follow a pattern throughout the project
+- **dbdiagram** - Use this software to model the data.
 
-### modelagem do sistema
+### system modeling
 ![modelagem-sistema](https://github.com/hebertsanto/API-project-management/assets/108555424/5b154751-4d69-4624-80c3-67442052ea0b)
 
-### explicando as relações
+### explain relations
 
 
-### endpoints da aplicação
+### app endpoints
 
 
-### resumo 
+### conclusion
 
 
-### contato
+### contact
 
   
