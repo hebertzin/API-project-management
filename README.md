@@ -14,7 +14,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - **Postgres** - banco de dados relacional.
 - **Docker** – containers para subir o banco de dados
 - **Husky** - para rotina de commit, por exemplo. antes de fazer um commit, execute os testes ou formate o código.
-- **Mais bonito** - para formatar o código e seguir um padrão ao longo do projeto
+- **Prettier** - para formatar o código e seguir um padrão ao longo do projeto
 - **dbdiagram** - Usei este software para modelar os dados.
 
 ### modelagem de sistema
