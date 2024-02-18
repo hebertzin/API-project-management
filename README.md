@@ -91,6 +91,10 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ### contato
 
-hebertsantosdeveloper@gmail.com
+**email**: hebertsantosdeveloper@gmail.com
+
+**linkedin**: [https://www.linkedin.com/in/hebert-santos-241429243/](https://www.linkedin.com/in/hebert-santos-241429243/)
+
+**site** : [https://ihebert.vercel.app/](https://ihebert.vercel.app/)
 
   
