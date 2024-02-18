@@ -1,34 +1,96 @@
-### API for project management
+### API para gerenciamento de projetos
 
-### description of the project
+### descrição do projeto
 
-This is in principle a very challenging project as it involves many tables and many relationships,
-developed from the beginning, starting with data modeling, soon after that it was time to choose the technologies,
-I chose to develop with nestjs because it is robust and because I wanted to learn more about it, I used Postgres as the database.
+Este é em princípio um projeto muito desafiador pois envolve muitas tabelas e muitos relacionamentos,
+desenvolvido desde o início, começando pela modelagem de dados, logo depois chegou a hora de escolher as tecnologias,
+Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobre ele, utilizei Postgres como banco de dados.
 
-### technologies used
+### tecnologias usadas
 
-- **Nest js** -framework basead on node js.
-- **typescript** - by default nest already come with typescript.
-- **Prisma** - orm for relationals database.
-- **Postgres** - relational database.
-- **Docker** - container to database
-- **Husky** - for commit routine ex: before making a commit, run the tests or format the code.
-- **Prettier** - to format the code and follow a pattern throughout the project
-- **dbdiagram** - Use this software to model the data.
+- **Nest js** -framework baseado em node js.
+- **typescript** - por padrão o ninho já vem com typescript.
+- **Prisma** - formulário para banco de dados relacional.
+- **Postgres** - banco de dados relacional.
+- **Docker** – containers para banco de dados
+- **Husky** - para rotina de commit, por exemplo. antes de fazer um commit, execute os testes ou formate o código.
+- **Mais bonito** - para formatar o código e seguir um padrão ao longo do projeto
+- **dbdiagram** - Usei este software para modelar os dados.
 
-### system modeling
+### modelagem de sistema
 ![modelagem-sistema](https://github.com/hebertsanto/API-project-management/assets/108555424/5b154751-4d69-4624-80c3-67442052ea0b)
 
-### explain relations
+## fucionalidades do sistema
+
+#### usuário
+
+- [x] é possivel criar uma conta
+- [x] é possivel encontrar uma conta pelo ID
+- [x] é possivel apagar uma conta
+
+### perfil
+
+- [x] é possivel ter uma perfil
+- [x] é possivel encontrar uma perfil pelo ID
+
+### projetos
+
+- [x] usuário pode criar um projeto
+- [x] usuário pode listar um projeto pelo ID
+- [x] usuário pode listar todos os seus projetos
+- [x] usuário pode apagar um projeto
+
+### questões de projetos
+
+- [x] usário pode adicionar questões para determinado projeto
+- [x] usuário editar questões de determinado projeto
+- [x] usuário pode apagar questões de um determinado projeto
+- [ ] usuário pode listar todas as suas questões criadas
+      
+### objetivos de projetos
+
+- [x] usário pode adicionar objetivos para determinado projeto
+- [x] usuário editar objetivos de determinado projeto
+- [x] usuário pode apagar objetivos de um determinado projeto
+- [x] usuário pode listar todos os seus ojetivos criados
+
+### decisões de projetos
+
+- [x] usuário pode adicionar decisões a determinado projeto
+- [x] usuário pode atualizar decisões a determinado projeto
+- [x] usuário pode apagar decisões a determinado projeto
+- [x] usuáriio pode listar uma decisição pelo ID
+- [x] usuário pode listar todas as suas decisões
+
+### atualizações de projetos
+
+- [x] usuário pode adicionar atualizações a determinado projeto
+- [x] usuário pode editar atualizações a determinado projeto
+- [x] usuário pode apagar atualizações a determinado projeto
+- [x] usuáriio pode listar uma atualização pelo ID
+- [x] usuário pode listar todas as suas atualizações
+      
+### times 
+
+- [x] usuário pode criar um time
+- [x] usuário pode listar um time pelo ID
+- [x] usuário pode apagar um time
+- [x] usuário pode editar dados de um time
+- [ ] usuário pode convidar outra pessao pro TIME
+- [ ] usuário pode remover outra pessao do TIME
+- [ ] usuário pode listar todos os times que ele participa
+
+### explicar relações
 
 
-### app endpoints
+### pontos de extremidade do aplicativo
 
 
-### conclusion
+### conclusão
 
 
-### contact
+### contato
+
+hebertsantosdeveloper@gmail.com
 
   
