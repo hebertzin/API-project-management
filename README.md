@@ -9,10 +9,10 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 ### tecnologias usadas
 
 - **Nest js** -framework baseado em node js.
-- **typescript** - por padrão o ninho já vem com typescript.
+- **typescript** - por padrão o nest já vem com typescript.
 - **Prisma** - formulário para banco de dados relacional.
 - **Postgres** - banco de dados relacional.
-- **Docker** – containers para banco de dados
+- **Docker** – containers para subir o banco de dados
 - **Husky** - para rotina de commit, por exemplo. antes de fazer um commit, execute os testes ou formate o código.
 - **Mais bonito** - para formatar o código e seguir um padrão ao longo do projeto
 - **dbdiagram** - Usei este software para modelar os dados.
