@@ -24,7 +24,7 @@ export class DecisionsService {
     return createDecision;
   }
 
-  async findById(decision_id: string): Promise<Decisions | null> {
+  async findDecisionById(decision_id: string): Promise<Decisions | null> {
     const decision = await this.prismaService.prisma.decisions.findUnique({
       where: {
         id: decision_id,
@@ -36,7 +36,10 @@ export class DecisionsService {
     return decision;
   }
 
-  async delete(decision_id: string): Promise<Decisions> {
+  async findDecisionByIdAndDelete(
+    decision_id: string,
+  ): Promise<Decisions | null> {
+    await this.findDecisionById(decision_id);
     return await this.prismaService.prisma.decisions.delete({
       where: {
         id: decision_id,
@@ -44,7 +47,11 @@ export class DecisionsService {
     });
   }
 
-  async update(decision_id: string, decision: Decision): Promise<Decisions> {
+  async findDecisionByIdAndUpdate(
+    decision_id: string,
+    decision: Decision,
+  ): Promise<Decisions> {
+    await this.findDecisionById(decision_id);
     await this.userService.checkUserExistence(decision.userId);
     await this.projectService.checkProjectExistence(decision.projectId);
     const findDecisionByIdAndUpdate =

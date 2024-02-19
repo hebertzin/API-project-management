@@ -11,6 +11,7 @@ import {
 import { GoalsService } from 'src/goals/services/goals/goals.service';
 import { Response } from 'express';
 import { GoalDTO } from 'src/goals/dto/goal.dto';
+
 @Controller('goals')
 export class GoalsController {
   constructor(private goalsService: GoalsService) {}
@@ -36,8 +37,8 @@ export class GoalsController {
   }
   @Put('/:id')
   async updateGoal(
-    @Body() goals: GoalDTO,
     @Param('id') id: string,
+    @Body() goals: GoalDTO,
     @Res() res: Response,
   ) {
     const update = await this.goalsService.findGoalByIdAndUpdate(id, goals);

@@ -31,7 +31,7 @@ export class DecisionsController {
 
   @Get('/:id')
   async findDecisionById(@Param('id') id: string, @Res() res: Response) {
-    const decision = await this.decisionService.findById(id);
+    const decision = await this.decisionService.findDecisionById(id);
 
     return res.status(200).json({
       msg: 'decision found',
@@ -41,7 +41,7 @@ export class DecisionsController {
 
   @Delete('/:id')
   async findByIdAndDelete(@Param('id') id: string, @Res() res: Response) {
-    await this.decisionService.delete(id);
+    await this.decisionService.findDecisionByIdAndDelete(id);
 
     return res.status(200).json({
       msg: 'decision was deleted successfully',
@@ -53,7 +53,10 @@ export class DecisionsController {
     @Body() decision: DecisionDTO,
     @Res() res: Response,
   ) {
-    const updateDecision = await this.decisionService.update(id, decision);
+    const updateDecision = await this.decisionService.findDecisionByIdAndUpdate(
+      id,
+      decision,
+    );
 
     return res.status(200).json({
       msg: 'descion updated successfully',
