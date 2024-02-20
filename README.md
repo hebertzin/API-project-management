@@ -45,7 +45,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] usário pode adicionar questões para determinado projeto
 - [x] usuário editar questões de determinado projeto
 - [x] usuário pode apagar questões de um determinado projeto
-- [ ] usuário pode listar todas as suas questões criadas
+- [x] usuário pode listar todas as suas questões criadas
       
 ### objetivos de projetos
 
@@ -76,7 +76,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] usuário pode listar um time pelo ID
 - [x] usuário pode apagar um time
 - [x] usuário pode editar dados de um time
-- [ ] usuário pode convidar outra pessao pro TIME
+- [ ] usuário pode convidar outra pessoa pro TIME
 - [ ] usuário pode remover outra pessao do TIME
 - [ ] usuário pode listar todos os times que ele participa
 
