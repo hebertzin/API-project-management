@@ -11,15 +11,22 @@ datasource db {
 }
 
 enum Priority {
-  min
-  medium
-  high
+  MIN
+  MEDIUM
+  HIGH
+}
+
+enum EmailStatus {
+  CONFIRMED
+  PENDING
+  FAILED
 }
 
 model User {
   id               String          @unique @default(uuid())
   name             String
   email            String
+  emailStatus      EmailStatus     @default(PENDING)
   password         String
   createAt         DateTime        @default(now())
   updateAt         DateTime        @updatedAt
@@ -185,4 +192,6 @@ model ProjectIdea {
   comment     Comments @relation(fields: [commentId], references: [id])
   description String
   department  String
+  createAt    DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
