@@ -12,7 +12,7 @@ export class ProfileService {
   ) {}
 
   private async checkProfileExistence(profile_id: string): Promise<Profile> {
-    const profile = await this.prismaService.prisma.profile.findUnique({
+    const profile = await this.prismaService.profile.findUnique({
       where: {
         id: profile_id,
       },
@@ -25,7 +25,7 @@ export class ProfileService {
 
   async createProfile(profileData: TProfile): Promise<Profile> {
     await this.userService.checkUserExistence(profileData.userId);
-    const profile = await this.prismaService.prisma.profile.create({
+    const profile = await this.prismaService.profile.create({
       data: {
         ...profileData,
       },
@@ -35,7 +35,7 @@ export class ProfileService {
 
   async findProfileById(profile_id: string): Promise<Profile | null> {
     await this.checkProfileExistence(profile_id);
-    const profile = await this.prismaService.prisma.profile.findUnique({
+    const profile = await this.prismaService.profile.findUnique({
       where: {
         id: profile_id,
       },
@@ -49,7 +49,7 @@ export class ProfileService {
   ): Promise<Profile> {
     await this.checkProfileExistence(profile_id);
     await this.userService.checkUserExistence(profileData.userId);
-    const updateProfile = await this.prismaService.prisma.profile.update({
+    const updateProfile = await this.prismaService.profile.update({
       where: {
         id: profile_id,
       },

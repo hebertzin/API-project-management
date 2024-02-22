@@ -11,8 +11,8 @@ export class ProjectsService {
     private userService: UserService,
   ) {}
 
-  async checkProjectExistence(project_id: string): Promise<Projects> {
-    const project = await this.prismaService.prisma.projects.findUnique({
+  async checkProjectExistence(project_id: string): Promise<Projects | null> {
+    const project = await this.prismaService.projects.findUnique({
       where: {
         id: project_id,
       },
@@ -25,7 +25,7 @@ export class ProjectsService {
 
   async create(data: Project): Promise<Projects> {
     await this.userService.checkUserExistence(data.userId);
-    const createProject = await this.prismaService.prisma.projects.create({
+    const createProject = await this.prismaService.projects.create({
       data: {
         ...data,
         priority: data.priority as any,
@@ -36,7 +36,7 @@ export class ProjectsService {
 
   async findAllProjectsUser(id: string): Promise<Projects[]> {
     await this.userService.checkUserExistence(id);
-    const allProjectsUsers = await this.prismaService.prisma.projects.findMany({
+    const allProjectsUsers = await this.prismaService.projects.findMany({
       where: {
         userId: id,
       },
@@ -46,7 +46,7 @@ export class ProjectsService {
 
   async findById(id: string): Promise<Projects> {
     await this.checkProjectExistence(id);
-    const projectFound = await this.prismaService.prisma.projects.findUnique({
+    const projectFound = await this.prismaService.projects.findUnique({
       where: {
         id,
       },
@@ -56,7 +56,7 @@ export class ProjectsService {
 
   async deleteProjectById(id: string): Promise<Projects> {
     await this.checkProjectExistence(id);
-    return await this.prismaService.prisma.projects.delete({
+    return await this.prismaService.projects.delete({
       where: {
         id,
       },
@@ -66,7 +66,7 @@ export class ProjectsService {
   async updateProjectById(id: string, data: Project): Promise<Projects> {
     await this.checkProjectExistence(id);
     await this.userService.checkUserExistence(data.userId);
-    const updatedProject = await this.prismaService.prisma.projects.update({
+    const updatedProject = await this.prismaService.projects.update({
       where: {
         id,
       },

@@ -13,14 +13,14 @@ export class TeamService {
 
   async createTeam(data: TTeam): Promise<Team> {
     await this.userService.checkUserExistence(data.userId);
-    const team = await this.prismaService.prisma.team.create({
+    const team = await this.prismaService.team.create({
       data,
     });
     return team;
   }
 
   async findTeamById(team_id: string): Promise<Team | null> {
-    const team = await this.prismaService.prisma.team.findUnique({
+    const team = await this.prismaService.team.findUnique({
       where: {
         id: team_id,
       },
@@ -33,7 +33,7 @@ export class TeamService {
 
   async findTeamByIdAnDelete(team_id: string): Promise<Team | null> {
     await this.findTeamById(team_id);
-    const team = await this.prismaService.prisma.team.delete({
+    const team = await this.prismaService.team.delete({
       where: {
         id: team_id,
       },
@@ -46,7 +46,7 @@ export class TeamService {
     data: TTeam,
   ): Promise<Team | null> {
     await this.findTeamById(team_id);
-    const update = await this.prismaService.prisma.team.update({
+    const update = await this.prismaService.team.update({
       where: {
         id: team_id,
       },

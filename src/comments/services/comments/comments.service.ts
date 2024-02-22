@@ -16,7 +16,7 @@ export class CommentsService {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
     //add logic to verify question_id later
-    const createComment = await this.prismaService.prisma.comments.create({
+    const createComment = await this.prismaService.comments.create({
       data: {
         ...data,
       },
@@ -25,7 +25,7 @@ export class CommentsService {
   }
 
   async findCommentById(comment_id: string): Promise<Comments | null> {
-    const comment = await this.prismaService.prisma.comments.findUnique({
+    const comment = await this.prismaService.comments.findUnique({
       where: {
         id: comment_id,
       },
@@ -43,7 +43,7 @@ export class CommentsService {
   ): Promise<Comments> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
-    const updateComment = await this.prismaService.prisma.comments.update({
+    const updateComment = await this.prismaService.comments.update({
       where: {
         id: comment_id,
       },
@@ -56,7 +56,7 @@ export class CommentsService {
 
   async findByIdAndDeleteComment(comment_id: string): Promise<Comments> {
     await this.findCommentById(comment_id);
-    return await this.prismaService.prisma.comments.delete({
+    return await this.prismaService.comments.delete({
       where: {
         id: comment_id,
       },

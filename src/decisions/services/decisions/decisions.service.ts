@@ -16,7 +16,7 @@ export class DecisionsService {
   async create(decision: Decision): Promise<Decisions> {
     await this.userService.checkUserExistence(decision.userId);
     await this.projectService.checkProjectExistence(decision.projectId);
-    const createDecision = await this.prismaService.prisma.decisions.create({
+    const createDecision = await this.prismaService.decisions.create({
       data: {
         ...decision,
       },
@@ -25,7 +25,7 @@ export class DecisionsService {
   }
 
   async findDecisionById(decision_id: string): Promise<Decisions | null> {
-    const decision = await this.prismaService.prisma.decisions.findUnique({
+    const decision = await this.prismaService.decisions.findUnique({
       where: {
         id: decision_id,
       },
@@ -40,7 +40,7 @@ export class DecisionsService {
     decision_id: string,
   ): Promise<Decisions | null> {
     await this.findDecisionById(decision_id);
-    return await this.prismaService.prisma.decisions.delete({
+    return await this.prismaService.decisions.delete({
       where: {
         id: decision_id,
       },
@@ -54,15 +54,16 @@ export class DecisionsService {
     await this.findDecisionById(decision_id);
     await this.userService.checkUserExistence(decision.userId);
     await this.projectService.checkProjectExistence(decision.projectId);
-    const findDecisionByIdAndUpdate =
-      await this.prismaService.prisma.decisions.update({
+    const findDecisionByIdAndUpdate = await this.prismaService.decisions.update(
+      {
         where: {
           id: decision_id,
         },
         data: {
           ...decision,
         },
-      });
+      },
+    );
     return findDecisionByIdAndUpdate;
   }
 }

@@ -17,7 +17,7 @@ export class UpdatesService {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
 
-    const updates = await this.prismaService.prisma.updates.create({
+    const updates = await this.prismaService.updates.create({
       data: {
         ...data,
       },
@@ -26,7 +26,7 @@ export class UpdatesService {
   }
 
   async findUpdateById(update_id: string): Promise<Updates> {
-    const updateFound = await this.prismaService.prisma.updates.findUnique({
+    const updateFound = await this.prismaService.updates.findUnique({
       where: {
         id: update_id,
       },
@@ -43,7 +43,7 @@ export class UpdatesService {
   ): Promise<Updates> {
     await this.userService.checkUserExistence(data.userId);
     await this.projectService.checkProjectExistence(data.projectId);
-    const update = await this.prismaService.prisma.updates.update({
+    const update = await this.prismaService.updates.update({
       where: {
         id: update_id,
       },
@@ -55,7 +55,7 @@ export class UpdatesService {
   }
 
   async findByIdAndDeleteUpdate(update_id: string): Promise<Updates> {
-    return await this.prismaService.prisma.updates.delete({
+    return await this.prismaService.updates.delete({
       where: {
         id: update_id,
       },

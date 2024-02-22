@@ -13,7 +13,7 @@ export class QuestionsService {
 
   async createQuestion(question: TQuestion): Promise<Questions> {
     await this.userService.checkUserExistence(question.userId);
-    const questions = await this.prismaService.prisma.questions.create({
+    const questions = await this.prismaService.questions.create({
       data: {
         ...question,
       },
@@ -22,7 +22,7 @@ export class QuestionsService {
   }
 
   async findQuestionById(question_id: string): Promise<Questions> {
-    const question = await this.prismaService.prisma.questions.findUnique({
+    const question = await this.prismaService.questions.findUnique({
       where: {
         id: question_id,
       },
@@ -38,7 +38,7 @@ export class QuestionsService {
     questionData: TQuestion,
   ): Promise<Questions> {
     await this.userService.checkUserExistence(questionData.userId);
-    const question = await this.prismaService.prisma.questions.update({
+    const question = await this.prismaService.questions.update({
       where: {
         id: question_id,
       },
@@ -50,7 +50,7 @@ export class QuestionsService {
   }
 
   async findQuestionByIdAndDelete(question_id: string): Promise<Questions> {
-    return await this.prismaService.prisma.questions.delete({
+    return await this.prismaService.questions.delete({
       where: {
         id: question_id,
       },
@@ -59,7 +59,7 @@ export class QuestionsService {
 
   async allQuestionsUser(user_id: string): Promise<Questions[]> {
     await this.userService.checkUserExistence(user_id);
-    const allQuestions = await this.prismaService.prisma.questions.findMany({
+    const allQuestions = await this.prismaService.questions.findMany({
       where: {
         userId: user_id,
       },
