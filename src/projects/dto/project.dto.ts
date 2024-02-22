@@ -4,11 +4,14 @@ export class ProjectDto {
   @IsNotEmpty()
   @IsString()
   name: string;
+
   @IsNotEmpty()
   @IsString()
   description: string;
+
   @IsNotEmpty()
   priority: Priority;
+
   @IsNotEmpty()
   @IsUUID()
   userId: string;
