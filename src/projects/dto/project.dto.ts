@@ -1,5 +1,5 @@
 import { Priority } from '../types/index';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 export class ProjectDto {
   @IsNotEmpty()
   @IsString()
@@ -13,7 +13,7 @@ export class ProjectDto {
   @IsNotEmpty()
   url: string;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
   visibility: boolean;
 

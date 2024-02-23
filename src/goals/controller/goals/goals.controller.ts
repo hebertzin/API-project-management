@@ -48,7 +48,6 @@ export class GoalsController {
       update,
     });
   }
-
   @Delete('/:id')
   async deleteGoal(@Param('id') id: string, @Res() res: Response) {
     await this.goalsService.findGoalByIdAndDelete(id);

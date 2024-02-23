@@ -18,7 +18,6 @@ export class CreateProfileDTO {
   position: string;
 
   @IsNotEmpty()
-  @IsString()
   social: string[];
 
   @IsNotEmpty()

@@ -12,25 +12,37 @@ export class FollowProjectService {
     private projectsService: ProjectsService,
   ) {}
 
-  async followProject(data: Data) {
-    await this.projectsService.checkProjectExistence(data.projectId);
-    await this.userService.checkUserExistence(data.userId);
+  async followProject(projectId: string, userId: string) {
+    await this.projectsService.checkProjectExistence(projectId);
+    await this.userService.checkUserExistence(userId);
     return await this.prismaService.followProject.create({
       data: {
-        ...data,
+        projectId,
+        userId,
       },
     });
   }
 
-  async getProjectsUserFollow(user_id: string): Promise<Data[] | null> {
-    await this.userService.checkUserExistence(user_id);
+  async getProjectsUserFollow(projectId: string): Promise<object | null> {
+    await this.projectsService.checkProjectExistence(projectId);
     const allProjectsUserFollow =
       await this.prismaService.followProject.findMany({
         where: {
-          userId: user_id,
+          projectId: projectId,
         },
       });
 
-    return allProjectsUserFollow;
+    return {
+      total: allProjectsUserFollow.length,
+      allProjectsUserFollow,
+    };
+  }
+
+  async stopFollowProject(id: string): Promise<Data | null> {
+    return await this.prismaService.followProject.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
