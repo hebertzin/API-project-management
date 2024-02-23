@@ -54,7 +54,7 @@ export class CommentsService {
     return updateComment;
   }
 
-  async findByIdAndDeleteComment(comment_id: string): Promise<Comments> {
+  async findByIdAndDeleteComment(comment_id: string): Promise<Comments | null> {
     await this.findCommentById(comment_id);
     return await this.prismaService.comments.delete({
       where: {

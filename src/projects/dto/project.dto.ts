@@ -9,6 +9,14 @@ export class ProjectDto {
   @IsString()
   description: string;
 
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @IsString()
+  @IsNotEmpty()
+  visibility: boolean;
+
   @IsNotEmpty()
   priority: Priority;
 

@@ -10,6 +10,7 @@ import { DecisionsModule } from './decisions/decisions.module';
 import { CommentsModule } from './comments/comments.module';
 import { GoalsModule } from './goals/goals.module';
 import { TeamModule } from './team/team.module';
+import { ProjectIdea } from './project-idea/project-idea.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TeamModule } from './team/team.module';
     CommentsModule,
     GoalsModule,
     TeamModule,
+    ProjectIdea,
   ],
   controllers: [],
   providers: [AppService],

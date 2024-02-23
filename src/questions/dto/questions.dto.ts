@@ -8,5 +8,10 @@ export class QuestionsDTO {
   @IsNotEmpty()
   @IsString()
   @IsUUID()
+  projectId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
   userId: string;
 }
