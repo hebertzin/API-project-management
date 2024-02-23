@@ -83,17 +83,16 @@ model Goals {
 }
 
 model Comments {
-  id          String        @unique @default(uuid())
-  comment     String
-  createAt    DateTime      @default(now())
-  updateAt    DateTime      @updatedAt
-  questions   Questions     @relation(fields: [questionId], references: [id])
-  user        User          @relation(fields: [userId], references: [id])
-  project     Projects      @relation(fields: [projectId], references: [id])
-  projectId   String
-  questionId  String
-  userId      String
-  ProjectIdea ProjectIdea[]
+  id         String    @unique @default(uuid())
+  comment    String
+  createAt   DateTime  @default(now())
+  updateAt   DateTime  @updatedAt
+  questions  Questions @relation(fields: [questionId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
+  project    Projects  @relation(fields: [projectId], references: [id])
+  projectId  String
+  questionId String
+  userId     String
 }
 
 model Questions {
@@ -177,7 +176,7 @@ model InviteUser {
 }
 
 model FollowProject {
-  id        String   @unique
+  id        String   @unique @default(uuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   projectId String
@@ -188,8 +187,6 @@ model ProjectIdea {
   id          String   @unique @default(uuid())
   userId      String
   user        User     @relation(fields: [userId], references: [id])
-  commentId   String
-  comment     Comments @relation(fields: [commentId], references: [id])
   description String
   department  String
   createAt    DateTime @default(now())
