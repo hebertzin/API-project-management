@@ -2,10 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
+import { SendEmailService } from 'src/email-service/service/send-email/send-email.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly sendEmail: SendEmailService,
+  ) {}
+
   async checkUserExistence(user_id: string): Promise<User | null> {
     const user = await this.prismaService.user.findUnique({
       where: {
@@ -24,6 +29,7 @@ export class UserService {
         ...user,
       },
     });
+    await this.sendEmail.sendEmailService(createNewUser.email);
     return createNewUser;
   }
 

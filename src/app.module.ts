@@ -12,6 +12,7 @@ import { GoalsModule } from './goals/goals.module';
 import { TeamModule } from './team/team.module';
 import { ProjectIdea } from './project-idea/project-idea.module';
 import { FollowProjectModule } from './follow-project/follow-project.module';
+import { EmailModule } from './email-service/email.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FollowProjectModule } from './follow-project/follow-project.module';
     TeamModule,
     ProjectIdea,
     FollowProjectModule,
+    EmailModule,
   ],
   controllers: [],
   providers: [AppService],

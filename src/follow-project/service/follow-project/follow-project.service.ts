@@ -12,7 +12,10 @@ export class FollowProjectService {
     private projectsService: ProjectsService,
   ) {}
 
-  private async checkAlreadyFollow(userId: string, projectId: string) {
+  private async checkUserAlreadyFollowProject(
+    userId: string,
+    projectId: string,
+  ) {
     const user = await this.prismaService.projectsFollowers.findFirst({
       where: {
         userId,
@@ -26,8 +29,9 @@ export class FollowProjectService {
 
     return user;
   }
+
   async followProject(projectId: string, userId: string) {
-    await this.checkAlreadyFollow(userId, projectId);
+    await this.checkUserAlreadyFollowProject(userId, projectId);
     await this.projectsService.checkProjectExistence(projectId);
     await this.userService.checkUserExistence(userId);
     return await this.prismaService.projectsFollowers.create({
