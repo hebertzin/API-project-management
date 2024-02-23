@@ -10,10 +10,6 @@ export class CreateProjectIdeaDTO {
   department: string;
 
   @IsNotEmpty()
-  @IsString()
-  commentId: string;
-
-  @IsNotEmpty()
   @IsUUID()
   @IsString()
   userId: string;
