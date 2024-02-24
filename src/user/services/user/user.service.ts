@@ -12,7 +12,7 @@ import {
 export class UserService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly sendEmail: SendEmailService,
+    private sendEmail: SendEmailService,
   ) {}
 
   async checkUserExistence(user_id: string): Promise<User | null> {
@@ -69,6 +69,16 @@ export class UserService {
       },
       data: {
         ...user,
+      },
+    });
+    return userFound;
+  }
+
+  async findUserByIdAndDelete(user_id: string): Promise<User | null> {
+    await this.checkUserExistence(user_id);
+    const userFound = await this.prismaService.user.delete({
+      where: {
+        id: user_id,
       },
     });
     return userFound;

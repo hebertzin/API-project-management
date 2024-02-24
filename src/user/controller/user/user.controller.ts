@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { UserDto } from 'src/user/dto/user.dto';
 import { UserService } from 'src/user/services/user/user.service';
@@ -24,7 +33,13 @@ export class UserController {
       user,
     });
   }
-
+  @Delete('/:id')
+  async deleteUser(@Param('id') id: string, @Res() res: Response) {
+    await this.userService.findUserByIdAndDelete(id);
+    return res.json({
+      msg: 'user delete successfully',
+    });
+  }
   @Put('/:id')
   async updateUser(
     @Param('id') id: string,
