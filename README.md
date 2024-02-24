@@ -10,7 +10,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 - **Nest js** -framework baseado em node js.
 - **typescript** - por padrão o nest já vem com typescript.
-- **Prisma** - formulário para banco de dados relacional.
+- **Prisma** - ORM para banco de dados relacionais.
 - **Postgres** - banco de dados relacional.
 - **Docker** – containers para subir o banco de dados
 - **Husky** - para rotina de commit, por exemplo. antes de fazer um commit, execute os testes ou formate o código.
@@ -22,7 +22,17 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ## fucionalidades do sistema
 
-#### usuário
+### autenticação / segurança
+
+- [ ] rotas protegidas
+- [x] gerar um token de autenticação
+- [ ] validar o token
+- [ ] criptografar senhas dos usuários
+- [x] enviar email para confirmação da conta
+- [ ] validar confirmação da conta com token
+- [ ] redefinição de senha
+
+### usuário
 
 - [x] é possivel criar uma conta
 - [x] é possivel encontrar uma conta pelo ID
@@ -39,6 +49,8 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] usuário pode listar um projeto pelo ID
 - [x] usuário pode listar todos os seus projetos
 - [x] usuário pode apagar um projeto
+- [x] usuário pode seguir projetos
+- [x] usuário pode deixar de seguir projetos
 
 ### questões de projetos
 
@@ -80,14 +92,18 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [ ] usuário pode remover outra pessao do TIME
 - [ ] usuário pode listar todos os times que ele participa
 
-### explicar relações
+### relações
 
+este é um projeto onde existem varias relações oque é muito legal, além de ser desafiador, você obtem muito aprendizado
+com banco de dados relacionais.
 
-### pontos de extremidade do aplicativo
+voce pode ver todas as relações no arquivo schema.prisma, também disponibilizei um diagrama. ( ainda pode aparecer mais algumas )
 
 
 ### conclusão
 
+está sendo um projeto desafiador e bom pra minha evolução como desenvolvedor, estou enfrentando diversos
+desafios, resolvendo eles e adquirindo muitos conhecimentos.
 
 ### contato
 
