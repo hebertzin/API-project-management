@@ -4,6 +4,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { Comments } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 @Injectable()
 export class CommentsService {
   constructor(
@@ -31,7 +32,7 @@ export class CommentsService {
       },
     });
     if (!comment) {
-      throw new NotFoundException(`this comment ${comment_id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
 
     return comment;

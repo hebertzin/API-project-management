@@ -4,6 +4,7 @@ import { ProjectsService } from 'src/projects/services/projects/projects.service
 import { TUpdate } from 'src/updates/types/updates';
 import { UserService } from 'src/user/services/user/user.service';
 import { Updates } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class UpdatesService {
@@ -32,7 +33,7 @@ export class UpdatesService {
       },
     });
     if (!updateFound) {
-      throw new NotFoundException(`this update ${update_id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return updateFound;
   }

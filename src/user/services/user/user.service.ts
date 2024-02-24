@@ -3,6 +3,10 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
 import { SendEmailService } from 'src/email-service/service/send-email/send-email.service';
+import {
+  RESOURSE_NOT_FOUND,
+  RESOURSE_ALREADY_EXIST,
+} from 'src/helpers/helpers';
 
 @Injectable()
 export class UserService {
@@ -18,7 +22,7 @@ export class UserService {
       },
     });
     if (!user) {
-      throw new NotFoundException(`this user ${user_id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return user;
   }
@@ -30,16 +34,15 @@ export class UserService {
       },
     });
 
-    if (!user) {
-      throw new NotFoundException(
-        'this user does not exist create an account please',
-      );
+    if (user) {
+      throw new NotFoundException(RESOURSE_ALREADY_EXIST);
     }
 
     return user;
   }
 
   async createUser(user: TUser): Promise<User> {
+    await this.findUserByEmail(user.email);
     const createNewUser = await this.prismaService.user.create({
       data: {
         ...user,

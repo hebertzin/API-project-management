@@ -4,6 +4,7 @@ import { TGoals } from 'src/goals/types/gaols';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { Goals } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class GoalsService {
@@ -57,7 +58,7 @@ export class GoalsService {
       },
     });
     if (!goal) {
-      throw new NotFoundException(`this goal ${goal_id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return goal;
   }

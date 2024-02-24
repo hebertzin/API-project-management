@@ -3,6 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { Project } from 'src/projects/types';
 import { UserService } from 'src/user/services/user/user.service';
 import { Projects } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class ProjectsService {
@@ -18,7 +19,7 @@ export class ProjectsService {
       },
     });
     if (!project) {
-      throw new NotFoundException(`Project ${project_id} not found`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return project;
   }

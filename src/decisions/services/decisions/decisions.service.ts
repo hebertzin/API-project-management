@@ -4,6 +4,7 @@ import { Decision } from 'src/decisions/types/decision';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { Decisions } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class DecisionsService {
@@ -31,7 +32,7 @@ export class DecisionsService {
       },
     });
     if (!decision) {
-      throw new NotFoundException(`Decision ${decision_id} not found`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return decision;
   }

@@ -3,6 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TProfile } from 'src/profile/types/profile';
 import { UserService } from 'src/user/services/user/user.service';
 import { Profile } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class ProfileService {
@@ -18,7 +19,7 @@ export class ProfileService {
       },
     });
     if (!profile) {
-      throw new NotFoundException(`this profile ${profile_id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return profile;
   }

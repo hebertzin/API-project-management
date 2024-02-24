@@ -8,6 +8,7 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
+
 import { Response } from 'express';
 import { CommentDTO } from 'src/comments/dto/comments.dto';
 import { CommentsService } from 'src/comments/services/comments/comments.service';
@@ -15,7 +16,6 @@ import { CommentsService } from 'src/comments/services/comments/comments.service
 @Controller('comments')
 export class CommentsController {
   constructor(private commentsServices: CommentsService) {}
-
   @Get('/:id')
   async getCommentById(@Param('id') id: string, @Res() res: Response) {
     const commentFound = await this.commentsServices.findCommentById(id);

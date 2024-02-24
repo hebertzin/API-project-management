@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Data } from 'src/follow-project/types/follow';
+import { RESOURSE_ALREADY_EXIST } from 'src/helpers/helpers';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
 
@@ -24,7 +25,7 @@ export class FollowProjectService {
     });
 
     if (user) {
-      throw new NotFoundException('you already follow this project');
+      throw new NotFoundException(RESOURSE_ALREADY_EXIST);
     }
 
     return user;

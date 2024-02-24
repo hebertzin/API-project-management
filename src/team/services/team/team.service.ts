@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Team } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 import { TTeam } from 'src/team/types/team';
 import { UserService } from 'src/user/services/user/user.service';
 
@@ -26,7 +27,7 @@ export class TeamService {
       },
     });
     if (!team) {
-      throw new NotFoundException(`this tema ${team_id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return team;
   }

@@ -3,6 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TQuestion } from 'src/questions/types/question';
 import { UserService } from 'src/user/services/user/user.service';
 import { Questions } from '@prisma/client';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class QuestionsService {
@@ -28,7 +29,7 @@ export class QuestionsService {
       },
     });
     if (!question) {
-      throw new NotFoundException(`question ${question_id} not found`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
     return question;
   }

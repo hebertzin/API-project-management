@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { ProjectIdea } from '../types/projectIdea';
 import { UserService } from 'src/user/services/user/user.service';
+import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
 
 @Injectable()
 export class ProjectIdeaService {
@@ -36,7 +37,7 @@ export class ProjectIdeaService {
       },
     });
     if (!projectIdea) {
-      throw new NotFoundException(`this $projectIdea : ${id} does not exist`);
+      throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
 
     return projectIdea;
