@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import { Controller, Headers, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
 
@@ -6,16 +6,20 @@ import { SendEmailService } from 'src/send-email/service/send-email/send-email.s
 export class EmailController {
   constructor(private sendEmailConfimation: SendEmailService) {}
 
-  @Get('/confirm')
+  @Post('/confirm')
   async validateTokenEmail(
-    @Query('token') token: string,
-    @Res() res: Response,
+    @Headers('authorization') authorization: any,
+    @Res()
+    res: Response,
   ) {
     try {
-      const isValidToken = await this.sendEmailConfimation.validate(token);
+      const token = authorization.split(' ')[1];
+
+      const decoded = await this.sendEmailConfimation.validate(token);
+
       return res.status(200).json({
         msg: 'Email confirmed',
-        token: isValidToken,
+        token: decoded,
       });
     } catch (error) {
       return res.status(400).json({

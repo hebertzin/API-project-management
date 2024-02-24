@@ -12,46 +12,53 @@ export class SendEmailService {
     private prismaService: PrismaService,
   ) {}
 
-  async sendEmailService(email: string): Promise<void | string> {
-    const token = this.tokenEmail.sign(email);
+  async sendEmailService(email: any): Promise<string> {
+    const token = this.tokenEmail.sign({
+      email,
+    });
 
     await this.sendEmailConfirmation.sendMail({
       to: email,
       subject: 'confirmation email',
       html: `link to confirm email : <a href="http://localhost:3333/email/confirm?token=${token}">click here</a>`,
     });
-    return token.toString();
+
+    return token;
   }
 
   async validate(token: any) {
     try {
-      const isValidToken = await this.tokenEmail.verify(token);
+      const decodedToken = await this.tokenEmail.verify(token, {
+        secret: process.env.CONFIRM_EMAIL_TOKEN,
+      });
 
-      if (isValidToken) {
-        const email = isValidToken.email;
-
-        const user = await this.prismaService.user.findFirst({
-          where: {
-            email: email,
-          },
-        });
-
-        if (!user) {
-          throw new NotFoundException(RESOURSE_NOT_FOUND);
-        }
-
-        await this.prismaService.user.update({
-          where: {
-            id: user.id,
-          },
-
-          data: {
-            emailStatus: 'CONFIRMED',
-          },
-        });
+      if (!decodedToken.email) {
+        throw new Error('Invalid token structure');
       }
 
-      return isValidToken;
+      const email = decodedToken.email;
+
+      const user = await this.prismaService.user.findFirst({
+        where: {
+          email: email,
+        },
+      });
+
+      if (!user) {
+        throw new NotFoundException(RESOURSE_NOT_FOUND);
+      }
+
+      await this.prismaService.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          emailStatus: 'CONFIRMED',
+        },
+      });
+
+      console.log('token decoded', decodedToken);
+      return decodedToken;
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
         throw new Error('Token expired');
