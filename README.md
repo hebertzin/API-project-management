@@ -93,8 +93,10 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ### relações
 
+este é um projeto onde existem varias relações oque é muito legal, além de ser desafiador, você obtem muito aprendizado
+com banco de dados relacionais.
 
-### pontos de extremidade do aplicativo
+voce pode ver todas as relações no arquivo schema.prisma, também disponibilizei um diagrama. ( ainda pode aparecer mais algumas )
 
 
 ### conclusão
