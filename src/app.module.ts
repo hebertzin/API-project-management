@@ -13,6 +13,7 @@ import { TeamModule } from './team/team.module';
 import { ProjectIdea } from './project-idea/project-idea.module';
 import { FollowProjectModule } from './follow-project/follow-project.module';
 import { EmailModule } from './email-service/email.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EmailModule } from './email-service/email.module';
     ProjectIdea,
     FollowProjectModule,
     EmailModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [AppService],

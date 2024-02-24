@@ -20,9 +20,25 @@ export class UserService {
     if (!user) {
       throw new NotFoundException(`this user ${user_id} does not exist`);
     }
+    return user;
+  }
+
+  async findUserByEmail(email: string): Promise<User | null> {
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException(
+        'this user does not exist create an account please',
+      );
+    }
 
     return user;
   }
+
   async createUser(user: TUser): Promise<User> {
     const createNewUser = await this.prismaService.user.create({
       data: {
