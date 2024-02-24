@@ -22,7 +22,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ## fucionalidades do sistema
 
-## autenticação
+### autenticação
 
 - [ ] rotas protegidas
 - [x] gerar um token de autenticação
@@ -31,7 +31,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] enviar email para confirmação da conta
 - [ ] validar confirmação da conta com token
 
-#### usuário
+### usuário
 
 - [x] é possivel criar uma conta
 - [x] é possivel encontrar uma conta pelo ID
