@@ -22,14 +22,15 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ## fucionalidades do sistema
 
-### autenticação
+### autenticação / segurança
 
 - [ ] rotas protegidas
 - [x] gerar um token de autenticação
-- [ ] validar token
+- [ ] validar se o token é válido
 - [ ] criptografar senhas dos usuários
 - [x] enviar email para confirmação da conta
 - [ ] validar confirmação da conta com token
+- [ ] redefinição de senha
 
 ### usuário
 
