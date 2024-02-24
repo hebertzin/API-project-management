@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
-import { SendEmailService } from 'src/email-service/service/send-email/send-email.service';
+import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
 import {
   RESOURSE_NOT_FOUND,
   RESOURSE_ALREADY_EXIST,
