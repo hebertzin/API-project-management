@@ -10,7 +10,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 - **Nest js** -framework baseado em node js.
 - **typescript** - por padrão o nest já vem com typescript.
-- **Prisma** - formulário para banco de dados relacional.
+- **Prisma** - ORM para banco de dados relacionais.
 - **Postgres** - banco de dados relacional.
 - **Docker** – containers para subir o banco de dados
 - **Husky** - para rotina de commit, por exemplo. antes de fazer um commit, execute os testes ou formate o código.
