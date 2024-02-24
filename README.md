@@ -22,6 +22,15 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ## fucionalidades do sistema
 
+## autenticação
+
+- [ ] rotas protegidas
+- [x] gerar um token de autenticação
+- [ ] validar token
+- [ ] criptografar senhas dos usuários
+- [x] enviar email para confirmação da conta
+- [ ] validar confirmação da conta com token
+
 #### usuário
 
 - [x] é possivel criar uma conta
@@ -39,6 +48,8 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] usuário pode listar um projeto pelo ID
 - [x] usuário pode listar todos os seus projetos
 - [x] usuário pode apagar um projeto
+- [x] usuário pode seguir projetos
+- [x] usuário pode deixar de seguir projetos
 
 ### questões de projetos
 
@@ -80,7 +91,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [ ] usuário pode remover outra pessao do TIME
 - [ ] usuário pode listar todos os times que ele participa
 
-### explicar relações
+### relações
 
 
 ### pontos de extremidade do aplicativo
