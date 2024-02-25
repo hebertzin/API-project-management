@@ -35,7 +35,7 @@ export class ProjectsController {
   }
 
   @Get('/all/:userId')
-  async findAllProjects(@Param('id') userId: string, @Res() res: Response) {
+  async findAllProjects(@Param('userId') userId: string, @Res() res: Response) {
     const allProjectsUsers =
       await this.projectsServices.findAllProjectsUser(userId);
     return res.status(200).json({
