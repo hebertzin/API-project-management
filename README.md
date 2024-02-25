@@ -26,7 +26,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 - [ ] rotas protegidas
 - [x] gerar um token de autenticação
-- [ ] criptografar senhas dos usuários
+- [x] criptografar senhas dos usuários
 - [x] enviar email para confirmação da conta
 - [x] validar confirmação do email com token e alterar status no banco de dados
 - [ ] redefinição de senha
@@ -39,8 +39,8 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ### perfil
 
-- [x] é possivel ter uma perfil
-- [x] é possivel encontrar uma perfil pelo ID
+- [x] é possivel ter um perfil
+- [x] é possivel encontrar um perfil pelo ID
 
 ### projetos
 
