@@ -36,7 +36,7 @@ export class TeamController {
     });
   }
 
-  @Delete()
+  @Delete('/:id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     await this.teamService.findTeamByIdAnDelete(id);
     return res.status(200).json({

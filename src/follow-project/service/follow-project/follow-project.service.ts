@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Data } from 'src/follow-project/types/follow';
 import { RESOURSE_ALREADY_EXIST } from 'src/helpers/helpers';
+import { LoggerService } from 'src/logger/logger.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
 
@@ -11,58 +12,83 @@ export class FollowProjectService {
     private prismaService: PrismaService,
     private userService: UserService,
     private projectsService: ProjectsService,
+    private logger: LoggerService,
   ) {}
 
   private async checkUserAlreadyFollowProject(
     userId: string,
     projectId: string,
   ) {
-    const user = await this.prismaService.projectsFollowers.findFirst({
-      where: {
-        userId,
-        projectId,
-      },
-    });
+    try {
+      const userAlreadyFollowProject =
+        await this.prismaService.projectsFollowers.findFirst({
+          where: {
+            userId,
+            projectId,
+          },
+        });
 
-    if (user) {
-      throw new NotFoundException(RESOURSE_ALREADY_EXIST);
+      if (userAlreadyFollowProject) {
+        throw new ConflictException();
+      }
+
+      return userAlreadyFollowProject;
+    } catch (error) {
+      if (error instanceof ConflictException) {
+        throw new ConflictException(RESOURSE_ALREADY_EXIST);
+      }
+      this.logger.error(`some error ocurred : ${error}`);
+      throw error;
     }
-
-    return user;
   }
 
   async followProject(projectId: string, userId: string) {
-    await this.checkUserAlreadyFollowProject(userId, projectId);
-    await this.projectsService.checkProjectExistence(projectId);
-    await this.userService.checkUserExistence(userId);
-    return await this.prismaService.projectsFollowers.create({
-      data: {
-        projectId,
-        userId,
-      },
-    });
+    try {
+      await this.checkUserAlreadyFollowProject(userId, projectId);
+      await this.projectsService.checkProjectExistence(projectId);
+      await this.userService.checkUserExistence(userId);
+      return await this.prismaService.projectsFollowers.create({
+        data: {
+          projectId,
+          userId,
+        },
+      });
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 
   async getProjectsUserFollow(projectId: string): Promise<object | null> {
-    await this.projectsService.checkProjectExistence(projectId);
-    const allProjectsUserFollow =
-      await this.prismaService.projectsFollowers.findMany({
-        where: {
-          projectId: projectId,
-        },
-      });
+    try {
+      await this.projectsService.checkProjectExistence(projectId);
+      const allProjectsUserFollow =
+        await this.prismaService.projectsFollowers.findMany({
+          where: {
+            projectId: projectId,
+          },
+        });
 
-    return {
-      total: allProjectsUserFollow.length,
-      allProjectsUserFollow,
-    };
+      return {
+        total: allProjectsUserFollow.length,
+        allProjectsUserFollow,
+      };
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 
   async stopFollowProject(id: string): Promise<Data | null> {
-    return await this.prismaService.projectsFollowers.delete({
-      where: {
-        id,
-      },
-    });
+    try {
+      return await this.prismaService.projectsFollowers.delete({
+        where: {
+          id,
+        },
+      });
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 }

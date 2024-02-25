@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
@@ -20,83 +24,119 @@ export class UserService {
   ) {}
 
   async checkUserExistence(user_id: string): Promise<User | null> {
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          id: user_id,
+        },
+      });
 
-    this.logger.warn('user does not exist');
-    if (!user) {
-      throw new NotFoundException(RESOURSE_NOT_FOUND);
+      if (!user) {
+        throw new NotFoundException();
+      }
+
+      return user;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(RESOURSE_NOT_FOUND);
+      }
+
+      throw new Error(
+        `some error ocurred checking user existence : ${error.message}`,
+      );
     }
-    return user;
   }
 
   async findUserByEmail(email: string): Promise<User | null> {
-    const user = await this.prismaService.user.findFirst({
-      where: {
-        email: email,
-      },
-    });
+    try {
+      const user = await this.prismaService.user.findFirst({
+        where: {
+          email: email,
+        },
+      });
 
-    if (user) {
-      throw new NotFoundException(RESOURSE_ALREADY_EXIST);
+      if (user) {
+        throw new ConflictException();
+      }
+
+      return user;
+    } catch (error) {
+      if (error instanceof ConflictException) {
+        throw new ConflictException(RESOURSE_ALREADY_EXIST);
+      }
+
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
     }
-
-    return user;
   }
 
   async createUser(user: TUser): Promise<User> {
-    await this.findUserByEmail(user.email);
-    const hashPassword = await this.hash.generateHash(user.password);
-    const createNewUser = await this.prismaService.user.create({
-      data: {
-        ...user,
-        password: hashPassword,
-      },
-    });
-    this.logger.log(
-      'after the user creates an account, send an email to confirm the account',
-    );
-    await this.sendEmail.sendEmailService(createNewUser.email);
+    try {
+      await this.findUserByEmail(user.email);
 
-    return createNewUser;
+      const hashPassword = await this.hash.generateHash(user.password);
+      const createNewUser = await this.prismaService.user.create({
+        data: {
+          ...user,
+          password: hashPassword,
+        },
+      });
+
+      await this.sendEmail.sendEmailService(createNewUser.email);
+
+      return createNewUser;
+    } catch (error) {
+      throw new Error(`some error ocurred : ${error.message}`);
+    }
   }
 
   async findUserById(user_id: string): Promise<User | null> {
-    await this.checkUserExistence(user_id);
+    try {
+      await this.checkUserExistence(user_id);
 
-    const userFound = await this.prismaService.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
+      const userFound = await this.prismaService.user.findUnique({
+        where: {
+          id: user_id,
+        },
+      });
 
-    return userFound;
+      return userFound;
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 
   async findUserByIdAndUpdate(user_id: string, user: TUser): Promise<User> {
-    this.logger.log('chek if user exist and if the user exists, update it');
-    await this.checkUserExistence(user_id);
-    const userFound = await this.prismaService.user.update({
-      where: {
-        id: user_id,
-      },
-      data: {
-        ...user,
-      },
-    });
+    try {
+      await this.checkUserExistence(user_id);
+      const userFound = await this.prismaService.user.update({
+        where: {
+          id: user_id,
+        },
+        data: {
+          ...user,
+        },
+      });
 
-    return userFound;
+      return userFound;
+    } catch (error) {
+      this.logger.error(`some error ocurring : ${error.message}`);
+      throw error;
+    }
   }
 
   async findUserByIdAndDelete(user_id: string): Promise<void> {
-    await this.checkUserExistence(user_id);
-    await this.prismaService.user.delete({
-      where: {
-        id: user_id,
-      },
-    });
+    try {
+      await this.checkUserExistence(user_id);
+      await this.prismaService.user.delete({
+        where: {
+          id: user_id,
+        },
+      });
+    } catch (error) {
+      this.logger.error(`some error ocurred deleting user ${error.message}`);
+      throw error;
+    }
   }
 }

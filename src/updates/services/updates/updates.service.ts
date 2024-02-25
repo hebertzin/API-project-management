@@ -5,6 +5,7 @@ import { TUpdate } from 'src/updates/types/updates';
 import { UserService } from 'src/user/services/user/user.service';
 import { Updates } from '@prisma/client';
 import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
 export class UpdatesService {
@@ -12,54 +13,78 @@ export class UpdatesService {
     private prismaService: PrismaService,
     private userService: UserService,
     private projectService: ProjectsService,
+    private logger: LoggerService,
   ) {}
 
   async createUpdateToProject(data: TUpdate): Promise<Updates> {
-    await this.userService.checkUserExistence(data.userId);
-    await this.projectService.checkProjectExistence(data.projectId);
+    try {
+      await this.userService.checkUserExistence(data.userId);
+      await this.projectService.checkProjectExistence(data.projectId);
 
-    const updates = await this.prismaService.updates.create({
-      data: {
-        ...data,
-      },
-    });
-    return updates;
+      const updates = await this.prismaService.updates.create({
+        data: {
+          ...data,
+        },
+      });
+      return updates;
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 
   async findUpdateById(update_id: string): Promise<Updates> {
-    const updateFound = await this.prismaService.updates.findUnique({
-      where: {
-        id: update_id,
-      },
-    });
-    if (!updateFound) {
-      throw new NotFoundException(RESOURSE_NOT_FOUND);
+    try {
+      const updateFound = await this.prismaService.updates.findUnique({
+        where: {
+          id: update_id,
+        },
+      });
+      if (!updateFound) {
+        throw new NotFoundException();
+      }
+      return updateFound;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(RESOURSE_NOT_FOUND);
+      }
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
     }
-    return updateFound;
   }
 
   async editUpdateProjectbyId(
     update_id: string,
     data: TUpdate,
   ): Promise<Updates> {
-    await this.userService.checkUserExistence(data.userId);
-    await this.projectService.checkProjectExistence(data.projectId);
-    const update = await this.prismaService.updates.update({
-      where: {
-        id: update_id,
-      },
-      data: {
-        ...data,
-      },
-    });
-    return update;
+    try {
+      await this.userService.checkUserExistence(data.userId);
+      await this.projectService.checkProjectExistence(data.projectId);
+      const update = await this.prismaService.updates.update({
+        where: {
+          id: update_id,
+        },
+        data: {
+          ...data,
+        },
+      });
+      return update;
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 
-  async findByIdAndDeleteUpdate(update_id: string): Promise<Updates> {
-    return await this.prismaService.updates.delete({
-      where: {
-        id: update_id,
-      },
-    });
+  async findByIdAndDeleteUpdate(update_id: string): Promise<Updates | null> {
+    try {
+      return await this.prismaService.updates.delete({
+        where: {
+          id: update_id,
+        },
+      });
+    } catch (error) {
+      this.logger.error(`some error ocurred : ${error.message}`);
+      throw error;
+    }
   }
 }
