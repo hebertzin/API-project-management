@@ -14,6 +14,7 @@ import { ProjectIdea } from './project-idea/project-idea.module';
 import { FollowProjectModule } from './follow-project/follow-project.module';
 import { EmailModule } from './send-email/email.module';
 import { HashModule } from './hash/hash.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { HashModule } from './hash/hash.module';
     FollowProjectModule,
     EmailModule,
     HashModule,
+    LoggerModule,
   ],
   controllers: [],
   providers: [AppService],

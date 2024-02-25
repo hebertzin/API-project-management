@@ -8,11 +8,13 @@ import {
   RESOURSE_ALREADY_EXIST,
 } from 'src/helpers/helpers';
 import { HashService } from 'src/hash/service/hash/hash.service';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly prismaService: PrismaService,
+    private logger: LoggerService,
     private sendEmail: SendEmailService,
     private hash: HashService,
   ) {}
@@ -23,6 +25,8 @@ export class UserService {
         id: user_id,
       },
     });
+
+    this.logger.warn('user does not exist');
     if (!user) {
       throw new NotFoundException(RESOURSE_NOT_FOUND);
     }
@@ -52,20 +56,28 @@ export class UserService {
         password: hashPassword,
       },
     });
+    this.logger.log(
+      'after the user creates an account, send an email to confirm the account',
+    );
     await this.sendEmail.sendEmailService(createNewUser.email);
+
     return createNewUser;
   }
 
   async findUserById(user_id: string): Promise<User | null> {
     await this.checkUserExistence(user_id);
+
     const userFound = await this.prismaService.user.findUnique({
       where: {
         id: user_id,
       },
     });
+
     return userFound;
   }
+
   async findUserByIdAndUpdate(user_id: string, user: TUser): Promise<User> {
+    this.logger.log('chek if user exist and if the user exists, update it');
     await this.checkUserExistence(user_id);
     const userFound = await this.prismaService.user.update({
       where: {
@@ -75,16 +87,16 @@ export class UserService {
         ...user,
       },
     });
+
     return userFound;
   }
 
-  async findUserByIdAndDelete(user_id: string): Promise<User | null> {
+  async findUserByIdAndDelete(user_id: string): Promise<void> {
     await this.checkUserExistence(user_id);
-    const userFound = await this.prismaService.user.delete({
+    await this.prismaService.user.delete({
       where: {
         id: user_id,
       },
     });
-    return userFound;
   }
 }
