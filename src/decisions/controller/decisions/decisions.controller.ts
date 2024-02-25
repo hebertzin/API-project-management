@@ -21,31 +21,55 @@ export class DecisionsController {
     @Body() createDecision: DecisionDTO,
     @Res() res: Response,
   ) {
-    const desicion = await this.decisionService.create(createDecision);
+    try {
+      const desicion = await this.decisionService.create(createDecision);
 
-    return res.status(201).json({
-      msg: 'decision created successfully',
-      desicion,
-    });
+      return res.status(201).json({
+        msg: 'decision created successfully',
+        desicion,
+      });
+    } catch (error) {
+      return res.status(error.status).json({
+        message: error.message,
+        errorName: error.name,
+        status: error.status,
+      });
+    }
   }
 
   @Get('/:id')
   async findDecisionById(@Param('id') id: string, @Res() res: Response) {
-    const decision = await this.decisionService.findDecisionById(id);
+    try {
+      const decision = await this.decisionService.findDecisionById(id);
 
-    return res.status(200).json({
-      msg: 'decision found',
-      decision,
-    });
+      return res.status(200).json({
+        msg: 'decision found',
+        decision,
+      });
+    } catch (error) {
+      return res.status(error.status).json({
+        message: error.message,
+        errorName: error.name,
+        status: error.status,
+      });
+    }
   }
 
   @Delete('/:id')
   async findByIdAndDelete(@Param('id') id: string, @Res() res: Response) {
-    await this.decisionService.findDecisionByIdAndDelete(id);
+    try {
+      await this.decisionService.findDecisionByIdAndDelete(id);
 
-    return res.status(200).json({
-      msg: 'decision was deleted successfully',
-    });
+      return res.status(200).json({
+        message: 'decision was deleted successfully',
+      });
+    } catch (error) {
+      return res.status(error.status).json({
+        message: error.message,
+        errorName: error.name,
+        status: error.status,
+      });
+    }
   }
   @Put('/:id')
   async findDecisionByIdAndUpdate(
@@ -53,14 +77,20 @@ export class DecisionsController {
     @Body() decision: DecisionDTO,
     @Res() res: Response,
   ) {
-    const updateDecision = await this.decisionService.findDecisionByIdAndUpdate(
-      id,
-      decision,
-    );
+    try {
+      const updateDecision =
+        await this.decisionService.findDecisionByIdAndUpdate(id, decision);
 
-    return res.status(200).json({
-      msg: 'descion updated successfully',
-      decision: updateDecision,
-    });
+      return res.status(200).json({
+        msg: 'descion updated successfully',
+        decision: updateDecision,
+      });
+    } catch (error) {
+      return res.status(error.status).json({
+        message: error.message,
+        errorName: error.name,
+        status: error.status,
+      });
+    }
   }
 }
