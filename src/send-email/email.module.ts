@@ -2,16 +2,12 @@ import { Global, Module } from '@nestjs/common';
 import { SendEmailService } from './service/send-email/send-email.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailController } from './controller/email/email.controller';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/database/prisma.service';
 
 @Global()
 @Module({
   imports: [
-    JwtModule.register({
-      secret: process.env.CONFIRM_EMAIL_TOKEN,
-      signOptions: { expiresIn: '5min' },
-    }),
     MailerModule.forRoot({
       transport: {
         host: process.env.HOST_SANDBOX,

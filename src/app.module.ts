@@ -12,8 +12,8 @@ import { GoalsModule } from './goals/goals.module';
 import { TeamModule } from './team/team.module';
 import { ProjectIdea } from './project-idea/project-idea.module';
 import { FollowProjectModule } from './follow-project/follow-project.module';
-import { EmailModule } from './email-service/email.module';
-import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './send-email/email.module';
+import { HashModule } from './hash/hash.module';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { AuthModule } from './auth/auth.module';
     ProjectIdea,
     FollowProjectModule,
     EmailModule,
-    AuthModule,
+    HashModule,
   ],
   controllers: [],
   providers: [AppService],

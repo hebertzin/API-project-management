@@ -7,12 +7,14 @@ import {
   RESOURSE_NOT_FOUND,
   RESOURSE_ALREADY_EXIST,
 } from 'src/helpers/helpers';
+import { HashService } from 'src/hash/service/hash/hash.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly prismaService: PrismaService,
     private sendEmail: SendEmailService,
+    private hash: HashService,
   ) {}
 
   async checkUserExistence(user_id: string): Promise<User | null> {
@@ -43,9 +45,11 @@ export class UserService {
 
   async createUser(user: TUser): Promise<User> {
     await this.findUserByEmail(user.email);
+    const hashPassword = await this.hash.generateHash(user.password);
     const createNewUser = await this.prismaService.user.create({
       data: {
         ...user,
+        password: hashPassword,
       },
     });
     await this.sendEmail.sendEmailService(createNewUser.email);
