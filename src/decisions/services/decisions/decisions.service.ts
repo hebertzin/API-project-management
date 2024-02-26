@@ -4,7 +4,7 @@ import { Decision } from 'src/decisions/types/decision';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { Decisions } from '@prisma/client';
-import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
+import { errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -45,7 +45,7 @@ export class DecisionsService {
       return decision;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(RESOURSE_NOT_FOUND);
+        throw new NotFoundException(errors.decisionDoesNotExist);
       }
       this.logger.error(`some error ocurred : ${error.message}`);
       throw error;

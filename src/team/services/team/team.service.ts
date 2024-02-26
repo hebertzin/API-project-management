@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Team } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
-import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
+import { errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 import { TTeam } from 'src/team/types/team';
 import { UserService } from 'src/user/services/user/user.service';
@@ -40,7 +40,7 @@ export class TeamService {
       return team;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(RESOURSE_NOT_FOUND);
+        throw new NotFoundException(errors.teamDoesNotExist);
       }
 
       this.logger.error(`some error ocurred : ${error.message}`);

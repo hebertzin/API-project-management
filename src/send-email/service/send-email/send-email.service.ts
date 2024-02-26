@@ -2,7 +2,8 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/database/prisma.service';
-import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
+import { errors } from 'src/helpers/errors';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
 export class SendEmailService {
@@ -10,6 +11,7 @@ export class SendEmailService {
     private sendEmailConfirmation: MailerService,
     private tokenEmail: JwtService,
     private prismaService: PrismaService,
+    private logger: LoggerService,
   ) {}
 
   async sendEmailService(email: any): Promise<string> {
@@ -45,7 +47,7 @@ export class SendEmailService {
       });
 
       if (!user) {
-        throw new NotFoundException(RESOURSE_NOT_FOUND);
+        throw new NotFoundException(errors.userDoesNotExist);
       }
 
       await this.prismaService.user.update({
@@ -66,6 +68,7 @@ export class SendEmailService {
       if (error.name === 'JsonWebTokenError') {
         throw new Error('invalid token');
       }
+      this.logger.error(`some error ocurred : ${error.message}`);
     }
   }
 }

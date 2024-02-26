@@ -3,7 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TProfile } from 'src/profile/types/profile';
 import { UserService } from 'src/user/services/user/user.service';
 import { Profile } from '@prisma/client';
-import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
+import { errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class ProfileService {
       return profile;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(RESOURSE_NOT_FOUND);
+        throw new NotFoundException(errors.profileDoesNotExist);
       }
       this.logger.error(`some error ocurred : ${error.message}`);
       throw error;

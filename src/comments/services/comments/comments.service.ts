@@ -4,8 +4,9 @@ import { PrismaService } from 'src/database/prisma.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { Comments } from '@prisma/client';
-import { RESOURSE_NOT_FOUND } from 'src/helpers/helpers';
+import { errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
+
 @Injectable()
 export class CommentsService {
   constructor(
@@ -46,7 +47,7 @@ export class CommentsService {
       return comment;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(RESOURSE_NOT_FOUND);
+        throw new NotFoundException(errors.commentDoesNotExist);
       }
 
       this.logger.error(`some error ocurred : ${error.message}`);
