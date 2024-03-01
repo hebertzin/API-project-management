@@ -17,7 +17,7 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - **Prettier** - para formatar o código e seguir um padrão ao longo do projeto
 - **dbdiagram** - Usei este software para modelar os dados.
 
-### modelagem de sistema
+### modelagem do sistema
 ![modelagem-sistema](https://github.com/hebertsanto/API-project-management/assets/108555424/5b154751-4d69-4624-80c3-67442052ea0b)
 
 ## fucionalidades do sistema
