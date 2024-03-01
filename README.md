@@ -24,12 +24,9 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 
 ### autenticação / segurança
 
-- [ ] rotas protegidas
-- [x] gerar um token de autenticação
 - [x] criptografar senhas dos usuários
 - [x] enviar email para confirmação da conta
 - [x] validar confirmação do email com token e alterar status no banco de dados
-- [ ] redefinição de senha
 
 ### usuário
 
@@ -87,9 +84,6 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] usuário pode listar um time pelo ID
 - [x] usuário pode apagar um time
 - [x] usuário pode editar dados de um time
-- [ ] usuário pode convidar outra pessoa pro TIME
-- [ ] usuário pode remover outra pessao do TIME
-- [ ] usuário pode listar todos os times que ele participa
 
 ### relações
 
