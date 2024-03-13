@@ -107,12 +107,16 @@ export class UserService {
   async findUserByIdAndUpdate(user_id: string, user: TUser): Promise<User> {
     try {
       await this.checkUserExistence(user_id);
+      await this.findUserByEmail(user.email);
+
+      const hashPassword = await this.hash.generateHash(user.password);
       const userFound = await this.prismaService.user.update({
         where: {
           id: user_id,
         },
         data: {
           ...user,
+          password: hashPassword,
         },
       });
 

@@ -19,6 +19,7 @@ export class SendEmailService {
       email,
     });
 
+    this.logger.log(`sending email to confirm account`);
     await this.sendEmailConfirmation.sendMail({
       to: email,
       subject: 'confirmation email',

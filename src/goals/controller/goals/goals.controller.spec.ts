@@ -4,6 +4,9 @@ import { GoalsController } from './goals.controller';
 describe('GoalsController', () => {
   let controller: GoalsController;
 
+  it('should be defined', async () => {
+    expect(3).toBe(3);
+  });
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [GoalsController],

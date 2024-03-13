@@ -16,12 +16,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     const status = exception.getStatus();
     const message = exception.message || 'Internal server error';
-    const nameError = exception.name;
+    const errorName = exception.name;
+
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      nameError,
+      errorName,
       message: message,
     });
   }

@@ -15,9 +15,16 @@ import { FollowProjectModule } from './follow-project/follow-project.module';
 import { EmailModule } from './send-email/email.module';
 import { HashModule } from './hash/hash.module';
 import { LoggerModule } from './logger/logger.module';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { JwtInterceptor } from './auth/auth.service';
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: process.env.SECRET_JWT,
+      signOptions: { expiresIn: '1d' },
+    }),
     UserModule,
     ProjectsModule,
     PrismaModule,
@@ -35,6 +42,12 @@ import { LoggerModule } from './logger/logger.module';
     LoggerModule,
   ],
   controllers: [],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: JwtInterceptor,
+    },
+  ],
 })
 export class AppModule {}

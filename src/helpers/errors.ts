@@ -1,5 +1,5 @@
 export const errors = {
-  projectDoesNotExist: 'prject does not exist',
+  projectDoesNotExist: 'project does not exist',
   userDoesNotExist: 'user does not exist',
   userAlreadyExist: 'user already exist',
   decisionDoesNotExist: 'decision does not exist',

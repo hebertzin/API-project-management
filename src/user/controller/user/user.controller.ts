@@ -51,7 +51,7 @@ export class UserController {
       editUserDTO,
     );
     return res.json({
-      msg: 'user created successfully',
+      msg: 'user  successfully',
       user: updateUser,
     });
   }
