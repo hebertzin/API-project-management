@@ -17,19 +17,16 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - **Prettier** - para formatar o código e seguir um padrão ao longo do projeto
 - **dbdiagram** - Usei este software para modelar os dados.
 
-### modelagem de sistema
+### modelagem do sistema
 ![modelagem-sistema](https://github.com/hebertsanto/API-project-management/assets/108555424/5b154751-4d69-4624-80c3-67442052ea0b)
 
 ## fucionalidades do sistema
 
 ### autenticação / segurança
 
-- [ ] rotas protegidas
-- [x] gerar um token de autenticação
 - [x] criptografar senhas dos usuários
 - [x] enviar email para confirmação da conta
 - [x] validar confirmação do email com token e alterar status no banco de dados
-- [ ] redefinição de senha
 
 ### usuário
 
@@ -87,16 +84,14 @@ Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobr
 - [x] usuário pode listar um time pelo ID
 - [x] usuário pode apagar um time
 - [x] usuário pode editar dados de um time
-- [ ] usuário pode convidar outra pessoa pro TIME
-- [ ] usuário pode remover outra pessao do TIME
-- [ ] usuário pode listar todos os times que ele participa
 
 ### relações
 
 este é um projeto onde existem varias relações oque é muito legal, além de ser desafiador, você obtem muito aprendizado
 com banco de dados relacionais.
 
-voce pode ver todas as relações no arquivo schema.prisma, também disponibilizei um diagrama. ( ainda pode aparecer mais algumas )
+voce pode ver todas as relações no arquivo schema.prisma, 
+também disponibilizei um diagrama onde estão todas as tabelas e relacionamentos.
 
 
 ### conclusão
