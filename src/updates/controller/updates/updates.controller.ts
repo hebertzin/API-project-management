@@ -8,6 +8,11 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { UpdateDTO } from 'src/updates/dto/update.dto';
 import { UpdatesService } from 'src/updates/services/updates/updates.service';
@@ -15,6 +20,18 @@ import { UpdatesService } from 'src/updates/services/updates/updates.service';
 export class UpdatesController {
   constructor(private updateService: UpdatesService) {}
 
+  @ApiResponse({
+    status: 200,
+    description: 'Update found successfully',
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'Bad Request : update does not exist',
+  })
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   @Get('/:id')
   async getUpdateById(@Param('id') id: string, @Res() res: Response) {
     const updateFound = await this.updateService.findUpdateById(id);
@@ -25,6 +42,18 @@ export class UpdatesController {
     });
   }
 
+  @ApiResponse({
+    status: 201,
+    description: 'Update create successfully',
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'Bad Request : user or project does not exist',
+  })
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   @Post()
   async createUpdate(
     @Body() createUpdateProject: UpdateDTO,
@@ -39,6 +68,18 @@ export class UpdatesController {
     });
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'Update projects updated successfully',
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'Bad Request : user or project does not exist',
+  })
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   @Put('/:id')
   async update(
     @Param('id') id: string,
@@ -55,6 +96,18 @@ export class UpdatesController {
     });
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'Update  deleted successfully',
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'Bad Request :update does not exist',
+  })
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   @Delete('/:id')
   async deleteUpdate(@Param('id') id: string, @Res() res: Response) {
     await this.updateService.findByIdAndDeleteUpdate(id);
