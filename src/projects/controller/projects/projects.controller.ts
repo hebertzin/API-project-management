@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Res,
 } from '@nestjs/common';
 import { ProjectDto } from 'src/projects/dto/project.dto';
@@ -84,7 +85,16 @@ export class ProjectsController {
       projects: allProjectsUsers,
     });
   }
-
+  @Get('/filter')
+  async findProjectByPriority(
+    @Query('priority') priority: string,
+    @Res() res: Response,
+  ) {
+    await this.projectsServices.findProjectsByPriority(priority);
+    return res.status(200).json({
+      msg: 'projects found successfully',
+    });
+  }
   @ApiResponse({
     status: 200,
     description: 'Project delete successfully',

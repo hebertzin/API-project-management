@@ -120,4 +120,19 @@ export class ProjectsService {
       throw error;
     }
   }
+
+  async findProjectsByPriority(priority: any): Promise<Projects[]> {
+    try {
+      const projectsFound = await this.prismaService.projects.findMany({
+        where: {
+          priority: priority,
+        },
+      });
+
+      return projectsFound;
+    } catch (error) {
+      this.logger.error(`some error ocurred: ${error.message}`);
+      throw error;
+    }
+  }
 }
