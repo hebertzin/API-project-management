@@ -3,7 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { Project } from 'src/projects/types';
 import { UserService } from 'src/user/services/user/user.service';
 import { Projects } from '@prisma/client';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class ProjectsService {
       return project;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(errors.projectDoesNotExist);
+        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, project_id);
       }
       this.logger.error(
         `some error ocurred checking project existence : ${error.message}`,

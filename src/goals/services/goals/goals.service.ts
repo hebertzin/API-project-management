@@ -4,7 +4,7 @@ import { TGoals } from 'src/goals/types/gaols';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
 import { Goals } from '@prisma/client';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -81,7 +81,7 @@ export class GoalsService {
       return goal;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(errors.goalDoesNotExist);
+        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, goal_id);
       }
       this.logger.error(`some error ocurred : ${error.message}`);
       throw error;
