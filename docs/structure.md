@@ -1,5 +1,5 @@
 <pre>
-/Photos
+/API-project-management
 ├── /.vscode - configurações e extensões para vscode, caso você use
 ├── /.github - configurações e extensões para CI/CD no github
 ├── /.husky - configurações para commits e push mais semânticos
