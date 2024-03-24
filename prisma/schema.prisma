@@ -43,6 +43,7 @@ model User {
   InviteUser       InviteUser[]
   Following        ProjectsFollowers[]
   ProjectIdea      ProjectIdea[]
+  TaskListProject  TaskListProject[]
 }
 
 model Profile {
@@ -108,23 +109,37 @@ model Questions {
 }
 
 model Projects {
-  id          String              @unique @default(uuid())
-  name        String
+  id              String              @unique @default(uuid())
+  name            String
+  description     String
+  url             String
+  visibility      Boolean             @default(false)
+  priority        Priority
+  createAt        DateTime            @default(now())
+  updateAt        DateTime            @updatedAt
+  user            User                @relation(fields: [userId], references: [id])
+  userId          String
+  goals           Goals[]
+  updates         Updates[]
+  comments        Comments[]
+  decisions       Decisions[]
+  Questions       Questions[]
+  InviteUser      InviteUser[]
+  followers       ProjectsFollowers[]
+  TaskListProject TaskListProject[]
+}
+
+model TaskListProject {
+  id          String   @unique @default(uuid())
+  title       String
   description String
-  url         String
-  visibility  Boolean             @default(false)
   priority    Priority
-  createAt    DateTime            @default(now())
-  updateAt    DateTime            @updatedAt
-  user        User                @relation(fields: [userId], references: [id])
   userId      String
-  goals       Goals[]
-  updates     Updates[]
-  comments    Comments[]
-  decisions   Decisions[]
-  Questions   Questions[]
-  InviteUser  InviteUser[]
-  followers   ProjectsFollowers[]
+  projectId   String
+  User        User     @relation(fields: [userId], references: [id])
+  Projects    Projects @relation(fields: [projectId], references: [id])
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
 }
 
 model Decisions {
