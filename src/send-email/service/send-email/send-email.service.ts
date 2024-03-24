@@ -2,7 +2,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/database/prisma.service';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class SendEmailService {
       });
 
       if (!user) {
-        throw new NotFoundException(errors.userDoesNotExist);
+        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND);
       }
 
       await this.prismaService.user.update({

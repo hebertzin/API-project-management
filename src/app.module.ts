@@ -18,6 +18,7 @@ import { LoggerModule } from './logger/logger.module';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtInterceptor } from './auth/auth.service';
+import { TaskListProjectModule } from './task-list-project/task-list-project.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { JwtInterceptor } from './auth/auth.service';
     EmailModule,
     HashModule,
     LoggerModule,
+    TaskListProjectModule,
   ],
   controllers: [],
   providers: [

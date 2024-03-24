@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { Data } from 'src/follow-project/types/follow';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { UserService } from 'src/user/services/user/user.service';
@@ -35,7 +35,10 @@ export class FollowProjectService {
       return userAlreadyFollowProject;
     } catch (error) {
       if (error instanceof ConflictException) {
-        throw new ConflictException(errors.alreadyFollowProject);
+        throw new ConflictException(
+          Errors.RESOURCE_ALREADY_EXISTS,
+          `${userId} - ${projectId}`,
+        );
       }
       this.logger.error(`some error ocurred : ${error}`);
       throw error;
