@@ -7,7 +7,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
 import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { HashService } from 'src/hash/service/hash/hash.service';
 import { LoggerService } from 'src/logger/logger.service';
 
@@ -35,7 +35,7 @@ export class UserService {
       return user;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(errors.userDoesNotExist);
+        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, user_id);
       }
 
       throw new Error(
@@ -59,7 +59,7 @@ export class UserService {
       return user;
     } catch (error) {
       if (error instanceof ConflictException) {
-        throw new ConflictException(errors.userAlreadyExist);
+        throw new ConflictException(Errors.RESOURCE_ALREADY_EXISTS, email);
       }
 
       this.logger.error(`some error ocurred : ${error.message}`);

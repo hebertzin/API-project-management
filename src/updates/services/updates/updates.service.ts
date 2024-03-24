@@ -4,7 +4,7 @@ import { ProjectsService } from 'src/projects/services/projects/projects.service
 import { TUpdate } from 'src/updates/types/updates';
 import { UserService } from 'src/user/services/user/user.service';
 import { Updates } from '@prisma/client';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -46,7 +46,7 @@ export class UpdatesService {
       return updateFound;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(errors.updateDoesNotExist);
+        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, update_id);
       }
       this.logger.error(`some error ocurred : ${error.message}`);
       throw error;

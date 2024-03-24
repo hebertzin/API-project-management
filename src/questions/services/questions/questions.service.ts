@@ -3,7 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TQuestion } from 'src/questions/types/question';
 import { UserService } from 'src/user/services/user/user.service';
 import { Questions } from '@prisma/client';
-import { errors } from 'src/helpers/errors';
+import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class QuestionsService {
         },
       });
       if (!question) {
-        throw new NotFoundException(errors.questionDoesNotExist);
+        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, question_id);
       }
       return question;
     } catch (error) {
