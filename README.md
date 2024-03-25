@@ -1,5 +1,7 @@
 ### API para gerenciamento de projetos
 
+[![Build Status](https://github.com/ErickWendel/testing-serverless-apps/workflows/Docker%20Actions/badge.svg)](https://github.com/ErickWendel/testing-serverless-apps/actions)
+
 ### descrição do projeto
 
 Este é em princípio um projeto muito desafiador pois envolve muitas tabelas e muitos relacionamentos,
