@@ -1,11 +1,22 @@
 name: API-project-management CI/CD
 
 on:
-  push:
-    branches: ["main", "dev"]
-  pull_request:
-    branches: ["main", "dev"]
-
+   push:
+      paths:
+      - '**.ts'
+      - '**.json'
+      - '**.yml'
+      branches:
+       - main
+       - dev
+   pull_request:
+     paths:
+      - '**.ts'
+      - '**.json'
+      - '**.yml'
+     branches:
+      - main
+      - dev
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,4 +33,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - name: Install dependencies
-        run: npm install
+      - run: npm ci
+      - run: npm install
