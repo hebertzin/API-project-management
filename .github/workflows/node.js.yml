@@ -37,7 +37,7 @@ jobs:
         run: npm install
       - name: Check for outdated dependencies
         run: npm outdated
-
+        
   update-dependencies:
     runs-on: ubuntu-latest
 
@@ -45,8 +45,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-           node-version: '16.x'
-           cache: 'npm'
+          node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Update dependencies
