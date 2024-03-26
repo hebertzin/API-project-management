@@ -9,6 +9,7 @@ Marque as opções relevantes.
 - [ ] Correção de bug
 - [ ] Nova funcionalidade
 - [ ] Melhoria de desempenho
+- [ ] outro, explique as melhorias ou correções.
 
 ## Verificação
 
