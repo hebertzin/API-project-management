@@ -16,8 +16,10 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
+@ApiTags('Projects')
 @Controller('/projects')
 export class ProjectsController {
   constructor(private projectsServices: ProjectsService) {}

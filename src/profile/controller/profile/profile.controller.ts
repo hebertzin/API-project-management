@@ -3,11 +3,13 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateProfileDTO } from 'src/profile/dto/create-profile.dto';
 import { ProfileService } from 'src/profile/services/profile/profile.service';
 
+@ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
   constructor(private profileService: ProfileService) {}

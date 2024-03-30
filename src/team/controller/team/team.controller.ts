@@ -8,10 +8,12 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { TeamDTO } from 'src/team/dto/team.dto';
 import { TeamService } from 'src/team/services/team/team.service';
 
+@ApiTags('Team')
 @Controller('team')
 export class TeamController {
   constructor(private teamService: TeamService) {}

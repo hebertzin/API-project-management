@@ -12,11 +12,13 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { QuestionsDTO } from 'src/questions/dto/questions.dto';
 import { QuestionsService } from 'src/questions/services/questions/questions.service';
 
+@ApiTags('Questions')
 @Controller('questions')
 export class QuestionsController {
   constructor(private questionsServices: QuestionsService) {}
