@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { FollowProjectService } from 'src/follow-project/service/follow-project/follow-project.service';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Follow-project')
 @Controller('follow-project')
 export class FollowProjectController {
   constructor(private followProjectService: FollowProjectService) {}

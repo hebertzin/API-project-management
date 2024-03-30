@@ -12,11 +12,13 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { DecisionDTO } from 'src/decisions/dto/decisions.dto';
 import { DecisionsService } from 'src/decisions/services/decisions/decisions.service';
 
+@ApiTags('Decisions')
 @Controller('decisions')
 export class DecisionsController {
   constructor(private decisionService: DecisionsService) {}

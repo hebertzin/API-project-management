@@ -12,12 +12,14 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { Response } from 'express';
 import { CommentDTO } from 'src/comments/dto/comments.dto';
 import { CommentsService } from 'src/comments/services/comments/comments.service';
 
+@ApiTags('Comments')
 @Controller('comments')
 export class CommentsController {
   constructor(private commentsServices: CommentsService) {}
