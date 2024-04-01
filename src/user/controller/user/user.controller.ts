@@ -15,6 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { i18n } from 'src/i18n';
 import { UserDto } from 'src/user/dto/user.dto';
 import { UserService } from 'src/user/services/user/user.service';
 
@@ -29,7 +30,7 @@ export class UserController {
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -39,14 +40,14 @@ export class UserController {
   async findUserById(@Param('id') id: string, @Res() res: Response) {
     const user = await this.userService.findUserById(id);
     return res.status(200).json({
-      msg: 'user found successfully',
+      msg: i18n()['message.user.get'],
       user,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'User created successfully',
+    description: 'User has been created successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -60,14 +61,14 @@ export class UserController {
   async createUser(@Body() createUserDto: UserDto, @Res() res: Response) {
     const user = await this.userService.createUser(createUserDto);
     return res.json({
-      msg: 'user created successfully',
+      msg: i18n()['message.user.created'],
       user,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'User deleted successfully',
+    description: 'User has been deleted successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -81,11 +82,10 @@ export class UserController {
   async deleteUser(@Param('id') id: string, @Res() res: Response) {
     await this.userService.findUserByIdAndDelete(id);
     return res.json({
-      msg: 'user delete successfully',
+      msg: i18n()['message.user.deleted'],
     });
   }
 
-  // manutation in this part of project
   @Put('/:id')
   async updateUser(
     @Param('id') id: string,
@@ -97,7 +97,7 @@ export class UserController {
       editUserDTO,
     );
     return res.json({
-      msg: 'user  successfully',
+      msg: i18n()['message.user.update'],
       user: updateUser,
     });
   }

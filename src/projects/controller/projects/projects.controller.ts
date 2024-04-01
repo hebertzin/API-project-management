@@ -18,6 +18,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { i18n } from 'src/i18n';
 
 @ApiTags('Projects')
 @Controller('/projects')
@@ -26,11 +27,11 @@ export class ProjectsController {
 
   @ApiResponse({
     status: 201,
-    description: 'Project created successfully',
+    description: 'Project has been created successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -40,7 +41,7 @@ export class ProjectsController {
   async create(@Body() dataProjects: ProjectDto, @Res() res: Response) {
     const createProject = await this.projectsServices.create(dataProjects);
     return res.status(201).json({
-      msg: 'project created successfully',
+      msg: i18n()['message.project.created'],
       project: createProject,
     });
   }
@@ -61,18 +62,18 @@ export class ProjectsController {
   async findProjectById(@Param('id') id: string, @Res() res: Response) {
     const project = await this.projectsServices.findById(id);
     return res.status(200).json({
-      msg: 'project found successfully',
+      msg: i18n()['message.project.get'],
       project,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'All project found successfully',
+    description: 'All projects found successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -83,10 +84,23 @@ export class ProjectsController {
     const allProjectsUsers =
       await this.projectsServices.findAllProjectsUser(userId);
     return res.status(200).json({
-      msg: 'all projects found successfully',
+      msg: i18n()['message.project.userId'],
       projects: allProjectsUsers,
     });
   }
+
+  @ApiResponse({
+    status: 200,
+    description: 'All projects found by priority',
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'Bad Request',
+  })
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   @Get('/filter')
   async findProjectByPriority(
     @Query('priority') priority: string,
@@ -94,16 +108,16 @@ export class ProjectsController {
   ) {
     await this.projectsServices.findProjectsByPriority(priority);
     return res.status(200).json({
-      msg: 'projects found successfully',
+      msg: i18n()['message.project.priority'],
     });
   }
   @ApiResponse({
     status: 200,
-    description: 'Project delete successfully',
+    description: 'Project has been deleted successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -113,17 +127,17 @@ export class ProjectsController {
   async deleteProjectById(@Param('id') id: string, @Res() res: Response) {
     await this.projectsServices.deleteProjectById(id);
     return res.status(200).json({
-      msg: 'project deleted successfully',
+      msg: i18n()['message.project.deleted'],
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'Project update successfully',
+    description: 'Project has been updated successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project or user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -140,7 +154,7 @@ export class ProjectsController {
       dataProject,
     );
     return res.status(200).json({
-      msg: 'Project updated successfully',
+      msg: i18n()['message.project.update'],
       project,
     });
   }
