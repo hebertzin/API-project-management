@@ -15,6 +15,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { i18n } from '../../../i18n';
+
 import { QuestionsDTO } from 'src/questions/dto/questions.dto';
 import { QuestionsService } from 'src/questions/services/questions/questions.service';
 
@@ -23,10 +25,13 @@ import { QuestionsService } from 'src/questions/services/questions/questions.ser
 export class QuestionsController {
   constructor(private questionsServices: QuestionsService) {}
 
-  @ApiResponse({ status: 201, description: 'Question created successfully' })
+  @ApiResponse({
+    status: 201,
+    description: 'Question has been created successfull',
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project or user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -40,7 +45,7 @@ export class QuestionsController {
     const question =
       await this.questionsServices.createQuestion(createQuestion);
     return res.status(201).json({
-      message: 'question created successfully',
+      message: i18n()['message.question.created'],
       question,
     });
   }
@@ -48,7 +53,7 @@ export class QuestionsController {
   @ApiResponse({ status: 200, description: 'Question found successfully' })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : question does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -59,18 +64,18 @@ export class QuestionsController {
     const question = await this.questionsServices.findQuestionById(id);
 
     return res.status(200).json({
-      message: 'question found successfully',
+      message: i18n()['message.question.get'],
       question,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'All Question by user found successfully',
+    description: 'All Questions found successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -84,18 +89,18 @@ export class QuestionsController {
     const question = await this.questionsServices.allQuestionsUser(userId);
 
     return res.status(200).json({
-      message: 'all Questions user',
+      message: i18n()['message.question.userId'],
       question,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'Question updated successfully',
+    description: 'Question has been updated successfully',
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user or project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -113,7 +118,7 @@ export class QuestionsController {
         updateQuestion,
       );
     return res.status(200).json({
-      message: 'question updated',
+      message: i18n()['message.question.update'],
       question: questionUpdated,
     });
   }
@@ -135,7 +140,7 @@ export class QuestionsController {
     await this.questionsServices.findQuestionByIdAndDelete(id);
 
     return res.status(200).json({
-      message: 'question deleted',
+      message: i18n()['message.question.deleted'],
     });
   }
 }

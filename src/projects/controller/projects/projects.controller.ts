@@ -62,7 +62,7 @@ export class ProjectsController {
   async findProjectById(@Param('id') id: string, @Res() res: Response) {
     const project = await this.projectsServices.findById(id);
     return res.status(200).json({
-      msg: i18n()['message.project.get'],
+      message: i18n()['message.project.get'],
       project,
     });
   }

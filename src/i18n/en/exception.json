@@ -10,4 +10,4 @@
     "exception.tokenMalformed": "The provided token is malformed. Please check your token.",
     "exception.tokenNotProvided": "No authentication token provided. Please include a token in your request.",
     "exception.tokenVerify": "An error occurred while verifying the token. Please check your token."
-  }
+}

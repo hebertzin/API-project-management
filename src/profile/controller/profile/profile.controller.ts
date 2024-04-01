@@ -6,6 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { i18n } from 'src/i18n';
 import { CreateProfileDTO } from 'src/profile/dto/create-profile.dto';
 import { ProfileService } from 'src/profile/services/profile/profile.service';
 
@@ -17,7 +18,7 @@ export class ProfileController {
   @ApiResponse({ status: 200, description: 'Profile found successfully' })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : profile does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -28,15 +29,18 @@ export class ProfileController {
     const profile = await this.profileService.findProfileById(profile_id);
 
     return res.status(200).json({
-      message: 'profile found',
+      message: i18n()['message.profile.get'],
       profile,
     });
   }
 
-  @ApiResponse({ status: 201, description: 'Profile created successfully' })
+  @ApiResponse({
+    status: 201,
+    description: 'Profile has been created successfully',
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -51,15 +55,18 @@ export class ProfileController {
       await this.profileService.createProfile(createProfileDTO);
 
     return res.status(201).json({
-      message: 'profile created successfully',
+      message: i18n()['message.profile.created'],
       profile: createProfile,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Profile updated successfully' })
+  @ApiResponse({
+    status: 200,
+    description: 'Profile has been updated successfully',
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -76,7 +83,7 @@ export class ProfileController {
       updateProfile,
     );
     return res.status(200).json({
-      message: 'profile updated',
+      message: i18n()['message.profile.update'],
       update,
     });
   }
