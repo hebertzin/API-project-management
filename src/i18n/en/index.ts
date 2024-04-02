@@ -10,6 +10,7 @@ import ProjectIdea from './project-idea-messages.json';
 import Updates from './updates-messages.json';
 import Decisions from './decisions-messages.json';
 import FollowProject from './follow-project-messages.json';
+import TaskList from './tasklist-messages.json';
 
 export default {
   ...Exception,
@@ -24,4 +25,5 @@ export default {
   ...Updates,
   ...Decisions,
   ...FollowProject,
+  ...TaskList,
 };
