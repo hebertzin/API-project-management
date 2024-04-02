@@ -15,7 +15,7 @@ import { ProfileService } from 'src/profile/services/profile/profile.service';
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
 
-  @ApiResponse({ status: 200, description: 'Profile found successfully' })
+  @ApiResponse({ status: 200, description: i18n()['message.profile.get'] })
   @ApiBadRequestResponse({
     status: 400,
     description: 'Bad Request',
@@ -36,7 +36,7 @@ export class ProfileController {
 
   @ApiResponse({
     status: 201,
-    description: 'Profile has been created successfully',
+    description: i18n()['message.profile.created'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -62,7 +62,7 @@ export class ProfileController {
 
   @ApiResponse({
     status: 200,
-    description: 'Profile has been updated successfully',
+    description: i18n()['message.profile.update'],
   })
   @ApiBadRequestResponse({
     status: 400,

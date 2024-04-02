@@ -17,16 +17,17 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { i18n } from 'src/i18n';
 
 @ApiTags('Goals')
 @Controller('goals')
 export class GoalsController {
   constructor(private goalsService: GoalsService) {}
 
-  @ApiResponse({ status: 200, description: 'Goal found sucessfuly' })
+  @ApiResponse({ status: 200, description: i18n()['message.goals.get'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : goal does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -37,15 +38,15 @@ export class GoalsController {
     const goal = await this.goalsService.findGoalById(id);
 
     return res.status(200).json({
-      message: 'goalFound',
+      message: i18n()['message.goals.get'],
       goal,
     });
   }
 
-  @ApiResponse({ status: 201, description: 'Goal created sucessfuly' })
+  @ApiResponse({ status: 201, description: i18n()['message.goals.created'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project or user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -56,15 +57,15 @@ export class GoalsController {
     const create = await this.goalsService.createGoal(goals);
 
     return res.status(200).json({
-      message: 'create goal successfully',
+      message: i18n()['message.goals.created'],
       create,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Goal updated sucessfuly' })
+  @ApiResponse({ status: 200, description: i18n()['message.goals.update'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : goal or project or user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -79,15 +80,15 @@ export class GoalsController {
     const update = await this.goalsService.findGoalByIdAndUpdate(id, goals);
 
     return res.status(200).json({
-      message: 'update goal successfully',
+      message: i18n()['message.goals.update'],
       update,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Goal deleted sucessfuly' })
+  @ApiResponse({ status: 200, description: i18n()['message.goals.deleted'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : goal does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -98,7 +99,7 @@ export class GoalsController {
     await this.goalsService.findGoalByIdAndDelete(id);
 
     return res.status(200).json({
-      message: 'goal deleted',
+      message: i18n()['message.goals.deleted'],
     });
   }
 }

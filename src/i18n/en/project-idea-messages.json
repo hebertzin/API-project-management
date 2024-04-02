@@ -1,0 +1,7 @@
+{
+    "message.projectIdea.created": "Project idea has been created successfully",
+    "message.projectIdea.deleted": "Project idea has been deleted successfully",
+    "message.projectIdea.update": "Project idea has been updated successfully",
+    "message.projectIdea.get": "Project idea found successfully",
+    "message.projectIdea.userId": "All Project idea found successfully"
+}

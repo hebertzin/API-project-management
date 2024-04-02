@@ -7,5 +7,7 @@
   "message.user.created": "User has been created successfully",
   "message.user.deleted": "User has been deleted successfully",
   "message.user.update": "User has been updated successfully",
-  "message.user.get": "User found successfully"
+  "message.user.get": "User found successfully",
+  "message.user.notFound": "User not found",
+  "message.user.conflict": "User already exist"
 }

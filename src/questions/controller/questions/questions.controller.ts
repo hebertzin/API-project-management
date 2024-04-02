@@ -27,7 +27,7 @@ export class QuestionsController {
 
   @ApiResponse({
     status: 201,
-    description: 'Question has been created successfull',
+    description: i18n()['message.question.created'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -50,7 +50,7 @@ export class QuestionsController {
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Question found successfully' })
+  @ApiResponse({ status: 200, description: i18n()['message.question.get'] })
   @ApiBadRequestResponse({
     status: 400,
     description: 'Bad Request',
@@ -71,7 +71,7 @@ export class QuestionsController {
 
   @ApiResponse({
     status: 200,
-    description: 'All Questions found successfully',
+    description: i18n()['message.question.userId'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -96,7 +96,7 @@ export class QuestionsController {
 
   @ApiResponse({
     status: 200,
-    description: 'Question has been updated successfully',
+    description: i18n()['message.question.update'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -125,7 +125,7 @@ export class QuestionsController {
 
   @ApiResponse({
     status: 200,
-    description: 'Question deleted successfully',
+    description: i18n()['message.question.deleted'],
   })
   @ApiBadRequestResponse({
     status: 400,

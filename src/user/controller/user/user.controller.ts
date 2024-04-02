@@ -26,7 +26,7 @@ export class UserController {
 
   @ApiResponse({
     status: 200,
-    description: 'User found successfully',
+    description: i18n()['message.user.get'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -47,7 +47,7 @@ export class UserController {
 
   @ApiResponse({
     status: 200,
-    description: 'User has been created successfully',
+    description: i18n()['message.user.created'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -68,7 +68,7 @@ export class UserController {
 
   @ApiResponse({
     status: 200,
-    description: 'User has been deleted successfully',
+    description: i18n()['message.user.deleted'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -86,6 +86,18 @@ export class UserController {
     });
   }
 
+  @ApiResponse({
+    status: 200,
+    description: i18n()['message.user.update'],
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'Bad Request',
+  })
+  @ApiInternalServerErrorResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   @Put('/:id')
   async updateUser(
     @Param('id') id: string,

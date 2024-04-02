@@ -27,7 +27,7 @@ export class ProjectsController {
 
   @ApiResponse({
     status: 201,
-    description: 'Project has been created successfully',
+    description: i18n()['message.project.created'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -48,11 +48,11 @@ export class ProjectsController {
 
   @ApiResponse({
     status: 200,
-    description: 'Project found successfully',
+    description: i18n()['message.project.get'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project does not exist',
+    description: 'Bad Reques',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -69,7 +69,7 @@ export class ProjectsController {
 
   @ApiResponse({
     status: 200,
-    description: 'All projects found successfully',
+    description: i18n()['message.project.userId'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -91,7 +91,7 @@ export class ProjectsController {
 
   @ApiResponse({
     status: 200,
-    description: 'All projects found by priority',
+    description: i18n()['message.project.priority'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -133,7 +133,7 @@ export class ProjectsController {
 
   @ApiResponse({
     status: 200,
-    description: 'Project has been updated successfully',
+    description: i18n()['message.project.update'],
   })
   @ApiBadRequestResponse({
     status: 400,

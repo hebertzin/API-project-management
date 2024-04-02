@@ -1,0 +1,6 @@
+{
+    "message.updates.created": "Update has been created successfully",
+    "message.updates.deleted": "Update has been deleted successfully",
+    "message.updates.update": "Update has been updated successfully",
+    "message.updates.get": "Update found successfully"
+}

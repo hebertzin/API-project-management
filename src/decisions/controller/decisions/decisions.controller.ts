@@ -17,16 +17,20 @@ import {
 import { Response } from 'express';
 import { DecisionDTO } from 'src/decisions/dto/decisions.dto';
 import { DecisionsService } from 'src/decisions/services/decisions/decisions.service';
+import { i18n } from 'src/i18n';
 
 @ApiTags('Decisions')
 @Controller('decisions')
 export class DecisionsController {
   constructor(private decisionService: DecisionsService) {}
 
-  @ApiResponse({ status: 201, description: 'Decision created successfully' })
+  @ApiResponse({
+    status: 201,
+    description: i18n()['message.decisions.created'],
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user or project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -40,15 +44,18 @@ export class DecisionsController {
     const desicion = await this.decisionService.create(createDecision);
 
     return res.status(201).json({
-      message: 'Decision created successfully',
+      message: i18n()['message.decisions.created'],
       desicion,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Decision found successfully' })
+  @ApiResponse({
+    status: 200,
+    description: i18n()['message.decisions.get'],
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : decision does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -59,15 +66,18 @@ export class DecisionsController {
     const decision = await this.decisionService.findDecisionById(id);
 
     return res.status(200).json({
-      msg: 'decision found',
+      message: i18n()['message.decisions.get'],
       decision,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Decision deleted successfully' })
+  @ApiResponse({
+    status: 200,
+    description: i18n()['message.decisions.deleted'],
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : decision does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -78,14 +88,17 @@ export class DecisionsController {
     await this.decisionService.findDecisionByIdAndDelete(id);
 
     return res.status(200).json({
-      message: 'decision was deleted successfully',
+      message: i18n()['message.decisions.deleted'],
     });
   }
 
-  @ApiResponse({ status: 200, description: 'Decision updated successfully' })
+  @ApiResponse({
+    status: 200,
+    description: i18n()['message.decisions.update'],
+  })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : decision or user or project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -103,7 +116,7 @@ export class DecisionsController {
     );
 
     return res.status(200).json({
-      msg: 'descion updated successfully',
+      message: i18n()['message.decisions.update'],
       decision: updateDecision,
     });
   }

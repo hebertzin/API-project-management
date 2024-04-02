@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { ProjectIdea } from '../types/projectIdea';
 import { UserService } from 'src/user/services/user/user.service';
-import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
+import { i18n } from 'src/i18n';
 
 @Injectable()
 export class ProjectIdeaService {
@@ -56,7 +56,7 @@ export class ProjectIdeaService {
       return projectIdea;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, id);
+        throw new NotFoundException(i18n()['exception.notFound'], id);
       }
       this.logger.error(`some errror ocurred : ${error.message}`);
       throw error;
