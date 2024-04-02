@@ -24,26 +24,27 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 
 ## Features
 
-### authentication / security
+### Authentication / security
 
 - [x] Encrypt user passwords
 - [x] Send email to confirm account
 - [x] Validate email confirmation with token and change status in the database
-- [] Auth with github
-- [] Reset password
+- [ ] Auth with github
+- [ ] Reset password
+- [ ] 2fa auth
 
-### user
+### User
 
 - [x] It is possible to create an account
 - [x] It is possible to find an account by ID
 - [x] It is possible to delete an account
 
-### profile
+### Profile
 
 - [x] It is possible to have a profile
 - [x] it is possible to find a profile by ID
 
-### projects
+### Projects
 
 - [x] User can create a project
 - [x] User can list a project by ID
@@ -52,21 +53,21 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] User can follow projects
 - [x] User can stop following projects
 
-### project questions
+### Project questions
 
 - [x] User can add questions for a given project
 - [x] User edit questions for a given project
 - [x] User can delete questions from a given project
 - [x] User can list all his created questions
       
-### project objectives
+### Project objectives
 
 - [x] User can add objectives for a given project
 - [x] User edit objectives for a given project
 - [x] User can delete objectives from a given project
 - [x] User can list all his created goals
 
-### project decisions
+### Project decisions
 
 - [x] User can add decisions to a given project
 - [x] User can update decisions for a given project
@@ -74,7 +75,7 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] User can list a decision by ID
 - [x] User can list all his decisions
 
-### project updates
+### Project updates
 
 - [x] User can add updates to a given project
 - [x] User can edit updates to a given project
@@ -82,15 +83,15 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] User can list an update by ID
 - [x] User can list all their updates
       
-### teams
+### Teams
 
 - [x] User can create a team
 - [x] User can list a team by ID
 - [x] User can delete a team
 - [x] User can edit team data
-- [] User can invite participants by email
+- [ ] User can invite participants by email
 
-### relationships
+### Relationships
 
 This is a project where there are several relationships which is really cool, besides being challenging, you get a lot of learning
 with relational databases.
