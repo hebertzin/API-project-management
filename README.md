@@ -1,107 +1,110 @@
-### API para gerenciamento de projetos
+### API for project management
 
-[![Build Status](https://github.com/ErickWendel/testing-serverless-apps/workflows/Docker%20Actions/badge.svg)](https://github.com/ErickWendel/testing-serverless-apps/actions)
+[![Build Status](https://github.com/ErickWendel/testing-serverless-apps/workflows/Docker%20Actions/badge.svg)](https://github.com/ErickWendel/testing-serverless-apps /actions)
 
-### descrição do projeto
+### project description
 
-Este é em princípio um projeto muito desafiador pois envolve muitas tabelas e muitos relacionamentos,
-desenvolvido desde o início, começando pela modelagem de dados, logo depois chegou a hora de escolher as tecnologias,
-Optei por desenvolver com nestjs por ser robusto e por querer aprender mais sobre ele, utilizei Postgres como banco de dados.
+This is in principle a very challenging project as it involves many tables and many relationships,
+developed from the beginning, starting with data modeling, then it was time to choose the technologies,
+I chose to develop with nestjs because it is robust and because I wanted to learn more about it, I used Postgres as the database.
 
-### tecnologias usadas
+### technologies used
 
-- **Nest js** -framework baseado em node js.
-- **typescript** - por padrão o nest já vem com typescript.
-- **Prisma** - ORM para banco de dados relacionais.
-- **Postgres** - banco de dados relacional.
-- **Docker** – containers para subir o banco de dados
-- **Husky** - para rotina de commit, por exemplo. antes de fazer um commit, execute os testes ou formate o código.
-- **Prettier** - para formatar o código e seguir um padrão ao longo do projeto
-- **dbdiagram** - Usei este software para modelar os dados.
+- **Nest js** - Framework based on node js.
+- **typescript** - By default, nest already comes with typescript.
+- **Prisma** - ORM for relational databases.
+- **Postgres** - Relational database.
+- **Docker** – Containers to upload the database
+- **Husky** - For commit routine, for example. Before making a commit, run tests or format the code.
+- **Prettier** - To format the code and follow a pattern throughout the project
+- **dbdiagram** - I used this software to model the data.
 
-### modelagem do sistema
+### system modeling
 ![modelagem-sistema](https://github.com/hebertsanto/API-project-management/assets/108555424/5b154751-4d69-4624-80c3-67442052ea0b)
 
-## fucionalidades do sistema
+## Features
 
-### autenticação / segurança
+### authentication / security
 
-- [x] criptografar senhas dos usuários
-- [x] enviar email para confirmação da conta
-- [x] validar confirmação do email com token e alterar status no banco de dados
+- [x] Encrypt user passwords
+- [x] Send email to confirm account
+- [x] Validate email confirmation with token and change status in the database
+- [] Auth with github
+- [] Reset password
 
-### usuário
+### user
 
-- [x] é possivel criar uma conta
-- [x] é possivel encontrar uma conta pelo ID
-- [x] é possivel apagar uma conta
+- [x] It is possible to create an account
+- [x] It is possible to find an account by ID
+- [x] It is possible to delete an account
 
-### perfil
+### profile
 
-- [x] é possivel ter um perfil
-- [x] é possivel encontrar um perfil pelo ID
+- [x] It is possible to have a profile
+- [x] it is possible to find a profile by ID
 
-### projetos
+### projects
 
-- [x] usuário pode criar um projeto
-- [x] usuário pode listar um projeto pelo ID
-- [x] usuário pode listar todos os seus projetos
-- [x] usuário pode apagar um projeto
-- [x] usuário pode seguir projetos
-- [x] usuário pode deixar de seguir projetos
+- [x] User can create a project
+- [x] User can list a project by ID
+- [x] User can list all his projects
+- [x] User can delete a project
+- [x] User can follow projects
+- [x] User can stop following projects
 
-### questões de projetos
+### project questions
 
-- [x] usário pode adicionar questões para determinado projeto
-- [x] usuário editar questões de determinado projeto
-- [x] usuário pode apagar questões de um determinado projeto
-- [x] usuário pode listar todas as suas questões criadas
+- [x] User can add questions for a given project
+- [x] User edit questions for a given project
+- [x] User can delete questions from a given project
+- [x] User can list all his created questions
       
-### objetivos de projetos
+### project objectives
 
-- [x] usário pode adicionar objetivos para determinado projeto
-- [x] usuário editar objetivos de determinado projeto
-- [x] usuário pode apagar objetivos de um determinado projeto
-- [x] usuário pode listar todos os seus ojetivos criados
+- [x] User can add objectives for a given project
+- [x] User edit objectives for a given project
+- [x] User can delete objectives from a given project
+- [x] User can list all his created goals
 
-### decisões de projetos
+### project decisions
 
-- [x] usuário pode adicionar decisões a determinado projeto
-- [x] usuário pode atualizar decisões a determinado projeto
-- [x] usuário pode apagar decisões a determinado projeto
-- [x] usuáriio pode listar uma decisição pelo ID
-- [x] usuário pode listar todas as suas decisões
+- [x] User can add decisions to a given project
+- [x] User can update decisions for a given project
+- [x] User can delete decisions for a given project
+- [x] User can list a decision by ID
+- [x] User can list all his decisions
 
-### atualizações de projetos
+### project updates
 
-- [x] usuário pode adicionar atualizações a determinado projeto
-- [x] usuário pode editar atualizações a determinado projeto
-- [x] usuário pode apagar atualizações a determinado projeto
-- [x] usuáriio pode listar uma atualização pelo ID
-- [x] usuário pode listar todas as suas atualizações
+- [x] User can add updates to a given project
+- [x] User can edit updates to a given project
+- [x] User can delete updates to a given project
+- [x] User can list an update by ID
+- [x] User can list all their updates
       
-### times 
+### teams
 
-- [x] usuário pode criar um time
-- [x] usuário pode listar um time pelo ID
-- [x] usuário pode apagar um time
-- [x] usuário pode editar dados de um time
+- [x] User can create a team
+- [x] User can list a team by ID
+- [x] User can delete a team
+- [x] User can edit team data
+- [] User can invite participants by email
 
-### relações
+### relationships
 
-este é um projeto onde existem varias relações oque é muito legal, além de ser desafiador, você obtem muito aprendizado
-com banco de dados relacionais.
+This is a project where there are several relationships which is really cool, besides being challenging, you get a lot of learning
+with relational databases.
 
-voce pode ver todas as relações no arquivo schema.prisma, 
-também disponibilizei um diagrama onde estão todas as tabelas e relacionamentos.
+You can see all the relationships in the schema.prisma file,
+I also provided a diagram where all the tables and relationships are.
 
 
-### conclusão
+### conclusion
 
-está sendo um projeto desafiador e bom pra minha evolução como desenvolvedor, estou enfrentando diversos
-desafios, resolvendo eles e adquirindo muitos conhecimentos.
+It's been a challenging project and good for my evolution as a developer, I'm facing several
+challenges, solving them and acquiring a lot of knowledge.
 
-### contato
+### contact
 
 **email**: hebertsantosdeveloper@gmail.com
 
