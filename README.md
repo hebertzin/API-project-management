@@ -1,6 +1,6 @@
 ### API for project management
 
-[![Build Status](https://github.com/ErickWendel/testing-serverless-apps/workflows/Docker%20Actions/badge.svg)](https://github.com/ErickWendel/testing-serverless-apps /actions)
+[![Build Status](https://github.com/ErickWendel/testing-serverless-apps/workflows/Docker%20Actions/badge.svg)](https://github.com/ErickWendel/testing-serverless-apps/actions)
 
 ### project description
 
@@ -29,6 +29,8 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] Encrypt user passwords
 - [x] Send email to confirm account
 - [x] Validate email confirmation with token and change status in the database
+- [ ] Email notifications
+- [ ] Email templates in project
 - [ ] Auth with github
 - [ ] Reset password
 - [ ] 2fa auth
@@ -52,6 +54,14 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] User can delete a project
 - [x] User can follow projects
 - [x] User can stop following projects
+      
+### Project ideas
+
+- [x] It is possibel create a project idea
+- [x] It is possibel delete a project idea
+- [x] It is possible update a project idea
+- [x] It is possible to find all project ideas that you created
+
 
 ### Project questions
 
