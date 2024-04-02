@@ -1,0 +1,8 @@
+{
+    "message.taskList.created": "Task has been created successfully",
+    "message.taskList.deleted": "Task has been deleted successfully",
+    "message.taskList.update": "Task has been updated successfully",
+    "message.taskList.get": "Task found successfully",
+    "message.taskList.userId": "All Task  found successfully",
+    "message.taskList.priority": "All Task  found by priority"
+}
