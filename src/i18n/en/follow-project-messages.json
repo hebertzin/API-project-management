@@ -1,0 +1,5 @@
+{
+  "message.followProject.created": "Follow has been created successfully",
+  "message.followProject.deleted": "Follow has been deleted successfully",
+  "message.followProject.all": "All Followers found successfully"
+}

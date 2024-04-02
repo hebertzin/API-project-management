@@ -1,0 +1,6 @@
+{
+    "message.decisions.created": "Decisions has been created successfully",
+    "message.decisions.deleted": "Decisions has been deleted successfully",
+    "message.decisions.update": "Decisions has been updated successfully",
+    "message.decisions.get": "Decisions found successfully"
+}

@@ -1,0 +1,6 @@
+{
+    "message.goals.created": "Goals has been created successfully",
+    "message.goals.deleted": "Goals has been deleted successfully",
+    "message.goals.update": "Goals has been updated successfully",
+    "message.goals.get": "Goals found successfully"
+}

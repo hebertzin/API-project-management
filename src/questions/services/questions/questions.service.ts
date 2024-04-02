@@ -3,8 +3,8 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TQuestion } from 'src/questions/types/question';
 import { UserService } from 'src/user/services/user/user.service';
 import { Questions } from '@prisma/client';
-import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
+import { i18n } from 'src/i18n';
 
 @Injectable()
 export class QuestionsService {
@@ -38,7 +38,7 @@ export class QuestionsService {
         },
       });
       if (!question) {
-        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, question_id);
+        throw new NotFoundException(i18n()['exception.notFound'], question_id);
       }
       return question;
     } catch (error) {

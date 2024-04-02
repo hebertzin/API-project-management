@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { i18n } from 'src/i18n';
 import { TeamDTO } from 'src/team/dto/team.dto';
 import { TeamService } from 'src/team/services/team/team.service';
 
@@ -23,7 +24,7 @@ export class TeamController {
     const team = await this.teamService.findTeamById(id);
 
     return res.status(200).json({
-      msg: 'team found successfully',
+      message: i18n()['message.team.get'],
       team,
     });
   }
@@ -33,7 +34,7 @@ export class TeamController {
     const createTeam = await this.teamService.createTeam(team);
 
     return res.status(201).json({
-      msg: 'team successfully created',
+      message: i18n()['message.team.created'],
       team: createTeam,
     });
   }
@@ -42,7 +43,7 @@ export class TeamController {
   async delete(@Param('id') id: string, @Res() res: Response) {
     await this.teamService.findTeamByIdAnDelete(id);
     return res.status(200).json({
-      msg: 'team deleted successfully',
+      message: i18n()['message.team.deleted'],
     });
   }
 
@@ -55,7 +56,7 @@ export class TeamController {
     const updateTeam = await this.teamService.findTeamByIdAndUpdate(id, data);
 
     return res.status(200).json({
-      msg: 'team updated successfully',
+      message: i18n()['message.team.update'],
       updateTeam,
     });
   }

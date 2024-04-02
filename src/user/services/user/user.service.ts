@@ -7,9 +7,10 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
 import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
-import { Errors } from 'src/helpers/errors';
 import { HashService } from 'src/hash/service/hash/hash.service';
 import { LoggerService } from 'src/logger/logger.service';
+
+import { i18n } from 'src/i18n';
 
 @Injectable()
 export class UserService {
@@ -35,7 +36,7 @@ export class UserService {
       return user;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, user_id);
+        throw new ConflictException(i18n()['message.user.notFound'], user_id);
       }
 
       throw new Error(
@@ -59,7 +60,7 @@ export class UserService {
       return user;
     } catch (error) {
       if (error instanceof ConflictException) {
-        throw new ConflictException(Errors.RESOURCE_ALREADY_EXISTS, email);
+        throw new ConflictException(i18n()['message.user.conflict'], email);
       }
 
       this.logger.error(`some error ocurred : ${error.message}`);
@@ -69,6 +70,7 @@ export class UserService {
 
   async createUser(user: TUser): Promise<User> {
     try {
+      this.logger.warn('virify if user already exist');
       await this.findUserByEmail(user.email);
 
       const hashPassword = await this.hash.generateHash(user.password);
@@ -79,6 +81,7 @@ export class UserService {
         },
       });
 
+      this.logger.log('send email to confirm account...');
       await this.sendEmail.sendEmailService(createNewUser.email);
 
       return createNewUser;

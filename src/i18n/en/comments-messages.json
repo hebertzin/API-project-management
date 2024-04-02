@@ -1,0 +1,6 @@
+{
+    "message.comment.created": "Comment has been created successfully",
+    "message.comment.deleted": "Comment has been deleted successfully",
+    "message.comment.update": "Comment has been updated successfully",
+    "message.comment.get": "Comment found successfully"
+}

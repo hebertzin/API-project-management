@@ -1,0 +1,8 @@
+{
+    "message.project.created": "Project has been created successfully",
+    "message.project.deleted": "Project has been deleted successfully",
+    "message.project.update": "Project has been updated successfully",
+    "message.project.get": "Project found successfully",
+    "message.project.userId": "All projects found successfully",
+    "message.project.priority": "All projects found by priority"
+}

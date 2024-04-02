@@ -1,0 +1,7 @@
+{
+    "message.question.created": "Question has been created successfully",
+    "message.question.deleted": "Question has been deleted successfully",
+    "message.question.update": "Question has been updated successfully",
+    "message.question.get": "Question found successfully",
+    "message.question.userId": "All Questions found successfully"
+}
