@@ -17,16 +17,17 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { i18n } from 'src/i18n';
 
 @ApiTags('Project-idea')
 @Controller('projectIdea')
 export class ProjectIdeaController {
   constructor(private projectIdeaService: ProjectIdeaService) {}
 
-  @ApiResponse({ status: 200, description: 'Project idea found successfully' })
+  @ApiResponse({ status: 200, description: i18n()['message.projectIdea.get'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project idea does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -37,18 +38,18 @@ export class ProjectIdeaController {
     const projectIdea = await this.projectIdeaService.findProjectIdeaById(id);
 
     return res.status(200).json({
-      message: 'project idea',
+      message: i18n()['message.projectIdea.get'],
       projectIdea,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'All projects idea found successfully',
+    description: i18n()['message.projectIdea.userId'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -63,18 +64,18 @@ export class ProjectIdeaController {
       await this.projectIdeaService.findAllProjectIdeas(userId);
 
     return res.status(200).json({
-      message: 'all projects ideas are here',
+      message: i18n()['message.projectIdea.userId'],
       allProjectsIdeas,
     });
   }
 
   @ApiResponse({
     status: 201,
-    description: 'project idea created successfully',
+    description: i18n()['message.projectIdea.created'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -89,18 +90,18 @@ export class ProjectIdeaController {
       await this.projectIdeaService.createProjectIdea(createProjectIdea);
 
     return res.status(201).json({
-      message: 'project idea created sucessfuly',
+      message: i18n()['message.projectIdea.created'],
       projectIdea: createIdea,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'project idea updated successfully',
+    description: i18n()['message.projectIdea.update'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user or project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -118,18 +119,18 @@ export class ProjectIdeaController {
     );
 
     return res.status(200).json({
-      message: 'project idea was updated',
+      message: i18n()['message.projectIdea.update'],
       update: updateIdea,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'project idea delete successfully',
+    description: i18n()['message.projectIdea.deleted'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : project idea does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -140,7 +141,7 @@ export class ProjectIdeaController {
     await this.projectIdeaService.DeleteProjectIdea(id);
 
     return res.status(200).json({
-      message: 'project idea was deleted',
+      message: i18n()['message.projectIdea.deleted'],
     });
   }
 }

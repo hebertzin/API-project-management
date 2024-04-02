@@ -1,0 +1,13 @@
+{
+    "exception.badRequest": "The server could not understand the request due to invalid syntax.",
+    "exception.conflict": "The request could not be completed due to a conflict with the current state of the resource.",
+    "exception.deleteError": "The requested resource could not be deleted. Please check your request.",
+    "exception.emptyBody": "The request body is empty. Please provide the necessary data.",
+    "exception.forbidden": "You do not have permission to access the requested resource.",
+    "exception.notFound": "The requested resource could not be found. Please check your request.",
+    "exception.serverError": "The server encountered an error while processing the request.",
+    "exception.tokenExpired": "The provided token has expired. Please refresh your token.",
+    "exception.tokenMalformed": "The provided token is malformed. Please check your token.",
+    "exception.tokenNotProvided": "No authentication token provided. Please include a token in your request.",
+    "exception.tokenVerify": "An error occurred while verifying the token. Please check your token."
+}

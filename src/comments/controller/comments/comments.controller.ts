@@ -18,16 +18,17 @@ import {
 import { Response } from 'express';
 import { CommentDTO } from 'src/comments/dto/comments.dto';
 import { CommentsService } from 'src/comments/services/comments/comments.service';
+import { i18n } from 'src/i18n';
 
 @ApiTags('Comments')
 @Controller('comments')
 export class CommentsController {
   constructor(private commentsServices: CommentsService) {}
 
-  @ApiResponse({ status: 200, description: 'comment found successfully' })
+  @ApiResponse({ status: 200, description: i18n()['message.comment.get'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : comment dos not exist',
+    description: 'Bad Request ',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -38,15 +39,15 @@ export class CommentsController {
     const commentFound = await this.commentsServices.findCommentById(id);
 
     return res.status(200).json({
-      message: 'comment found successfully',
+      message: i18n()['message.comment.get'],
       comment: commentFound,
     });
   }
 
-  @ApiResponse({ status: 201, description: 'comment created successfully' })
+  @ApiResponse({ status: 201, description: i18n()['message.comment.created'] })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : userID or postId or questionID does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -58,12 +59,12 @@ export class CommentsController {
       await this.commentsServices.createComment(commentDTO);
 
     return res.status(201).json({
-      message: 'comment created successfully',
+      message: i18n()['message.comment.created'],
       comment: commentCreated,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'comment updated successfully' })
+  @ApiResponse({ status: 200, description: i18n()['message.comment.update'] })
   @ApiBadRequestResponse({
     status: 400,
     description: 'Bad Request : user or post or question does not exist',
@@ -84,12 +85,12 @@ export class CommentsController {
     );
 
     return res.status(200).json({
-      message: 'comement update sucessfully',
+      message: i18n()['message.comment.update'],
       comment: updated,
     });
   }
 
-  @ApiResponse({ status: 200, description: 'comment deleted successfully' })
+  @ApiResponse({ status: 200, description: i18n()['message.comment.deleted'] })
   @ApiBadRequestResponse({
     status: 400,
     description: 'Bad Request : comment does not exist',
@@ -103,7 +104,7 @@ export class CommentsController {
     await this.commentsServices.findByIdAndDeleteComment(id);
 
     return res.status(200).json({
-      msg: 'comment deleted',
+      message: i18n()['message.comment.deleted'],
     });
   }
 }

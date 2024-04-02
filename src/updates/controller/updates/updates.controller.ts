@@ -15,6 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { i18n } from 'src/i18n';
 import { UpdateDTO } from 'src/updates/dto/update.dto';
 import { UpdatesService } from 'src/updates/services/updates/updates.service';
 
@@ -25,7 +26,7 @@ export class UpdatesController {
 
   @ApiResponse({
     status: 200,
-    description: 'Update found successfully',
+    description: i18n()['message.updates.get'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -40,18 +41,18 @@ export class UpdatesController {
     const updateFound = await this.updateService.findUpdateById(id);
 
     return res.status(200).json({
-      msg: 'updated found successfully',
+      message: i18n()['message.updates.get'],
       updateFound,
     });
   }
 
   @ApiResponse({
     status: 201,
-    description: 'Update create successfully',
+    description: i18n()['message.updates.created'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user or project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -66,18 +67,18 @@ export class UpdatesController {
       await this.updateService.createUpdateToProject(createUpdateProject);
 
     return res.status(200).json({
-      msg: 'update created successfully',
+      message: i18n()['message.updates.created'],
       update,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'Update projects updated successfully',
+    description: i18n()['message.updates.update'],
   })
   @ApiBadRequestResponse({
     status: 400,
-    description: 'Bad Request : user or project does not exist',
+    description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
     status: 500,
@@ -94,14 +95,14 @@ export class UpdatesController {
       updateData,
     );
     return res.status(200).json({
-      msg: 'update edit successfully',
+      message: i18n()['message.updates.update'],
       updated: editUpdateProject,
     });
   }
 
   @ApiResponse({
     status: 200,
-    description: 'Update  deleted successfully',
+    description: i18n()['message.updates.deleted'],
   })
   @ApiBadRequestResponse({
     status: 400,
@@ -115,7 +116,7 @@ export class UpdatesController {
   async deleteUpdate(@Param('id') id: string, @Res() res: Response) {
     await this.updateService.findByIdAndDeleteUpdate(id);
     return res.status(200).json({
-      msg: 'delete sucessfully',
+      message: i18n()['message.updates.deleted'],
     });
   }
 }

@@ -3,16 +3,19 @@ import { PrismaService } from 'src/database/prisma.service';
 import { Project } from 'src/projects/types';
 import { UserService } from 'src/user/services/user/user.service';
 import { Projects } from '@prisma/client';
-import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
+import { i18n } from '../../../i18n/index';
+import { ControllerCore } from 'src/core/controller.core';
 
 @Injectable()
-export class ProjectsService {
+export class ProjectsService extends ControllerCore {
   constructor(
     private prismaService: PrismaService,
     private userService: UserService,
     private logger: LoggerService,
-  ) {}
+  ) {
+    super();
+  }
 
   async checkProjectExistence(project_id: string): Promise<Projects | null> {
     try {
@@ -29,7 +32,9 @@ export class ProjectsService {
       return project;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, project_id);
+        const messsage = this.getMessage(i18n()['exception.notFound']);
+
+        throw new NotFoundException(messsage.message, project_id);
       }
       this.logger.error(
         `some error ocurred checking project existence : ${error.message}`,

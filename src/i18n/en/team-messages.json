@@ -1,0 +1,6 @@
+{
+    "message.team.created": "Team has been created successfully",
+    "message.team.deleted": "Team has been deleted successfully",
+    "message.team.update": "Team has been updated successfully",
+    "message.team.get": "Team found successfully"
+}

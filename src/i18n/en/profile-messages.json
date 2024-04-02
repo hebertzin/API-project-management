@@ -1,0 +1,6 @@
+{
+    "message.profile.created": "Profile has been created successfully",
+    "message.profile.deleted": "Profile has been deleted successfully",
+    "message.profile.update": "Profile has been updated successfully",
+    "message.profile.get": "Profile found successfully"
+}

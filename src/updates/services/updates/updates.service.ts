@@ -4,8 +4,8 @@ import { ProjectsService } from 'src/projects/services/projects/projects.service
 import { TUpdate } from 'src/updates/types/updates';
 import { UserService } from 'src/user/services/user/user.service';
 import { Updates } from '@prisma/client';
-import { Errors } from 'src/helpers/errors';
 import { LoggerService } from 'src/logger/logger.service';
+import { i18n } from 'src/i18n';
 
 @Injectable()
 export class UpdatesService {
@@ -46,7 +46,7 @@ export class UpdatesService {
       return updateFound;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND, update_id);
+        throw new NotFoundException(i18n()['exception.notFound'], update_id);
       }
       this.logger.error(`some error ocurred : ${error.message}`);
       throw error;
@@ -58,6 +58,7 @@ export class UpdatesService {
     data: TUpdate,
   ): Promise<Updates> {
     try {
+      this.logger.log('verifiy if project and updates exist before update...');
       await this.userService.checkUserExistence(data.userId);
       await this.projectService.checkProjectExistence(data.projectId);
       const update = await this.prismaService.updates.update({
@@ -77,6 +78,7 @@ export class UpdatesService {
 
   async findByIdAndDeleteUpdate(update_id: string): Promise<Updates | null> {
     try {
+      await this.findUpdateById(update_id);
       return await this.prismaService.updates.delete({
         where: {
           id: update_id,

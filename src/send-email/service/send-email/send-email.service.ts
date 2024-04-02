@@ -2,7 +2,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/database/prisma.service';
-import { Errors } from 'src/helpers/errors';
+import { i18n } from 'src/i18n';
 import { LoggerService } from 'src/logger/logger.service';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class SendEmailService {
       });
 
       if (!user) {
-        throw new NotFoundException(Errors.RESOURCE_NOT_FOUND);
+        throw new NotFoundException(i18n()['message.user.notFound']);
       }
 
       await this.prismaService.user.update({
@@ -60,15 +60,15 @@ export class SendEmailService {
         },
       });
 
-      console.log('token decoded', decodedToken);
       return decodedToken;
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
-        throw new Error('Token expired');
+        throw new Error(i18n()['exception.tokenExpired']);
       }
       if (error.name === 'JsonWebTokenError') {
-        throw new Error('invalid token');
+        throw new Error(i18n()['exception.tokenMalformed']);
       }
+
       this.logger.error(`some error ocurred : ${error.message}`);
     }
   }
