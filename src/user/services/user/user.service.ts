@@ -11,6 +11,7 @@ import { HashService } from 'src/hash/service/hash/hash.service';
 import { LoggerService } from 'src/logger/logger.service';
 
 import { i18n } from 'src/i18n';
+import { AuthService } from 'src/jwt/services/jwt.service';
 
 @Injectable()
 export class UserService {
@@ -19,6 +20,7 @@ export class UserService {
     private logger: LoggerService,
     private sendEmail: SendEmailService,
     private hash: HashService,
+    private jwt: AuthService,
   ) {}
 
   async checkUserExistence(user_id: string): Promise<User | null> {
@@ -142,5 +144,21 @@ export class UserService {
       this.logger.error(`some error ocurred deleting user ${error.message}`);
       throw error;
     }
+  }
+
+  async auth(email: string, password: string) {
+    const user = await this.findUserByEmail(email);
+
+    const comparePassword = await this.hash.compare(password, user.password);
+
+    if (!comparePassword) {
+      throw new NotFoundException('password or email invalid');
+    }
+
+    const token = await this.jwt.generateToken(user.id);
+
+    return {
+      token,
+    };
   }
 }

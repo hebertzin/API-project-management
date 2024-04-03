@@ -4,6 +4,7 @@ import { UserService } from './services/user/user.service';
 import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
 import { JwtModule } from '@nestjs/jwt';
 import { HashService } from 'src/hash/service/hash/hash.service';
+import { AuthService } from 'src/jwt/services/jwt.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { HashService } from 'src/hash/service/hash/hash.service';
     }),
   ],
   controllers: [UserController],
-  providers: [UserService, SendEmailService, HashService],
+  providers: [UserService, SendEmailService, HashService, AuthService],
   exports: [UserService],
 })
 export class UserModule {}

@@ -4,9 +4,16 @@ import { FollowProjectController } from './controller/follow-project/follow-proj
 import { UserService } from 'src/user/services/user/user.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { HashService } from 'src/hash/service/hash/hash.service';
+import { AuthService } from 'src/jwt/services/jwt.service';
 
 @Module({
-  providers: [FollowProjectService, UserService, ProjectsService, HashService],
+  providers: [
+    FollowProjectService,
+    UserService,
+    ProjectsService,
+    HashService,
+    AuthService,
+  ],
   controllers: [FollowProjectController],
 })
 export class FollowProjectModule {}

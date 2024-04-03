@@ -23,7 +23,6 @@ import { LoggerModule } from './logger/logger.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TaskListProjectModule } from './task-list-project/task-list-project.module';
 import { JwtMiddleware } from './middlewares/jwt-middleware';
-import { AuthController } from './auth/controller/auth/auth.controller';
 
 @Module({
   imports: [
@@ -48,7 +47,7 @@ import { AuthController } from './auth/controller/auth/auth.controller';
     LoggerModule,
     TaskListProjectModule,
   ],
-  controllers: [AuthController],
+
   providers: [AppService],
 })
 export class AppModule implements NestModule {
@@ -56,8 +55,8 @@ export class AppModule implements NestModule {
     consumer
       .apply(JwtMiddleware)
       .exclude(
-        { path: '/login', method: RequestMethod.POST },
-        { path: '/register', method: RequestMethod.POST },
+        { path: '/user/login', method: RequestMethod.POST },
+        { path: '/user', method: RequestMethod.POST },
       )
       .forRoutes('*');
   }
