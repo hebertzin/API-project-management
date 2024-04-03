@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TeamController } from './controller/team/team.controller';
 import { TeamService } from './services/team/team.service';
-import { UserService } from 'src/user/services/user/user.service';
-import { HashService } from 'src/hash/service/hash/hash.service';
-import { AuthService } from 'src/jwt/services/jwt.service';
+import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({
+  imports: [SharedServicesModule],
   controllers: [TeamController],
-  providers: [TeamService, UserService, HashService, AuthService],
+  providers: [TeamService],
 })
 export class TeamModule {}

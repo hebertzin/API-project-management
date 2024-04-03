@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ProjectIdeaController } from './controllers/project-idea.controller';
 import { ProjectIdeaService } from './services/project-idea.service';
-import { UserService } from 'src/user/services/user/user.service';
-import { HashService } from 'src/hash/service/hash/hash.service';
-import { AuthService } from 'src/jwt/services/jwt.service';
+import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({
+  imports: [SharedServicesModule],
   controllers: [ProjectIdeaController],
-  providers: [ProjectIdeaService, UserService, HashService, AuthService],
+  providers: [ProjectIdeaService],
 })
 export class ProjectIdea {}

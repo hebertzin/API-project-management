@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ProfileController } from './controller/profile/profile.controller';
 import { ProfileService } from './services/profile/profile.service';
-import { UserService } from 'src/user/services/user/user.service';
-import { HashService } from 'src/hash/service/hash/hash.service';
-import { AuthService } from 'src/jwt/services/jwt.service';
+import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({
+  imports: [SharedServicesModule],
   controllers: [ProfileController],
-  providers: [ProfileService, UserService, HashService, AuthService],
+  providers: [ProfileService],
 })
 export class ProfileModule {}
