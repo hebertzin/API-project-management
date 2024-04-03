@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ProjectsModule } from './projects/projects.module';
@@ -16,9 +16,9 @@ import { EmailModule } from './send-email/email.module';
 import { HashModule } from './hash/hash.module';
 import { LoggerModule } from './logger/logger.module';
 import { JwtModule } from '@nestjs/jwt';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { JwtInterceptor } from './auth/auth.service';
 import { TaskListProjectModule } from './task-list-project/task-list-project.module';
+import { JwtMiddleware } from './middlewares/jwt-middleware';
+import { AuthController } from './auth/controller/auth/auth.controller';
 
 @Module({
   imports: [
@@ -43,13 +43,11 @@ import { TaskListProjectModule } from './task-list-project/task-list-project.mod
     LoggerModule,
     TaskListProjectModule,
   ],
-  controllers: [],
-  providers: [
-    AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: JwtInterceptor,
-    },
-  ],
+  controllers: [AuthController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(JwtMiddleware).forRoutes('*');
+  }
+}

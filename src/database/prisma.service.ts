@@ -8,7 +8,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   }
 
   async disconnect() {
-    await this.$on('beforeExist' as never, async (app: any) => {
+    this.$on('beforeExist' as never, async (app: any) => {
       await app.close;
     });
   }
