@@ -9,5 +9,6 @@
   "message.user.update": "User has been updated successfully",
   "message.user.get": "User found successfully",
   "message.user.notFound": "User not found",
-  "message.user.conflict": "User already exist"
+  "message.user.conflict": "User already exist",
+  "message.user.login": "User logged"
 }

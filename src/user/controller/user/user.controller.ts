@@ -113,4 +113,14 @@ export class UserController {
       user: updateUser,
     });
   }
+
+  @Post('/login')
+  async login(@Body() email: string, password: string, @Res() res: Response) {
+    const { token } = await this.userService.auth(email, password);
+
+    return res.json({
+      msg: i18n()['message.user.login'],
+      token,
+    });
+  }
 }

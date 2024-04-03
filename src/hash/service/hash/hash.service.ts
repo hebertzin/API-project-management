@@ -11,4 +11,10 @@ export class HashService {
       return error;
     }
   }
+
+  async compare(password: string, password_hash: string) {
+    const compare = await crypto.compare(password, password_hash);
+
+    return compare;
+  }
 }

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GoalsController } from './controller/goals/goals.controller';
 import { GoalsService } from './services/goals/goals.service';
-import { UserService } from 'src/user/services/user/user.service';
-import { ProjectsService } from 'src/projects/services/projects/projects.service';
-import { HashService } from 'src/hash/service/hash/hash.service';
+import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({
+  imports: [SharedServicesModule],
   controllers: [GoalsController],
-  providers: [GoalsService, UserService, ProjectsService, HashService],
+  providers: [GoalsService],
 })
 export class GoalsModule {}

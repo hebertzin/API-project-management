@@ -7,7 +7,9 @@ import {
   Post,
   Put,
   Res,
+  Req,
 } from '@nestjs/common';
+
 import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
@@ -35,7 +37,14 @@ export class CommentsController {
     description: 'Internal server error',
   })
   @Get('/:id')
-  async getCommentById(@Param('id') id: string, @Res() res: Response) {
+  async getCommentById(
+    @Param('id') id: string,
+    @Res() res: Response,
+    @Req() req,
+  ) {
+    const user = req.user;
+
+    console.log(user);
     const commentFound = await this.commentsServices.findCommentById(id);
 
     return res.status(200).json({

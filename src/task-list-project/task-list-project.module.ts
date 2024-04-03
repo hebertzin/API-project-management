@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TaskListProjectController } from './controller/task-list-project/task-list-project.controller';
 import { TaskListProjectService } from './service/task-list-project/task-list-project.service';
-import { UserService } from 'src/user/services/user/user.service';
-import { ProjectsService } from 'src/projects/services/projects/projects.service';
-import { HashService } from 'src/hash/service/hash/hash.service';
+import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({
+  imports: [SharedServicesModule],
   controllers: [TaskListProjectController],
-  providers: [
-    TaskListProjectService,
-    UserService,
-    ProjectsService,
-    HashService,
-  ],
+  providers: [TaskListProjectService],
 })
 export class TaskListProjectModule {}
