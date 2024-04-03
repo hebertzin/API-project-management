@@ -36,7 +36,7 @@ export class UserService {
       return user;
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new ConflictException(i18n()['message.user.notFound'], user_id);
+        throw new NotFoundException(i18n()['message.user.notFound'], user_id);
       }
 
       throw new Error(
