@@ -29,6 +29,7 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] Encrypt user passwords
 - [x] Send email to confirm account
 - [x] Validate email confirmation with token and change status in the database
+- [x] auth with token jwt
 - [ ] Email notifications
 - [ ] Email templates in project
 - [ ] Auth with github
@@ -54,6 +55,13 @@ I chose to develop with nestjs because it is robust and because I wanted to lear
 - [x] User can delete a project
 - [x] User can follow projects
 - [x] User can stop following projects
+
+### Project Tasks
+
+- [x] User can create a task for a project
+- [x] user can delete a task from a project
+- [x] user can update a task from a project
+- [ ] user can assign a project task to a participant
       
 ### Project ideas
 
