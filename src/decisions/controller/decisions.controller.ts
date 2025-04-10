@@ -16,7 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { DecisionDTO } from 'src/decisions/dto/decisions.dto';
-import { DecisionsService } from 'src/decisions/services/decisions/decisions.service';
+import { DecisionsService } from 'src/decisions/services/decisions.service';
 import { i18n } from 'src/i18n';
 
 @ApiTags('Decisions')
