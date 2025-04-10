@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -19,97 +20,100 @@ import {
 
 @Controller('task')
 export class TaskListProjectController {
-  constructor(private taskListService: TaskListProjectService) {}
+  constructor(private taskListService: TaskListProjectService) { }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.OK,
     description: i18n()['message.taskList.get'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
-  async findById(@Param('id') id: string, @Res() res: Response) {
-    const question = await this.taskListService.findTaskById(id);
+  @Get(':id')
+  async findById(
+    @Param('id') id: string,
+    @Res() res: Response
+  ) {
+    const taskList = await this.taskListService.findTaskById(id);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.taskList.get'],
-      question,
+      data: { taskList },
     });
   }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.OK,
     description: i18n()['message.taskList.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Post('/')
+  @Post()
   async createTask(@Body() data: any, @Res() res: Response) {
-    const question = await this.taskListService.createTaskProject(data);
+    const taskList = await this.taskListService.createTaskProject(data);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.taskList.created'],
-      question,
+      data: { taskList },
     });
   }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.OK,
     description: i18n()['message.taskList.update'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateTask(
     @Param() id: string,
     @Body() data: any,
     @Res() res: Response,
   ) {
-    const question = await this.taskListService.updateTask(id, data);
+    const taskList = await this.taskListService.updateTask(id, data);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.taskList.update'],
-      question,
+      data: { taskList },
     });
   }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.NO_CONTENT,
     description: i18n()['message.taskList.deleted'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
-  async deleteTask(@Param('id') id: string, @Res() res: Response) {
-    const question = await this.taskListService.deleteTask(id);
+  @Delete(':id')
+  async deleteTask(
+    @Param('id') id: string,
+    @Res() res: Response
+  ) {
+    await this.taskListService.deleteTask(id);
 
-    return res.status(200).json({
-      message: i18n()['message.taskList.deleted'],
-      question,
-    });
+    return res.status(HttpStatus.NO_CONTENT)
   }
 }
