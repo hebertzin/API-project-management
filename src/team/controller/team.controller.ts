@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -19,45 +20,41 @@ import { TeamService } from 'src/team/services/team.service';
 export class TeamController {
   constructor(private teamService: TeamService) {}
 
-  @Get('/:id')
+  @Get(':id')
   async findById(@Param('id') id: string, @Res() res: Response) {
     const team = await this.teamService.findTeamById(id);
-
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.team.get'],
-      team,
+      data: { team },
     });
   }
 
   @Post()
-  async create(@Body() team: TeamDTO, @Res() res: Response) {
-    const createTeam = await this.teamService.createTeam(team);
-
-    return res.status(201).json({
+  async create(@Body() teamDTO: TeamDTO, @Res() res: Response) {
+    const team = await this.teamService.createTeam(teamDTO);
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.team.created'],
-      team: createTeam,
+      data: { team },
     });
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     await this.teamService.findTeamByIdAnDelete(id);
-    return res.status(200).json({
-      message: i18n()['message.team.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT);
   }
 
-  @Put('/:id')
+  @Put(':id')
   async update(
     @Param() id: string,
     @Body() data: TeamDTO,
     @Res() res: Response,
   ) {
-    const updateTeam = await this.teamService.findTeamByIdAndUpdate(id, data);
+    const team = await this.teamService.findTeamByIdAndUpdate(id, data);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.team.update'],
-      updateTeam,
+      data: { team },
     });
   }
 }

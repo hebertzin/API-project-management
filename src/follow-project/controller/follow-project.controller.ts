@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Res,
@@ -23,18 +24,18 @@ export class FollowProjectController {
   constructor(private followProjectService: FollowProjectService) {}
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.followProject.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Post('/:projectId/follow')
+  @Post(':projectId/follow')
   async followProject(
     @Body() data: any,
     @Res() res: Response,
@@ -45,54 +46,52 @@ export class FollowProjectController {
       data.userId,
     );
 
-    return res.status(200).json({
-      msg: i18n()['message.followProject.created'],
-      follow,
+    return res.status(HttpStatus.OK).json({
+      message: i18n()['message.followProject.created'],
+      data: { follow },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.followProject.all'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:projectId/all-followers')
+  @Get(':projectId/followers')
   async allFollowers(
     @Res() res: Response,
     @Param('projectId') projectId: string,
   ) {
-    const all =
+    const followers =
       await this.followProjectService.getProjectsUserFollow(projectId);
-    return res.status(200).json({
-      msg: i18n()['message.followProject.all'],
-      all,
+    return res.status(HttpStatus.OK).json({
+      message: i18n()['message.followProject.all'],
+      data: { followers },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.NO_CONTENT,
     description: i18n()['message.followProject.deleted'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
   @Delete('/:id/stop')
   async stopFollowProject(@Res() res: Response, @Param('id') id: string) {
     await this.followProjectService.stopFollowProject(id);
-    return res.status(200).json({
-      msg: i18n()['message.followProject.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }

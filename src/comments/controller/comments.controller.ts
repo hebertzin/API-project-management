@@ -7,7 +7,7 @@ import {
   Post,
   Put,
   Res,
-  Req,
+  HttpStatus,
 } from '@nestjs/common';
 
 import {
@@ -27,93 +27,94 @@ import { i18n } from 'src/i18n';
 export class CommentsController {
   constructor(private commentsServices: CommentsService) {}
 
-  @ApiResponse({ status: 200, description: i18n()['message.comment.get'] })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: i18n()['message.comment.get'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request ',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
-  async getCommentById(
-    @Param('id') id: string,
-    @Res() res: Response,
-    @Req() req,
-  ) {
-    const user = req.user;
-
-    console.log(user);
-    const commentFound = await this.commentsServices.findCommentById(id);
-
-    return res.status(200).json({
+  @Get(':id')
+  async getCommentById(@Param('id') id: string, @Res() res: Response) {
+    const comment = await this.commentsServices.findCommentById(id);
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.comment.get'],
-      comment: commentFound,
+      data: { comment },
     });
   }
 
-  @ApiResponse({ status: 201, description: i18n()['message.comment.created'] })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: i18n()['message.comment.created'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Post('')
+  @Post()
   async create(@Body() commentDTO: CommentDTO, @Res() res: Response) {
-    const commentCreated =
-      await this.commentsServices.createComment(commentDTO);
+    const comment = await this.commentsServices.createComment(commentDTO);
 
-    return res.status(201).json({
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.comment.created'],
-      comment: commentCreated,
+      data: { comment },
     });
   }
 
-  @ApiResponse({ status: 200, description: i18n()['message.comment.update'] })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: i18n()['message.comment.update'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request : user or post or question does not exist',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateComment(
     @Param('id') id: string,
     @Body() commentDTO: CommentDTO,
     @Res() res: Response,
   ) {
-    const updated = await this.commentsServices.findByIdAndUpdateComment(
+    const comment = await this.commentsServices.findByIdAndUpdateComment(
       id,
       commentDTO,
     );
 
-    return res.status(200).json({
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.comment.update'],
-      comment: updated,
+      data: { comment },
     });
   }
 
-  @ApiResponse({ status: 200, description: i18n()['message.comment.deleted'] })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: i18n()['message.comment.deleted'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request : comment does not exist',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
+  @Delete(':id')
   async deleteComment(@Param('id') id: string, @Res() res: Response) {
     await this.commentsServices.findByIdAndDeleteComment(id);
 
-    return res.status(200).json({
-      message: i18n()['message.comment.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }

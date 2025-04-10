@@ -7,6 +7,7 @@ import {
   Res,
   Post,
   Put,
+  HttpStatus,
 } from '@nestjs/common';
 import { GoalsService } from 'src/goals/services/goals.service';
 import { Response } from 'express';
@@ -24,82 +25,88 @@ import { i18n } from 'src/i18n';
 export class GoalsController {
   constructor(private goalsService: GoalsService) {}
 
-  @ApiResponse({ status: 200, description: i18n()['message.goals.get'] })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: i18n()['message.goals.get'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
   @Get('/:id')
   async getGoalById(@Param('id') id: string, @Body() res: Response) {
     const goal = await this.goalsService.findGoalById(id);
-
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.goals.get'],
-      goal,
+      data: { goal },
     });
   }
 
-  @ApiResponse({ status: 201, description: i18n()['message.goals.created'] })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: i18n()['message.goals.created'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Post('')
+  @Post()
   async createGoal(@Body() goals: GoalDTO, @Res() res: Response) {
-    const create = await this.goalsService.createGoal(goals);
-
-    return res.status(200).json({
+    const goal = await this.goalsService.createGoal(goals);
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.goals.created'],
-      create,
+      data: { goal },
     });
   }
 
-  @ApiResponse({ status: 200, description: i18n()['message.goals.update'] })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: i18n()['message.goals.update'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateGoal(
     @Param('id') id: string,
     @Body() goals: GoalDTO,
     @Res() res: Response,
   ) {
-    const update = await this.goalsService.findGoalByIdAndUpdate(id, goals);
-
-    return res.status(200).json({
+    const goal = await this.goalsService.findGoalByIdAndUpdate(id, goals);
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.goals.update'],
-      update,
+      data: { goal },
     });
   }
 
-  @ApiResponse({ status: 200, description: i18n()['message.goals.deleted'] })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: i18n()['message.goals.deleted'],
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
+  @Delete(':id')
   async deleteGoal(@Param('id') id: string, @Res() res: Response) {
     await this.goalsService.findGoalByIdAndDelete(id);
-
-    return res.status(200).json({
-      message: i18n()['message.goals.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }

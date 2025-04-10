@@ -1,4 +1,4 @@
-import { Controller, Headers, Post, Res } from '@nestjs/common';
+import { Controller, Headers, HttpStatus, Post, Res } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
@@ -14,18 +14,18 @@ export class EmailController {
   constructor(private sendEmailConfimation: SendEmailService) {}
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: 'Confirmed email',
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request : Token expired or invalid token',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Post('/confirm')
+  @Post('confirm')
   async validateTokenEmail(
     @Headers('authorization') authorization: any,
     @Res()
@@ -36,12 +36,12 @@ export class EmailController {
 
       const decoded = await this.sendEmailConfimation.validate(token);
 
-      return res.status(200).json({
-        msg: 'Email confirmed',
-        token: decoded,
+      return res.status(HttpStatus.OK).json({
+        message: 'Email confirmed',
+        data: { decoded },
       });
     } catch (error) {
-      return res.status(400).json({
+      return res.status(HttpStatus.BAD_REQUEST).json({
         error: error.message,
       });
     }

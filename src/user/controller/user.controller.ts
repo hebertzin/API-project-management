@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -22,105 +23,112 @@ import { UserService } from 'src/user/services/user.service';
 @ApiTags('User')
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.user.get'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
-  async findUserById(@Param('id') id: string, @Res() res: Response) {
+  @Get(':id')
+  async findUserById(
+    @Param('id') id: string,
+    @Res() res: Response
+  ) {
     const user = await this.userService.findUserById(id);
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       msg: i18n()['message.user.get'],
-      user,
+      data: { user },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.CREATED,
     description: i18n()['message.user.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request : user already exist',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Post('')
-  async createUser(@Body() createUserDto: UserDto, @Res() res: Response) {
+  @Post()
+  async createUser(
+    @Body() createUserDto: UserDto,
+    @Res() res: Response
+  ) {
     const user = await this.userService.createUser(createUserDto);
-    return res.json({
+    return res.status(HttpStatus.CREATED).json({
       msg: i18n()['message.user.created'],
-      user,
+      data: { user },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.NO_CONTENT,
     description: i18n()['message.user.deleted'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request : user does not exist',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
+  @Delete(':id')
   async deleteUser(@Param('id') id: string, @Res() res: Response) {
     await this.userService.findUserByIdAndDelete(id);
-    return res.json({
-      msg: i18n()['message.user.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT)
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.user.update'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateUser(
     @Param('id') id: string,
     @Body() editUserDTO: UserDto,
     @Res() res: Response,
   ) {
-    const updateUser = await this.userService.findUserByIdAndUpdate(
+    const user = await this.userService.findUserByIdAndUpdate(
       id,
       editUserDTO,
     );
     return res.json({
       msg: i18n()['message.user.update'],
-      user: updateUser,
+      data: { user },
     });
   }
 
   @Post('/login')
-  async login(@Body() email: string, password: string, @Res() res: Response) {
+  async login(
+    @Body() email: string,
+    password: string,
+    @Res() res: Response
+  ) {
     const { token } = await this.userService.auth(email, password);
-
-    return res.json({
+    return res.status(HttpStatus.OK).json({
       msg: i18n()['message.user.login'],
-      token,
+      data: { token },
     });
   }
 }

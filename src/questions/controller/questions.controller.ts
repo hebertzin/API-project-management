@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -26,15 +27,15 @@ export class QuestionsController {
   constructor(private questionsServices: QuestionsService) {}
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: i18n()['message.question.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
   @Post()
@@ -44,103 +45,102 @@ export class QuestionsController {
   ) {
     const question =
       await this.questionsServices.createQuestion(createQuestion);
-    return res.status(201).json({
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.question.created'],
-      question,
-    });
-  }
-
-  @ApiResponse({ status: 200, description: i18n()['message.question.get'] })
-  @ApiBadRequestResponse({
-    status: 400,
-    description: 'Bad Request',
-  })
-  @ApiInternalServerErrorResponse({
-    status: 500,
-    description: 'Internal server error',
-  })
-  @Get('/:id')
-  async findById(@Param('id') id: string, @Res() res: Response) {
-    const question = await this.questionsServices.findQuestionById(id);
-
-    return res.status(200).json({
-      message: i18n()['message.question.get'],
-      question,
+      data: { question },
     });
   }
 
   @ApiResponse({
-    status: 200,
-    description: i18n()['message.question.userId'],
+    status: HttpStatus.OK,
+    description: i18n()['message.question.get'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/all/:userId')
+  @Get(':id')
+  async findById(@Param('id') id: string, @Res() res: Response) {
+    const question = await this.questionsServices.findQuestionById(id);
+
+    return res.status(HttpStatus.OK).json({
+      message: i18n()['message.question.get'],
+      data: { question },
+    });
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: i18n()['message.question.userId'],
+  })
+  @ApiBadRequestResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Bad Request',
+  })
+  @ApiInternalServerErrorResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Internal server error',
+  })
+  @Get('all/:userId')
   async findAllQuestionsUser(
     @Param('userId') userId: string,
     @Res() res: Response,
   ) {
     const question = await this.questionsServices.allQuestionsUser(userId);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.question.userId'],
-      question,
+      data: { question },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.question.update'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateQuestionById(
     @Param('id') id: string,
     @Body() updateQuestion: QuestionsDTO,
     @Res() res: Response,
   ) {
-    const questionUpdated =
-      await this.questionsServices.findQuestionByIdAndUpdate(
-        id,
-        updateQuestion,
-      );
-    return res.status(200).json({
+    const question = await this.questionsServices.findQuestionByIdAndUpdate(
+      id,
+      updateQuestion,
+    );
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.question.update'],
-      question: questionUpdated,
+      data: { question },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.NO_CONTENT,
     description: i18n()['message.question.deleted'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request : project does not exist',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
+  @Delete(':id')
   async deleteQuestionById(@Param('id') id: string, @Res() res: Response) {
     await this.questionsServices.findQuestionByIdAndDelete(id);
-
-    return res.status(200).json({
-      message: i18n()['message.question.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
