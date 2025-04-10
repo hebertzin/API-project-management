@@ -12,7 +12,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { i18n } from 'src/i18n';
 import { TeamDTO } from 'src/team/dto/team.dto';
-import { TeamService } from 'src/team/services/team/team.service';
+import { TeamService } from 'src/team/services/team.service';
 
 @ApiTags('Team')
 @Controller('team')
