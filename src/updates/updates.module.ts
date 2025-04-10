@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UpdatesController } from './controller/updates/updates.controller';
-import { UpdatesService } from './services/updates/updates.service';
+import { UpdatesController } from './controller/updates.controller';
+import { UpdatesService } from './services/updates.service';
 import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({

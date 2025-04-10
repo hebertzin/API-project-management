@@ -17,7 +17,7 @@ import {
 import { Response } from 'express';
 import { i18n } from 'src/i18n';
 import { UpdateDTO } from 'src/updates/dto/update.dto';
-import { UpdatesService } from 'src/updates/services/updates/updates.service';
+import { UpdatesService } from 'src/updates/services/updates.service';
 
 @ApiTags('Updates')
 @Controller('updates')
