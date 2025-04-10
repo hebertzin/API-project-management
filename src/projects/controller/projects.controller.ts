@@ -162,7 +162,7 @@ export class ProjectsController {
     );
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.project.update'],
-      data: { project } ,
+      data: { project },
     });
   }
 }

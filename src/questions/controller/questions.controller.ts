@@ -24,7 +24,7 @@ import { QuestionsService } from 'src/questions/services/questions.service';
 @ApiTags('Questions')
 @Controller('questions')
 export class QuestionsController {
-  constructor(private questionsServices: QuestionsService) { }
+  constructor(private questionsServices: QuestionsService) {}
 
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -53,7 +53,7 @@ export class QuestionsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: i18n()['message.question.get']
+    description: i18n()['message.question.get'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -116,11 +116,10 @@ export class QuestionsController {
     @Body() updateQuestion: QuestionsDTO,
     @Res() res: Response,
   ) {
-    const question =
-      await this.questionsServices.findQuestionByIdAndUpdate(
-        id,
-        updateQuestion,
-      );
+    const question = await this.questionsServices.findQuestionByIdAndUpdate(
+      id,
+      updateQuestion,
+    );
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.question.update'],
       data: { question },
@@ -142,6 +141,6 @@ export class QuestionsController {
   @Delete(':id')
   async deleteQuestionById(@Param('id') id: string, @Res() res: Response) {
     await this.questionsServices.findQuestionByIdAndDelete(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
