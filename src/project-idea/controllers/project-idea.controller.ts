@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -22,63 +23,69 @@ import { i18n } from 'src/i18n';
 @ApiTags('Project-idea')
 @Controller('projectIdea')
 export class ProjectIdeaController {
-  constructor(private projectIdeaService: ProjectIdeaService) {}
+  constructor(private projectIdeaService: ProjectIdeaService) { }
 
-  @ApiResponse({ status: 200, description: i18n()['message.projectIdea.get'] })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: i18n()['message.projectIdea.get']
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
-  async getProjectIdeaById(@Param('id') id: string, @Res() res: Response) {
+  @Get(':id')
+  async getProjectIdeaById(
+    @Param('id') id: string,
+    @Res() res: Response
+  ) {
     const projectIdea = await this.projectIdeaService.findProjectIdeaById(id);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.projectIdea.get'],
-      projectIdea,
+      data: { projectIdea },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.projectIdea.userId'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:userId/all')
+  @Get(':id/all')
   async getAllProjectIdea(
-    @Param('userId') userId: string,
+    @Param('id') userId: string,
     @Res() res: Response,
   ) {
-    const allProjectsIdeas =
+    const projectsIdeas =
       await this.projectIdeaService.findAllProjectIdeas(userId);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.projectIdea.userId'],
-      allProjectsIdeas,
+      data: { projectsIdeas },
     });
   }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: i18n()['message.projectIdea.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
   @Post()
@@ -86,62 +93,60 @@ export class ProjectIdeaController {
     @Body() createProjectIdea: CreateProjectIdeaDTO,
     @Res() res: Response,
   ) {
-    const createIdea =
+    const idea =
       await this.projectIdeaService.createProjectIdea(createProjectIdea);
 
-    return res.status(201).json({
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.projectIdea.created'],
-      projectIdea: createIdea,
+      data: { idea },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.projectIdea.update'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateProjectIdea(
     @Param('id') id: string,
     @Body() updateProjectIdea: CreateProjectIdeaDTO,
     @Res() res: Response,
   ) {
-    const updateIdea = await this.projectIdeaService.updateProjectIdea(
+    const idea = await this.projectIdeaService.updateProjectIdea(
       id,
       updateProjectIdea,
     );
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.projectIdea.update'],
-      update: updateIdea,
+      data: { idea },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.NO_CONTENT,
     description: i18n()['message.projectIdea.deleted'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
+  @Delete(':id')
   async deleteProjectIdea(@Param('id') id: string, @Res() res: Response) {
     await this.projectIdeaService.DeleteProjectIdea(id);
 
-    return res.status(200).json({
-      message: i18n()['message.projectIdea.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT)
   }
 }

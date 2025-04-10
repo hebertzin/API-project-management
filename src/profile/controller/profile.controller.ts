@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
@@ -13,11 +22,11 @@ import { ProfileService } from 'src/profile/services/profile.service';
 @ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: i18n()['message.profile.get']
+    description: i18n()['message.profile.get'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -28,10 +37,7 @@ export class ProfileController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async getProfile(
-    @Param('id') profile_id: string,
-    @Res() res: Response
-  ) {
+  async getProfile(@Param('id') profile_id: string, @Res() res: Response) {
     const profile = await this.profileService.findProfileById(profile_id);
 
     return res.status(HttpStatus.OK).json({
@@ -57,8 +63,7 @@ export class ProfileController {
     @Body() createProfileDTO: CreateProfileDTO,
     @Res() res: Response,
   ) {
-    const profile =
-      await this.profileService.createProfile(createProfileDTO);
+    const profile = await this.profileService.createProfile(createProfileDTO);
 
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.profile.created'],
