@@ -18,7 +18,7 @@ import { TeamService } from 'src/team/services/team.service';
 @ApiTags('Team')
 @Controller('team')
 export class TeamController {
-  constructor(private teamService: TeamService) { }
+  constructor(private teamService: TeamService) {}
 
   @Get(':id')
   async findById(@Param('id') id: string, @Res() res: Response) {
@@ -30,10 +30,7 @@ export class TeamController {
   }
 
   @Post()
-  async create(
-    @Body() teamDTO: TeamDTO,
-    @Res() res: Response
-  ) {
+  async create(@Body() teamDTO: TeamDTO, @Res() res: Response) {
     const team = await this.teamService.createTeam(teamDTO);
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.team.created'],
@@ -42,12 +39,9 @@ export class TeamController {
   }
 
   @Delete(':id')
-  async delete(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async delete(@Param('id') id: string, @Res() res: Response) {
     await this.teamService.findTeamByIdAnDelete(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 
   @Put(':id')
@@ -60,7 +54,7 @@ export class TeamController {
 
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.team.update'],
-      data: { team},
+      data: { team },
     });
   }
 }
