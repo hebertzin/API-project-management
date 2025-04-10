@@ -24,7 +24,7 @@ import { ProjectsService } from '../services/projects.service';
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectsController {
-  constructor(private projectsServices: ProjectsService) { }
+  constructor(private projectsServices: ProjectsService) {}
 
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -40,9 +40,9 @@ export class ProjectsController {
   })
   @Post()
   async create(
-    @Body() dataProjects:
-      ProjectDto, @Res()
-    res: Response
+    @Body() dataProjects: ProjectDto,
+    @Res()
+    res: Response,
   ) {
     const project = await this.projectsServices.create(dataProjects);
     return res.status(HttpStatus.CREATED).json({
@@ -64,10 +64,7 @@ export class ProjectsController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async findProjectById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async findProjectById(@Param('id') id: string, @Res() res: Response) {
     const project = await this.projectsServices.findById(id);
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.project.get'],
@@ -88,10 +85,7 @@ export class ProjectsController {
     description: 'Internal server error',
   })
   @Get('all/:userId')
-  async findAllProjects(
-    @Param('userId') userId: string,
-    @Res() res: Response
-  ) {
+  async findAllProjects(@Param('userId') userId: string, @Res() res: Response) {
     const allProjectsUsers =
       await this.projectsServices.findAllProjectsUser(userId);
     return res.status(HttpStatus.OK).json({
@@ -117,10 +111,11 @@ export class ProjectsController {
     @Query('priority') priority: string,
     @Res() res: Response,
   ) {
-    const project = await this.projectsServices.findProjectsByPriority(priority);
+    const project =
+      await this.projectsServices.findProjectsByPriority(priority);
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.project.priority'],
-      data: { project }
+      data: { project },
     });
   }
   @ApiResponse({
@@ -155,7 +150,7 @@ export class ProjectsController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async updateProjectById(
     @Param('id') id: string,
     @Body() dataProject: ProjectDto,
@@ -167,7 +162,7 @@ export class ProjectsController {
     );
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.project.update'],
-      project,
+      data: { project } ,
     });
   }
 }
