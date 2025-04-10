@@ -21,7 +21,7 @@ import { i18n } from 'src/i18n';
 @ApiTags('Follow-project')
 @Controller('follow-project')
 export class FollowProjectController {
-  constructor(private followProjectService: FollowProjectService) { }
+  constructor(private followProjectService: FollowProjectService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
@@ -92,6 +92,6 @@ export class FollowProjectController {
   @Delete('/:id/stop')
   async stopFollowProject(@Res() res: Response, @Param('id') id: string) {
     await this.followProjectService.stopFollowProject(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
