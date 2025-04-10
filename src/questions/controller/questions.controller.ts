@@ -18,7 +18,7 @@ import { Response } from 'express';
 import { i18n } from '../../../i18n';
 
 import { QuestionsDTO } from 'src/questions/dto/questions.dto';
-import { QuestionsService } from 'src/questions/services/questions/questions.service';
+import { QuestionsService } from 'src/questions/services/questions.service';
 
 @ApiTags('Questions')
 @Controller('questions')
