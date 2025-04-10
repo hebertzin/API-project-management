@@ -1,20 +1,20 @@
-## Descrição
+##Description
 
-Descreva brevemente as alterações introduzidas por este pull request.
+Briefly describe the changes made by this pull request.
 
-## Tipo de Mudança
+## Change Type
 
-Marque as opções relevantes.
+Please check the relevant boxes.
 
-- [ ] Correção de bug
-- [ ] Nova funcionalidade
-- [ ] Melhoria de desempenho
-- [ ] outro, explique as melhorias ou correções.
+- [ ] Bug fix
+- [ ] New functionality
+- [ ] Performance improvement
+- [ ] Other, explain the improvements or fixes.
 
-## Verificação
+## Verification
 
-- [ ] Eu verifiquei se há conflitos com a branch de destino
+- [ ] I have checked for conflicts with the target branch
 
-## Comentários Adicionais
+## Additional Comments
 
-Forneça quaisquer comentários adicionais ou informações relevantes.
+Please provide any additional comments or relevant information.
