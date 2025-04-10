@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
+import { SendEmailService } from 'src/send-email/service/send-email.service';
 
 @ApiTags('confirm-account')
 @Controller('email')
