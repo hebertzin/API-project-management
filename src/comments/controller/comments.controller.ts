@@ -25,7 +25,7 @@ import { i18n } from 'src/i18n';
 @ApiTags('Comments')
 @Controller('comments')
 export class CommentsController {
-  constructor(private commentsServices: CommentsService) { }
+  constructor(private commentsServices: CommentsService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
@@ -40,10 +40,7 @@ export class CommentsController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async getCommentById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async getCommentById(@Param('id') id: string, @Res() res: Response) {
     const comment = await this.commentsServices.findCommentById(id);
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.comment.get'],

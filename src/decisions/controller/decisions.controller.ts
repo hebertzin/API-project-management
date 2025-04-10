@@ -23,7 +23,7 @@ import { i18n } from 'src/i18n';
 @ApiTags('Decisions')
 @Controller('decisions')
 export class DecisionsController {
-  constructor(private decisionService: DecisionsService) { }
+  constructor(private decisionService: DecisionsService) {}
 
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -63,10 +63,7 @@ export class DecisionsController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async findDecisionById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async findDecisionById(@Param('id') id: string, @Res() res: Response) {
     const decision = await this.decisionService.findDecisionById(id);
 
     return res.status(HttpStatus.OK).json({
@@ -88,12 +85,9 @@ export class DecisionsController {
     description: 'Internal server error',
   })
   @Delete(':id')
-  async findByIdAndDelete(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async findByIdAndDelete(@Param('id') id: string, @Res() res: Response) {
     await this.decisionService.findDecisionByIdAndDelete(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 
   @ApiResponse({
@@ -121,7 +115,7 @@ export class DecisionsController {
 
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.decisions.update'],
-      data: { decision }
+      data: { decision },
     });
   }
 }
