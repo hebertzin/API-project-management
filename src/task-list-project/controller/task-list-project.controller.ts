@@ -8,7 +8,7 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { TaskListProjectService } from 'src/task-list-project/service/task-list-project/task-list-project.service';
+import { TaskListProjectService } from 'src/task-list-project/service/task-list-project.service';
 import { Response } from 'express';
 import { i18n } from 'src/i18n';
 import {
