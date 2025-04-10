@@ -20,7 +20,7 @@ import {
 
 @Controller('task')
 export class TaskListProjectController {
-  constructor(private taskListService: TaskListProjectService) { }
+  constructor(private taskListService: TaskListProjectService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
@@ -35,10 +35,7 @@ export class TaskListProjectController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async findById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async findById(@Param('id') id: string, @Res() res: Response) {
     const taskList = await this.taskListService.findTaskById(id);
 
     return res.status(HttpStatus.OK).json({
@@ -108,12 +105,9 @@ export class TaskListProjectController {
     description: 'Internal server error',
   })
   @Delete(':id')
-  async deleteTask(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async deleteTask(@Param('id') id: string, @Res() res: Response) {
     await this.taskListService.deleteTask(id);
 
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
