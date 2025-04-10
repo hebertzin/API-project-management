@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
@@ -13,37 +13,43 @@ import { ProfileService } from 'src/profile/services/profile.service';
 @ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService) { }
 
-  @ApiResponse({ status: 200, description: i18n()['message.profile.get'] })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: i18n()['message.profile.get']
+  })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
-  async getProfile(@Param('id') profile_id: string, @Res() res: Response) {
+  @Get(':id')
+  async getProfile(
+    @Param('id') profile_id: string,
+    @Res() res: Response
+  ) {
     const profile = await this.profileService.findProfileById(profile_id);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.profile.get'],
-      profile,
+      data: { profile },
     });
   }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: i18n()['message.profile.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
   @Post()
@@ -51,40 +57,40 @@ export class ProfileController {
     @Body() createProfileDTO: CreateProfileDTO,
     @Res() res: Response,
   ) {
-    const createProfile =
+    const profile =
       await this.profileService.createProfile(createProfileDTO);
 
-    return res.status(201).json({
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.profile.created'],
-      profile: createProfile,
+      data: { profile },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.profile.update'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async upateProfile(
     @Param('id') profile_id: string,
     @Body() updateProfile: CreateProfileDTO,
     @Res() res: Response,
   ) {
-    const update = await this.profileService.findProfileByIdAndUpdate(
+    const profile = await this.profileService.findProfileByIdAndUpdate(
       profile_id,
       updateProfile,
     );
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.profile.update'],
-      update,
+      data: { profile },
     });
   }
 }

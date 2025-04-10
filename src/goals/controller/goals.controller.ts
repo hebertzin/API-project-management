@@ -23,11 +23,11 @@ import { i18n } from 'src/i18n';
 @ApiTags('Goals')
 @Controller('goals')
 export class GoalsController {
-  constructor(private goalsService: GoalsService) { }
+  constructor(private goalsService: GoalsService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: i18n()['message.goals.get']
+    description: i18n()['message.goals.get'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -38,10 +38,7 @@ export class GoalsController {
     description: 'Internal server error',
   })
   @Get('/:id')
-  async getGoalById(
-    @Param('id') id: string,
-    @Body() res: Response
-  ) {
+  async getGoalById(@Param('id') id: string, @Body() res: Response) {
     const goal = await this.goalsService.findGoalById(id);
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.goals.get'],
@@ -51,7 +48,7 @@ export class GoalsController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: i18n()['message.goals.created']
+    description: i18n()['message.goals.created'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -62,10 +59,7 @@ export class GoalsController {
     description: 'Internal server error',
   })
   @Post()
-  async createGoal(
-    @Body() goals: GoalDTO,
-    @Res() res: Response
-  ) {
+  async createGoal(@Body() goals: GoalDTO, @Res() res: Response) {
     const goal = await this.goalsService.createGoal(goals);
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.goals.created'],
@@ -75,7 +69,7 @@ export class GoalsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: i18n()['message.goals.update']
+    description: i18n()['message.goals.update'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -100,7 +94,7 @@ export class GoalsController {
 
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
-    description: i18n()['message.goals.deleted']
+    description: i18n()['message.goals.deleted'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -111,11 +105,8 @@ export class GoalsController {
     description: 'Internal server error',
   })
   @Delete(':id')
-  async deleteGoal(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async deleteGoal(@Param('id') id: string, @Res() res: Response) {
     await this.goalsService.findGoalByIdAndDelete(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
