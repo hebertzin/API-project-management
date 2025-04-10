@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FollowProjectService } from './follow-project.service';
+import { FollowProjectService } from '../follow-project.service';
 
 describe('FollowProjectService', () => {
   let service: FollowProjectService;

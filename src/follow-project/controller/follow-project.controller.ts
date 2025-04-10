@@ -7,7 +7,7 @@ import {
   Post,
   Res,
 } from '@nestjs/common';
-import { FollowProjectService } from 'src/follow-project/service/follow-project/follow-project.service';
+import { FollowProjectService } from 'src/follow-project/service/follow-project.service';
 import { Response } from 'express';
 import {
   ApiBadRequestResponse,
