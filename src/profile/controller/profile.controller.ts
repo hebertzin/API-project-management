@@ -8,7 +8,7 @@ import {
 import { Response } from 'express';
 import { i18n } from 'src/i18n';
 import { CreateProfileDTO } from 'src/profile/dto/create-profile.dto';
-import { ProfileService } from 'src/profile/services/profile/profile.service';
+import { ProfileService } from 'src/profile/services/profile.service';
 
 @ApiTags('Profile')
 @Controller('profile')
