@@ -10,7 +10,6 @@ import {
   Res,
 } from '@nestjs/common';
 import { ProjectDto } from 'src/projects/dto/project.dto';
-import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { Response } from 'express';
 import {
   ApiBadRequestResponse,
@@ -19,6 +18,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { i18n } from 'src/i18n';
+import { ProjectsService } from '../services/projects.service';
 
 @ApiTags('Projects')
 @Controller('/projects')

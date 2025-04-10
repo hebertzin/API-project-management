@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CommentsController } from '../comments.controller';
 import { CommentsService } from 'src/comments/services/comments.service';
+import { CommentsController } from './comments.controller';
 
 describe('CommentsController', () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

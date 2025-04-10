@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { TUpdate } from 'src/updates/types/updates';
 import { UserService } from 'src/user/services/user.service';
 import { Updates } from '@prisma/client';
 import { LoggerService } from 'src/logger/logger.service';
 import { i18n } from 'src/i18n';
+import { ProjectsService } from 'src/projects/services/projects.service';
 
 @Injectable()
 export class UpdatesService {

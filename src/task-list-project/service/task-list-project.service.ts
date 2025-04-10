@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { i18n } from 'src/i18n';
 import { LoggerService } from 'src/logger/logger.service';
-import { ProjectsService } from 'src/projects/services/projects/projects.service';
+import { ProjectsService } from 'src/projects/services/projects.service';
 import { TaskListProject } from 'src/task-list-project/types';
 import { UserService } from 'src/user/services/user.service';
 
