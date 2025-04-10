@@ -29,7 +29,7 @@ export class CommentsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: i18n()['message.comment.get']
+    description: i18n()['message.comment.get'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -39,10 +39,10 @@ export class CommentsController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
+  @Get(':id')
   async getCommentById(
     @Param('id') id: string,
-    @Res() res: Response,
+    @Res() res: Response
   ) {
     const comment = await this.commentsServices.findCommentById(id);
     return res.status(HttpStatus.OK).json({
@@ -53,7 +53,7 @@ export class CommentsController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: i18n()['message.comment.created']
+    description: i18n()['message.comment.created'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -64,12 +64,8 @@ export class CommentsController {
     description: 'Internal server error',
   })
   @Post()
-  async create(
-    @Body() commentDTO: CommentDTO,
-    @Res() res: Response
-  ) {
-    const comment =
-      await this.commentsServices.createComment(commentDTO);
+  async create(@Body() commentDTO: CommentDTO, @Res() res: Response) {
+    const comment = await this.commentsServices.createComment(commentDTO);
 
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.comment.created'],
@@ -79,7 +75,7 @@ export class CommentsController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: i18n()['message.comment.update']
+    description: i18n()['message.comment.update'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -108,7 +104,7 @@ export class CommentsController {
 
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
-    description: i18n()['message.comment.deleted']
+    description: i18n()['message.comment.deleted'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -119,10 +115,7 @@ export class CommentsController {
     description: 'Internal server error',
   })
   @Delete(':id')
-  async deleteComment(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async deleteComment(@Param('id') id: string, @Res() res: Response) {
     await this.commentsServices.findByIdAndDeleteComment(id);
 
     return res.status(HttpStatus.NO_CONTENT);

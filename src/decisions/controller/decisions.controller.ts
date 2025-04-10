@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -22,18 +23,18 @@ import { i18n } from 'src/i18n';
 @ApiTags('Decisions')
 @Controller('decisions')
 export class DecisionsController {
-  constructor(private decisionService: DecisionsService) {}
+  constructor(private decisionService: DecisionsService) { }
 
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: i18n()['message.decisions.created'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
   @Post()
@@ -41,83 +42,86 @@ export class DecisionsController {
     @Body() createDecision: DecisionDTO,
     @Res() res: Response,
   ) {
-    const desicion = await this.decisionService.create(createDecision);
+    const decision = await this.decisionService.create(createDecision);
 
-    return res.status(201).json({
+    return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.decisions.created'],
-      desicion,
+      data: { decision },
     });
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.decisions.get'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Get('/:id')
-  async findDecisionById(@Param('id') id: string, @Res() res: Response) {
+  @Get(':id')
+  async findDecisionById(
+    @Param('id') id: string,
+    @Res() res: Response
+  ) {
     const decision = await this.decisionService.findDecisionById(id);
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.decisions.get'],
       decision,
     });
   }
 
   @ApiResponse({
-    status: 200,
-    description: i18n()['message.decisions.deleted'],
+    status: HttpStatus.NO_CONTENT,
+    description: i18n()['message.decisions.get'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Delete('/:id')
-  async findByIdAndDelete(@Param('id') id: string, @Res() res: Response) {
+  @Delete(':id')
+  async findByIdAndDelete(
+    @Param('id') id: string,
+    @Res() res: Response
+  ) {
     await this.decisionService.findDecisionByIdAndDelete(id);
-
-    return res.status(200).json({
-      message: i18n()['message.decisions.deleted'],
-    });
+    return res.status(HttpStatus.NO_CONTENT)
   }
 
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: i18n()['message.decisions.update'],
   })
   @ApiBadRequestResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad Request',
   })
   @ApiInternalServerErrorResponse({
-    status: 500,
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: 'Internal server error',
   })
-  @Put('/:id')
+  @Put(':id')
   async findDecisionByIdAndUpdate(
     @Param('id') id: string,
-    @Body() decision: DecisionDTO,
+    @Body() decisionDTO: DecisionDTO,
     @Res() res: Response,
   ) {
-    const updateDecision = await this.decisionService.findDecisionByIdAndUpdate(
+    const decision = await this.decisionService.findDecisionByIdAndUpdate(
       id,
-      decision,
+      decisionDTO,
     );
 
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
       message: i18n()['message.decisions.update'],
-      decision: updateDecision,
+      data: { decision }
     });
   }
 }
