@@ -7,7 +7,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { TUser } from 'src/user/ultils/types';
 import { User } from '@prisma/client';
 import { SendEmailService } from 'src/send-email/service/send-email/send-email.service';
-import { HashService } from 'src/hash/service/hash/hash.service';
+import { HashService } from 'src/hash/service/hash.service';
 import { LoggerService } from 'src/logger/logger.service';
 
 import { i18n } from 'src/i18n';
