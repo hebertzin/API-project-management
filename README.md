@@ -115,12 +115,4 @@ I also provided a diagram where all the tables and relationships are.
 It's been a challenging project and good for my evolution as a developer, I'm facing several
 challenges, solving them and acquiring a lot of knowledge.
 
-### contact
-
-**email**: hebertsantosdeveloper@gmail.com
-
-**linkedin**: [https://www.linkedin.com/in/hebert-santos-241429243/](https://www.linkedin.com/in/hebert-santos-241429243/)
-
-**site** : [https://ihebert.vercel.app/](https://ihebert.vercel.app/)
-
   
