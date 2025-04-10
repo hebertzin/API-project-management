@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Comment } from 'src/comments/types/comments';
 import { PrismaService } from 'src/database/prisma.service';
-import { UserService } from 'src/user/services/user/user.service';
+import { UserService } from 'src/user/services/user.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { Comments } from '@prisma/client';
 import { LoggerService } from 'src/logger/logger.service';

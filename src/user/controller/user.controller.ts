@@ -17,7 +17,7 @@ import {
 import { Response } from 'express';
 import { i18n } from 'src/i18n';
 import { UserDto } from 'src/user/dto/user.dto';
-import { UserService } from 'src/user/services/user/user.service';
+import { UserService } from 'src/user/services/user.service';
 
 @ApiTags('User')
 @Controller('/user')

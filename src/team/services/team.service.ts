@@ -4,7 +4,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { i18n } from 'src/i18n';
 import { LoggerService } from 'src/logger/logger.service';
 import { TTeam } from 'src/team/types/team';
-import { UserService } from 'src/user/services/user/user.service';
+import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
 export class TeamService {

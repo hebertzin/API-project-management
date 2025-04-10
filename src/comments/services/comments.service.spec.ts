@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommentsService } from '../comments.service';
-import { UserService } from 'src/user/services/user/user.service';
+import { UserService } from 'src/user/services/user.service';
 import { PrismaService } from 'src/database/prisma.service';
 import { HashService } from 'src/hash/service/hash.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';

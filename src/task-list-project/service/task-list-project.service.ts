@@ -4,7 +4,7 @@ import { i18n } from 'src/i18n';
 import { LoggerService } from 'src/logger/logger.service';
 import { ProjectsService } from 'src/projects/services/projects/projects.service';
 import { TaskListProject } from 'src/task-list-project/types';
-import { UserService } from 'src/user/services/user/user.service';
+import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
 export class TaskListProjectService {
