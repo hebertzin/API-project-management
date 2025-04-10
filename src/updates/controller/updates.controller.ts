@@ -23,7 +23,7 @@ import { UpdatesService } from 'src/updates/services/updates.service';
 @ApiTags('Updates')
 @Controller('updates')
 export class UpdatesController {
-  constructor(private updateService: UpdatesService) { }
+  constructor(private updateService: UpdatesService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
@@ -38,10 +38,7 @@ export class UpdatesController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async getUpdateById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async getUpdateById(@Param('id') id: string, @Res() res: Response) {
     const update = await this.updateService.findUpdateById(id);
 
     return res.status(HttpStatus.OK).json({
@@ -119,6 +116,6 @@ export class UpdatesController {
   @Delete(':id')
   async deleteUpdate(@Param('id') id: string, @Res() res: Response) {
     await this.updateService.findByIdAndDeleteUpdate(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
