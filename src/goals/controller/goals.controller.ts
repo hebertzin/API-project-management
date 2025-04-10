@@ -8,7 +8,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { GoalsService } from 'src/goals/services/goals/goals.service';
+import { GoalsService } from 'src/goals/services/goals.service';
 import { Response } from 'express';
 import { GoalDTO } from 'src/goals/dto/goal.dto';
 import {
