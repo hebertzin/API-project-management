@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
-import { SendEmailService } from './service/send-email/send-email.service';
+import { SendEmailService } from './service/send-email.service';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { EmailController } from './controller/email/email.controller';
+import { EmailController } from './controller/email.controller';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/database/prisma.service';
 

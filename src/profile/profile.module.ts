@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProfileController } from './controller/profile/profile.controller';
-import { ProfileService } from './services/profile/profile.service';
+import { ProfileController } from './controller/profile.controller';
+import { ProfileService } from './services/profile.service';
 import { SharedServicesModule } from 'src/shared/shared-services.module';
 
 @Module({
