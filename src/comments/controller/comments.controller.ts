@@ -19,7 +19,7 @@ import {
 
 import { Response } from 'express';
 import { CommentDTO } from 'src/comments/dto/comments.dto';
-import { CommentsService } from 'src/comments/services/comments/comments.service';
+import { CommentsService } from 'src/comments/services/comments.service';
 import { i18n } from 'src/i18n';
 
 @ApiTags('Comments')
