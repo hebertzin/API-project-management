@@ -23,11 +23,11 @@ import { i18n } from 'src/i18n';
 @ApiTags('Project-idea')
 @Controller('projectIdea')
 export class ProjectIdeaController {
-  constructor(private projectIdeaService: ProjectIdeaService) { }
+  constructor(private projectIdeaService: ProjectIdeaService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: i18n()['message.projectIdea.get']
+    description: i18n()['message.projectIdea.get'],
   })
   @ApiBadRequestResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -38,10 +38,7 @@ export class ProjectIdeaController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async getProjectIdeaById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async getProjectIdeaById(@Param('id') id: string, @Res() res: Response) {
     const projectIdea = await this.projectIdeaService.findProjectIdeaById(id);
 
     return res.status(HttpStatus.OK).json({
@@ -63,10 +60,7 @@ export class ProjectIdeaController {
     description: 'Internal server error',
   })
   @Get(':id/all')
-  async getAllProjectIdea(
-    @Param('id') userId: string,
-    @Res() res: Response,
-  ) {
+  async getAllProjectIdea(@Param('id') userId: string, @Res() res: Response) {
     const projectsIdeas =
       await this.projectIdeaService.findAllProjectIdeas(userId);
 
@@ -147,6 +141,6 @@ export class ProjectIdeaController {
   async deleteProjectIdea(@Param('id') id: string, @Res() res: Response) {
     await this.projectIdeaService.DeleteProjectIdea(id);
 
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 }
