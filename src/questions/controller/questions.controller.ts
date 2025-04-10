@@ -15,7 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { i18n } from '../../../i18n';
+import { i18n } from 'src/i18n';
 
 import { QuestionsDTO } from 'src/questions/dto/questions.dto';
 import { QuestionsService } from 'src/questions/services/questions.service';

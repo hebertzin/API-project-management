@@ -4,8 +4,8 @@ import { Project } from 'src/projects/types';
 import { UserService } from 'src/user/services/user.service';
 import { Projects } from '@prisma/client';
 import { LoggerService } from 'src/logger/logger.service';
-import { i18n } from '../../../i18n/index';
 import { ControllerCore } from 'src/core/controller.core';
+import { i18n } from 'src/i18n';
 
 @Injectable()
 export class ProjectsService extends ControllerCore {
