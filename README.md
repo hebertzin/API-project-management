@@ -116,3 +116,18 @@ It's been a challenging project and good for my evolution as a developer, I'm fa
 challenges, solving them and acquiring a lot of knowledge.
 
   
+### Future improvements
+
+Even with most of the innovative features, there are still several points that can be improved to make an application more scalable, testable, and compliant with good software architecture practices:
+
+- [ ] **Apply Dependency Inversion** 
+Separate the application logic from the concrete implementation of external libraries, such as email, persistence, and authentication services. This will provide greater flexibility and facilitate automated testing.
+
+- [ ] **Create a Domain Layer** 
+Structure an application based on *Domain-Driven Design*, centralizing business rules in pure domain entities and services. This will help keep the code decoupled and easier to understand and maintain.
+
+- [ ] **Refactor to a more solid Layered Architecture** 
+Better separate responsibilities between the application, domain, infrastructure, and interface layers (controllers, DTOs). This will allow for easier maintenance and the introduction of new features without causing side effects in other parts of the system.
+
+- [ ] **Improve Automated Testing** 
+With a more decoupled architecture, it will be possible to write more practical tests for the domain and use cases, without directly relying on the infrastructure (such as databases or sending emails).
