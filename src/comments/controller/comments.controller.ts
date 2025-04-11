@@ -41,7 +41,7 @@ export class CommentsController {
   })
   @Get(':id')
   async getCommentById(@Param('id') id: string, @Res() res: Response) {
-    const comment = await this.commentsServices.findCommentById(id);
+    const comment = await this.commentsServices.findById(id);
     return res.status(HttpStatus.OK).json({
       message: i18n()['message.comment.get'],
       data: { comment },
@@ -62,7 +62,7 @@ export class CommentsController {
   })
   @Post()
   async create(@Body() commentDTO: CommentDTO, @Res() res: Response) {
-    const comment = await this.commentsServices.createComment(commentDTO);
+    const comment = await this.commentsServices.save(commentDTO);
 
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.comment.created'],
@@ -88,10 +88,7 @@ export class CommentsController {
     @Body() commentDTO: CommentDTO,
     @Res() res: Response,
   ) {
-    const comment = await this.commentsServices.findByIdAndUpdateComment(
-      id,
-      commentDTO,
-    );
+    const comment = await this.commentsServices.update(id, commentDTO);
 
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.comment.update'],
@@ -113,7 +110,7 @@ export class CommentsController {
   })
   @Delete(':id')
   async deleteComment(@Param('id') id: string, @Res() res: Response) {
-    await this.commentsServices.findByIdAndDeleteComment(id);
+    await this.commentsServices.delete(id);
 
     return res.status(HttpStatus.NO_CONTENT);
   }

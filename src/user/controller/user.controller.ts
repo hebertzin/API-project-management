@@ -23,7 +23,7 @@ import { UserService } from 'src/user/services/user.service';
 @ApiTags('User')
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @ApiResponse({
     status: HttpStatus.OK,
@@ -38,10 +38,7 @@ export class UserController {
     description: 'Internal server error',
   })
   @Get(':id')
-  async findUserById(
-    @Param('id') id: string,
-    @Res() res: Response
-  ) {
+  async findUserById(@Param('id') id: string, @Res() res: Response) {
     const user = await this.userService.findUserById(id);
     return res.status(HttpStatus.OK).json({
       msg: i18n()['message.user.get'],
@@ -62,10 +59,7 @@ export class UserController {
     description: 'Internal server error',
   })
   @Post()
-  async createUser(
-    @Body() createUserDto: UserDto,
-    @Res() res: Response
-  ) {
+  async createUser(@Body() createUserDto: UserDto, @Res() res: Response) {
     const user = await this.userService.createUser(createUserDto);
     return res.status(HttpStatus.CREATED).json({
       msg: i18n()['message.user.created'],
@@ -88,7 +82,7 @@ export class UserController {
   @Delete(':id')
   async deleteUser(@Param('id') id: string, @Res() res: Response) {
     await this.userService.findUserByIdAndDelete(id);
-    return res.status(HttpStatus.NO_CONTENT)
+    return res.status(HttpStatus.NO_CONTENT);
   }
 
   @ApiResponse({
@@ -109,10 +103,7 @@ export class UserController {
     @Body() editUserDTO: UserDto,
     @Res() res: Response,
   ) {
-    const user = await this.userService.findUserByIdAndUpdate(
-      id,
-      editUserDTO,
-    );
+    const user = await this.userService.findUserByIdAndUpdate(id, editUserDTO);
     return res.json({
       msg: i18n()['message.user.update'],
       data: { user },
@@ -120,11 +111,7 @@ export class UserController {
   }
 
   @Post('/login')
-  async login(
-    @Body() email: string,
-    password: string,
-    @Res() res: Response
-  ) {
+  async login(@Body() email: string, password: string, @Res() res: Response) {
     const { token } = await this.userService.auth(email, password);
     return res.status(HttpStatus.OK).json({
       msg: i18n()['message.user.login'],

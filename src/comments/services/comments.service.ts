@@ -3,7 +3,6 @@ import { Comment } from 'src/comments/types/comments';
 import { PrismaService } from 'src/database/prisma.service';
 import { Comments } from '@prisma/client';
 import { LoggerService } from 'src/logger/logger.service';
-import { i18n } from 'src/i18n';
 import { ProjectsService } from 'src/projects/services/projects.service';
 import { UserService } from 'src/user/services/user.service';
 
@@ -13,81 +12,65 @@ export class CommentsService {
     private prismaService: PrismaService,
     private userService: UserService,
     private projectService: ProjectsService,
-    private logger: LoggerService,
+    private logging: LoggerService,
   ) {}
+  
+  async save(data: Comment): Promise<Comments> {
+    this.logging.log(
+      `[CommentService] Starting to create comment for user ${data.userId} on project ${data.projectId}`,
+    );
 
-  async createComment(data: Comment): Promise<Comments> {
-    try {
-      await this.userService.checkUserExistence(data.userId);
-      await this.projectService.checkProjectExistence(data.projectId);
-      //add logic to verify question_id later
-      const createComment = await this.prismaService.comments.create({
-        data: {
-          ...data,
-        },
-      });
-      return createComment;
-    } catch (error) {
-      this.logger.error(`some errror ocurred : ${error.message}`);
-      throw error;
-    }
+    await Promise.all([
+      this.userService.checkUserExistence(data.userId),
+      this.projectService.checkProjectExistence(data.projectId),
+    ]);
+
+    return this.prismaService.comments.create({ data });
   }
 
-  async findCommentById(comment_id: string): Promise<Comments | null> {
-    try {
-      const comment = await this.prismaService.comments.findUnique({
-        where: {
-          id: comment_id,
-        },
-      });
-      if (!comment) {
-        throw new NotFoundException();
-      }
+  async findById(id: string): Promise<Comments> {
+    this.logging.log(`[CommentService] Finding comment with ID: ${id}`);
 
-      return comment;
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw new NotFoundException(i18n()['exception.notFound'], comment_id);
-      }
+    const comment = await this.prismaService.comments.findUnique({
+      where: { id },
+    });
 
-      this.logger.error(`some error ocurred : ${error.message}`);
-      throw error;
+    if (!comment) {
+      this.logging.warn(`[CommentService] Comment not found with ID: ${id}`);
+      throw new NotFoundException(`Comment with ID ${id} not found`);
     }
+
+    return comment;
   }
 
-  async findByIdAndUpdateComment(
-    comment_id: string,
-    data: Comment,
-  ): Promise<Comments> {
-    try {
-      await this.userService.checkUserExistence(data.userId);
-      await this.projectService.checkProjectExistence(data.projectId);
-      const updateComment = await this.prismaService.comments.update({
-        where: {
-          id: comment_id,
-        },
-        data: {
-          ...data,
-        },
-      });
-      return updateComment;
-    } catch (error) {
-      this.logger.error(`some error ocurred : ${error.message}`);
-      throw error;
-    }
+  async update(id: string, data: Comment): Promise<Comments> {
+    this.logging.log(
+      `[CommentService] Starting to update comment for user ${data.userId} on project ${data.projectId}`,
+    );
+
+    await Promise.all([
+      this.userService.checkUserExistence(data.userId),
+      this.projectService.checkProjectExistence(data.projectId),
+    ]);
+
+    const sanitizedData = {
+      comment: data.comment,
+      projectId: data.projectId,
+      questionId: data.questionId,
+      userId: data.userId,
+    };
+
+    return this.prismaService.comments.update({
+      where: { id },
+      data: sanitizedData,
+    });
   }
 
-  async findByIdAndDeleteComment(comment_id: string): Promise<Comments | null> {
-    try {
-      await this.findCommentById(comment_id);
-      return await this.prismaService.comments.delete({
-        where: {
-          id: comment_id,
-        },
-      });
-    } catch (error) {
-      this.logger.error(`some error ocurred : ${error.message}`);
-      throw error;
-    }
+  async delete(id: string): Promise<Comments> {
+    this.logging.log(`[CommentService] Deleting comment ${id}`);
+
+    return this.prismaService.comments.delete({
+      where: { id },
+    });
   }
 }
