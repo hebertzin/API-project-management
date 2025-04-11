@@ -88,10 +88,7 @@ export class CommentsController {
     @Body() commentDTO: CommentDTO,
     @Res() res: Response,
   ) {
-    const comment = await this.commentsServices.update(
-      id,
-      commentDTO,
-    );
+    const comment = await this.commentsServices.update(id, commentDTO);
 
     return res.status(HttpStatus.CREATED).json({
       message: i18n()['message.comment.update'],

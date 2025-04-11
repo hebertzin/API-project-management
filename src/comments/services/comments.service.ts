@@ -13,61 +13,64 @@ export class CommentsService {
     private userService: UserService,
     private projectService: ProjectsService,
     private logging: LoggerService,
-  ) { }
-  async save(data: Comment): Promise<Comments> {
-    this.logging.log(`[CommentService] Starting to create comment for user ${data.userId} on project ${data.projectId}`);
+  ) {}
   
+  async save(data: Comment): Promise<Comments> {
+    this.logging.log(
+      `[CommentService] Starting to create comment for user ${data.userId} on project ${data.projectId}`,
+    );
+
     await Promise.all([
       this.userService.checkUserExistence(data.userId),
       this.projectService.checkProjectExistence(data.projectId),
     ]);
-  
+
     return this.prismaService.comments.create({ data });
   }
 
   async findById(id: string): Promise<Comments> {
     this.logging.log(`[CommentService] Finding comment with ID: ${id}`);
-  
-    const comment = await this.prismaService.comments.findUnique({ where: { id } });
-  
+
+    const comment = await this.prismaService.comments.findUnique({
+      where: { id },
+    });
+
     if (!comment) {
       this.logging.warn(`[CommentService] Comment not found with ID: ${id}`);
       throw new NotFoundException(`Comment with ID ${id} not found`);
     }
-  
+
     return comment;
   }
-  
-  async update(
-    id: string,
-    data: Comment,
-  ): Promise<Comments> {
-    this.logging.log(`[CommentService] Starting to update comment for user ${data.userId} on project ${data.projectId}`);
+
+  async update(id: string, data: Comment): Promise<Comments> {
+    this.logging.log(
+      `[CommentService] Starting to update comment for user ${data.userId} on project ${data.projectId}`,
+    );
 
     await Promise.all([
       this.userService.checkUserExistence(data.userId),
       this.projectService.checkProjectExistence(data.projectId),
-    ])
+    ]);
 
     const sanitizedData = {
       comment: data.comment,
       projectId: data.projectId,
       questionId: data.questionId,
-      userId: data.userId
+      userId: data.userId,
     };
 
     return this.prismaService.comments.update({
       where: { id },
       data: sanitizedData,
-    });;
+    });
   }
 
   async delete(id: string): Promise<Comments> {
     this.logging.log(`[CommentService] Deleting comment ${id}`);
-  
+
     return this.prismaService.comments.delete({
       where: { id },
     });
   }
-
 }
